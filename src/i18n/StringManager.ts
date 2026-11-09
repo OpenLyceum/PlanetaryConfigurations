@@ -16,11 +16,13 @@
  * 1. Add the key + English value to strings_en.json
  * 2. Add the same key + translated value to ALL other locale files
  *    (TypeScript will show an error here if any locale is missing a key)
- * 3. Expose the new StringProperty via a new getter method below
+ * 3. Expose the new StringProperty via a getter method below
  */
 
 import type { ReadOnlyProperty } from "scenerystack/axon";
 import { LocalizedString } from "scenerystack/chipper";
+import type { ConfigurationEventKey } from "../common/model/ConfigurationEvent.js";
+import type { PlanetKey } from "../common/model/PlanetChoice.js";
 import stringsEn from "./strings_en.json";
 import stringsEs from "./strings_es.json";
 import stringsFr from "./strings_fr.json";
@@ -45,31 +47,25 @@ const stringProperties = LocalizedString.getNestedStringProperties({
   es: stringsEs,
 });
 
-/**
- * Explicit `a11y` shape exposed by {@link StringManager.getA11yStrings}.
- * Keep this in sync with the `a11y` key in `strings_en.json` — a locale key
- * rename that is not mirrored here fails at the getter return (not silently).
- */
-export type SimA11yStrings = {
-  readonly screenSummary: {
-    readonly playAreaStringProperty: ReadOnlyProperty<string>;
-    readonly controlAreaStringProperty: ReadOnlyProperty<string>;
-    readonly interactionHintStringProperty: ReadOnlyProperty<string>;
-  };
-  readonly currentDetailsStringProperty: ReadOnlyProperty<string>;
-  readonly controls: {
-    readonly exampleControlStringProperty: ReadOnlyProperty<string>;
-  };
-};
+type StringTree = typeof stringProperties;
 
-/**
- * Explicit Preferences → Simulation labels from {@link StringManager.getPreferences}.
- * Same sync rule as {@link SimA11yStrings}.
- */
-export type SimPreferenceStrings = {
-  readonly titleStringProperty: ReadOnlyProperty<string>;
-  readonly exampleToggleStringProperty: ReadOnlyProperty<string>;
-};
+/** The twelve zodiac constellations in order of increasing ecliptic longitude, starting at Pisces/Aries. */
+const ZODIAC_ORDER = [
+  "aries",
+  "taurus",
+  "gemini",
+  "cancer",
+  "leo",
+  "virgo",
+  "libra",
+  "scorpius",
+  "sagittarius",
+  "capricornus",
+  "aquarius",
+  "pisces",
+] as const;
+
+export type ZodiacKey = (typeof ZODIAC_ORDER)[number];
 
 /**
  * StringManager is a singleton that provides typed access to all localized
@@ -90,47 +86,88 @@ export class StringManager {
     return StringManager.instance;
   }
 
-  /**
-   * The simulation title shown in the navigation bar and browser tab.
-   * Updates automatically when the locale changes.
-   */
+  /** The simulation title shown in the navigation bar and browser tab. */
   public getTitleStringProperty(): ReadOnlyProperty<string> {
     return stringProperties.titleStringProperty;
   }
 
-  /**
-   * Screen name StringProperties used when constructing Screen instances.
-   * Each property updates automatically when the locale changes.
-   */
-  public getScreenNames(): {
-    readonly simStringProperty: ReadOnlyProperty<string>;
-  } {
-    return {
-      simStringProperty: stringProperties.screens.simStringProperty,
-    };
+  /** Screen name StringProperties used when constructing Screen instances. */
+  public getScreenNames(): StringTree["screens"] {
+    return stringProperties.screens;
   }
 
-  /**
-   * Accessibility (Interactive Description) StringProperties.
-   *
-   * Returns the reactive `a11y` string tree used by the parallel DOM:
-   *   - `screenSummary.*` — play-area / control-area overview and an interaction
-   *     hint, read by `SimScreenSummaryContent`.
-   *   - `currentDetails` — a paragraph describing the simulation's current state.
-   *     In a real sim, derive a live version from model Properties (see
-   *     LunarLander's ScreenSummaryContent for the canonical pattern).
-   *
-   * Add `accessibleName` / `accessibleHelpText` strings for individual controls
-   * to the `a11y` group too, then read them through this same nested tree.
-   */
-  public getA11yStrings(): SimA11yStrings {
-    return stringProperties.a11y;
+  /** The localized name of a planet. */
+  public getPlanetName(key: PlanetKey): ReadOnlyProperty<string> {
+    return stringProperties.planets[`${key}StringProperty`];
   }
 
-  /**
-   * Simulation-specific preference labels shown in Preferences → Simulation.
-   */
-  public getPreferences(): SimPreferenceStrings {
+  /** The localized name of a configuration or stationary point. */
+  public getEventName(key: ConfigurationEventKey): ReadOnlyProperty<string> {
+    return stringProperties.events[`${key}StringProperty`];
+  }
+
+  /** The twelve zodiac constellation names, Aries first. */
+  public getZodiacNames(): readonly { key: ZodiacKey; stringProperty: ReadOnlyProperty<string> }[] {
+    return ZODIAC_ORDER.map((key) => ({ key, stringProperty: stringProperties.zodiac[`${key}StringProperty`] }));
+  }
+
+  /** Strings shared by several screens: directions, units, patterns, common checkboxes. */
+  public getCommonStrings(): StringTree["common"] {
+    return stringProperties.common;
+  }
+
+  public getOrbitsStrings(): StringTree["orbits"] {
+    return stringProperties.orbits;
+  }
+
+  public getConfigurationsStrings(): StringTree["configurations"] {
+    return stringProperties.configurations;
+  }
+
+  public getSynodicMotionStrings(): StringTree["synodic"] {
+    return stringProperties.synodic;
+  }
+
+  public getPeriodsStrings(): StringTree["periods"] {
+    return stringProperties.periods;
+  }
+
+  public getPtolemaicStrings(): StringTree["ptolemaic"] {
+    return stringProperties.ptolemaic;
+  }
+
+  /** Labels for the sim-specific rows of the keyboard-help dialog. */
+  public getKeyboardHelpStrings(): StringTree["keyboardHelp"] {
+    return stringProperties.keyboardHelp;
+  }
+
+  /** Accessibility strings for the Orbits screen. */
+  public getOrbitsA11yStrings(): StringTree["a11y"]["orbits"] {
+    return stringProperties.a11y.orbits;
+  }
+
+  /** Accessibility strings for the Configurations screen. */
+  public getConfigurationsA11yStrings(): StringTree["a11y"]["configurations"] {
+    return stringProperties.a11y.configurations;
+  }
+
+  /** Accessibility strings for the Synodic Motion screen. */
+  public getSynodicMotionA11yStrings(): StringTree["a11y"]["synodic"] {
+    return stringProperties.a11y.synodic;
+  }
+
+  /** Accessibility strings for the Periods screen. */
+  public getPeriodsA11yStrings(): StringTree["a11y"]["periods"] {
+    return stringProperties.a11y.periods;
+  }
+
+  /** Accessibility strings for the Ptolemaic screen. */
+  public getPtolemaicA11yStrings(): StringTree["a11y"]["ptolemaic"] {
+    return stringProperties.a11y.ptolemaic;
+  }
+
+  /** Simulation-specific preference labels shown in Preferences → Simulation. */
+  public getPreferences(): StringTree["preferences"] {
     return stringProperties.preferences;
   }
 }

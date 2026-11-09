@@ -1,24 +1,51 @@
-# SceneryStack Template
+# Planetary Configurations
 
 [![CI](../../actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
 
-A reusable SceneryStack simulation template for one or N screens, built with
-[SceneryStack](https://scenerystack.org/), Vite 8, TypeScript 7, and Biome 2.
+Why does Mars sometimes drift backward among the stars, and why does Venus never stray far from the
+Sun? Students explore planetary configurations from a Sun-centered view: elongation, conjunctions,
+quadratures and oppositions, synodic and sidereal periods, and retrograde motion. They then compare
+this with Ptolemy's Earth-centered model of epicycles. The sim covers every question of the NAAP
+[Solar System Models](https://astro.unl.edu/naap/ssm/naap_ssm_sg.pdf) student guide with an original
+layout. Built with [SceneryStack](https://scenerystack.org/); runs offline as a Progressive Web App.
 
 ## Features
 
-- SceneryStack scaffold with model/view separation (`rename` + `scaffold-screens` for one or N screens)
-- English, Spanish, and French localization via `StringManager`
-- Default and projector color profiles
-- Progressive Web App (installable, offline-capable)
-- Git hooks for Biome pre-commit checks
-- Shared GitHub Actions CI via `OpenLyceum/Baton`
+- **Orbits** (handout Q1). Mercury through Saturn on circular orbits with Kepler's third law,
+  P = a^1.5. Speed arrows are drawn to a common scale, and a table lists a, P and v, so the
+  speed–distance trend is visible and numeric. You can frame just the inner planets or all six.
+- **Configurations** (Q2–Q3). Earth stays below the Sun, so the east and west halves of Earth's sky
+  are the left and right of the view. Drag a hypothetical superior or inferior planet around its
+  orbit to read its signed elongation, its configuration (opposition, quadrature, greatest
+  elongation, inferior or superior conjunction), and whether it is in the evening sky, the morning
+  sky, up all night, or lost in the Sun's glare. A toggle marks where every named configuration lies.
+- **Synodic Motion** (Q4–Q12, Q14–Q16). You choose any observer and target planet, or a
+  hypothetical orbit. Dragging either planet moves time, and the counter has a Zero Counter button.
+  Previous/Next jump between configurations, and playback can pause exactly at configurations or at
+  the start and end of retrograde motion, so the counter reads the synodic period directly.
+  - A zodiac strip shows where the Sun and target appear in the observer's sky.
+  - Reference ticks mark where they stood when the counter was zeroed.
+  - A motion-history lane turns the retrograde loop into a visible zig-zag.
+- **Periods** (Q13, plus the trends of Q6, Q10 and Q11). A synodic ↔ sidereal calculator handles
+  inferior and superior planets in years or days, and shows the formula with the numbers substituted.
+  Beside it, a graph plots the synodic period against distance from the Sun: it diverges at Earth's
+  orbit and approaches one year far away. A hypothetical planet can be dragged along the curve.
+- **Ptolemaic.** Ptolemy's deferent, epicycle and equant, with presets for Venus, Mars, Jupiter and
+  Saturn. The traced path shows the loops, and the same zodiac strip makes the comparison with the
+  heliocentric explanation direct.
+- **Accessible:**
+  - Every control works from the keyboard. The planets move along their orbits with the arrow
+    keys, and the graph's planet is a slider.
+  - Each screen has a live screen summary and a keyboard-help dialog. Configurations reached
+    during playback are announced.
+  - The sim is available in English, French and Spanish, with default and projector colour profiles.
+  - A preference (or `?showRealPeriods`) adds measured synodic periods to the Orbits table.
+  - Installable PWA.
 
 ## Quick Start
 
 ```bash
 npm install
-npm run icons    # generate PNG icons from public/icons/icon.svg
 npm start        # dev server → http://localhost:5173
 ```
 
@@ -39,12 +66,11 @@ npm start        # dev server → http://localhost:5173
 | `npm run format` | Auto-format all files |
 | `npm run fix` | Lint + auto-fix |
 | `npm run icons` | Regenerate PNG icons from `public/icons/icon.svg` |
-| `npm run rename` | Sim-level fork/rename (`--id`, `--name`) |
-| `npm run scaffold-screens` | Emit N fleet-named screen packages from `sim-screen/` (`--shared-model` optional) |
 | `npm run release` | `check && lint && build && test`, then version patch + push tags |
 | `npm run clean` | Remove `dist/` |
 
-New sims start at `version: "0.0.0"` in `package.json`. Bump only when cutting a release (for example `npm version patch` and a matching git tag). Keep `name` in kebab-case; it is separate from the SceneryStack sim identifier in `src/init.ts`, which reads its `version` from `package.json`.
+`npx playwright test tests/browser` runs the layout regression: in every screen and locale, no layout
+region overlaps another.
 
 ## Tech Stack
 
@@ -53,12 +79,13 @@ New sims start at `version: "0.0.0"` in `package.json`. Bump only when cutting a
 | [SceneryStack](https://scenerystack.org/) | ^3.0.0 | Simulation framework |
 | [Vite](https://vitejs.dev/) | ^8 | Build tool + dev server |
 | [TypeScript](https://www.typescriptlang.org/) | ^7 | Type-safe JavaScript |
-| [Biome](https://biomejs.dev/) | ^2.5 | Linting + formatting |
+| [Biome](https://biomejs.dev/) | ^2.6 | Linting + formatting |
 | [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) | ^2 | PWA + service worker |
 
 ## License
 
 GNU Affero General Public License v3.0 — see [OpenLyceum org license](https://github.com/OpenLyceum/.github/blob/main/LICENSE).
+Zodiac star positions and Ptolemaic presets come from the NAAP labs; see [CREDITS.md](CREDITS.md).
 
 ## Contributing
 

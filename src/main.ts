@@ -21,24 +21,44 @@ import "./brand.js";
 
 import { onReadyToLaunch, PreferencesModel, Sim } from "scenerystack/sim";
 import { Tandem } from "scenerystack/tandem";
+import { ConfigurationsScreen } from "./configurations/ConfigurationsScreen.js";
 import { StringManager } from "./i18n/StringManager.js";
-import { SimPreferencesModel } from "./preferences/SimPreferencesModel.js";
-import { SimPreferencesNode } from "./preferences/SimPreferencesNode.js";
-import SimColors from "./SimColors.js";
-import { SimScreen } from "./sim-screen/SimScreen.js";
+import { OrbitsScreen } from "./orbits/OrbitsScreen.js";
+import PlanetaryConfigurationsColors from "./PlanetaryConfigurationsColors.js";
+import { PeriodsScreen } from "./periods/PeriodsScreen.js";
+import { planetaryConfigurationsPreferences } from "./preferences/PlanetaryConfigurationsPreferencesModel.js";
+import { PlanetaryConfigurationsPreferencesNode } from "./preferences/PlanetaryConfigurationsPreferencesNode.js";
+import { PtolemaicScreen } from "./ptolemaic/PtolemaicScreen.js";
+import { SynodicMotionScreen } from "./synodic/SynodicMotionScreen.js";
 
 onReadyToLaunch(() => {
   const stringManager = StringManager.getInstance();
 
-  // Simulation-specific preferences; initial values come from simQueryParameters.
-  const simPreferences = new SimPreferencesModel(Tandem.ROOT.createTandem("preferences"));
-
   const screens = [
-    new SimScreen({
-      // The screen name Property updates automatically when the locale changes
-      name: stringManager.getScreenNames().simStringProperty,
-      tandem: Tandem.ROOT.createTandem("simScreen"),
-      backgroundColorProperty: SimColors.backgroundColorProperty,
+    new OrbitsScreen({
+      name: stringManager.getScreenNames().orbitsStringProperty,
+      tandem: Tandem.ROOT.createTandem("orbitsScreen"),
+      backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,
+    }),
+    new ConfigurationsScreen({
+      name: stringManager.getScreenNames().configurationsStringProperty,
+      tandem: Tandem.ROOT.createTandem("configurationsScreen"),
+      backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,
+    }),
+    new SynodicMotionScreen({
+      name: stringManager.getScreenNames().synodicStringProperty,
+      tandem: Tandem.ROOT.createTandem("synodicScreen"),
+      backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,
+    }),
+    new PeriodsScreen({
+      name: stringManager.getScreenNames().periodsStringProperty,
+      tandem: Tandem.ROOT.createTandem("periodsScreen"),
+      backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,
+    }),
+    new PtolemaicScreen({
+      name: stringManager.getScreenNames().ptolemaicStringProperty,
+      tandem: Tandem.ROOT.createTandem("ptolemaicScreen"),
+      backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,
     }),
   ];
 
@@ -53,7 +73,8 @@ onReadyToLaunch(() => {
       simulationOptions: {
         customPreferences: [
           {
-            createContent: (tandem: Tandem) => new SimPreferencesNode(simPreferences, tandem),
+            createContent: (tandem: Tandem) =>
+              new PlanetaryConfigurationsPreferencesNode(planetaryConfigurationsPreferences, tandem),
           },
         ],
       },

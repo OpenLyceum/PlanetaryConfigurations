@@ -1,21 +1,255 @@
 {
-  "title": "SceneryStack Template",
+  "title": "Planetary Configurations",
   "screens": {
-    "sim": "Sim"
+    "orbits": "Orbits",
+    "configurations": "Configurations",
+    "synodic": "Synodic Motion",
+    "periods": "Periods",
+    "ptolemaic": "Ptolemaic"
+  },
+  "planets": {
+    "mercury": "Mercury",
+    "venus": "Venus",
+    "earth": "Earth",
+    "mars": "Mars",
+    "jupiter": "Jupiter",
+    "saturn": "Saturn",
+    "hypothetical": "Hypothetical"
+  },
+  "events": {
+    "inferiorConjunction": "inferior conjunction",
+    "greatestElongationWest": "greatest western elongation",
+    "superiorConjunction": "superior conjunction",
+    "greatestElongationEast": "greatest eastern elongation",
+    "opposition": "opposition",
+    "quadratureEast": "eastern quadrature",
+    "conjunction": "conjunction",
+    "quadratureWest": "western quadrature",
+    "retrogradeBegins": "retrograde motion begins",
+    "retrogradeEnds": "retrograde motion ends"
+  },
+  "zodiac": {
+    "aries": "Aries",
+    "taurus": "Taurus",
+    "gemini": "Gemini",
+    "cancer": "Cancer",
+    "leo": "Leo",
+    "virgo": "Virgo",
+    "libra": "Libra",
+    "scorpius": "Scorpius",
+    "sagittarius": "Sagittarius",
+    "capricornus": "Capricornus",
+    "aquarius": "Aquarius",
+    "pisces": "Pisces"
+  },
+  "common": {
+    "sun": "Sun",
+    "earth": "Earth",
+    "east": "East",
+    "west": "West",
+    "eastShort": "E",
+    "westShort": "W",
+    "none": "—",
+    "superior": "Superior",
+    "inferior": "Inferior",
+    "planetType": "Planet type",
+    "orbitRadius": "Orbit radius",
+    "labels": "Labels",
+    "sightLines": "Sight lines",
+    "elongationAngle": "Elongation angle",
+    "snapToConfigurations": "Snap to configurations",
+    "elongation": "Elongation",
+    "configuration": "Configuration",
+    "motion": "Motion",
+    "direct": "direct (eastward)",
+    "retrograde": "retrograde (westward)",
+    "zeroCounter": "Zero Counter",
+    "time": "Time",
+    "years": "years",
+    "days": "days",
+    "yearsPattern": "{{value}} yr",
+    "daysPattern": "{{value}} d",
+    "yearsAndDaysPattern": "{{years}} yr  =  {{days}} d",
+    "auPattern": "{{value}} AU",
+    "degreesPattern": "{{value}}°",
+    "elongationPattern": "{{value}}° {{direction}}",
+    "viewFromPattern": "Sky seen from {{planet}}",
+    "pastPattern": "Path over the last {{years}} yr",
+    "sky": "Sky",
+    "skyGlare": "lost in the Sun's glare",
+    "skyEvening": "evening sky (sets after the Sun)",
+    "skyMorning": "morning sky (rises before the Sun)",
+    "skyAllNight": "up all night",
+    "now": "Now"
+  },
+  "orbits": {
+    "view": "View",
+    "innerPlanets": "Inner planets",
+    "allPlanets": "All planets",
+    "speedArrows": "Speed arrows",
+    "planet": "Planet",
+    "distance": "a (AU)",
+    "period": "P (yr)",
+    "speed": "v (km/s)",
+    "orbitalData": "Orbital data",
+    "measuredSynodic": "Measured S (d)",
+    "elapsed": "Time since J2000"
+  },
+  "configurations": {
+    "planet": "Planet",
+    "eastWestSides": "East and west sides",
+    "configurationPositions": "Configuration positions",
+    "readouts": "As seen from Earth"
+  },
+  "synodic": {
+    "setup": "Setup",
+    "observer": "Observer's planet",
+    "target": "Target planet",
+    "hypotheticalOrbit": "Hypothetical orbit",
+    "counter": "Counter",
+    "next": "Next",
+    "previousEvent": "Previous",
+    "nextEvent": "Next",
+    "pauseAt": "Pause at",
+    "pauseAtConfigurations": "Configurations",
+    "pauseAtStationary": "Start and end of retrograde"
+  },
+  "periods": {
+    "calculator": "Synodic period calculator",
+    "solveFor": "Solve for",
+    "siderealFromSynodic": "Sidereal from synodic",
+    "synodicFromSidereal": "Synodic from sidereal",
+    "units": "Units",
+    "synodicInput": "Synodic period S",
+    "siderealInput": "Sidereal period P",
+    "siderealResult": "Sidereal period P",
+    "synodicResult": "Synodic period S",
+    "earthPeriodNote": "E = 1 yr (Earth's sidereal period)",
+    "noSolution": "No solution: a superior planet needs S > 1 yr and an inferior planet P < 1 yr",
+    "chartTitle": "Periods seen from Earth",
+    "xAxis": "Distance from the Sun, a (AU)",
+    "yAxis": "Period (yr)",
+    "synodicCurve": "Synodic period S",
+    "siderealCurve": "Sidereal period P",
+    "showSidereal": "Show sidereal period",
+    "marker": "Hypothetical planet",
+    "markerPattern": "a = {{a}} AU    P = {{p}} yr    S = {{s}} yr",
+    "calculatorPoint": "Calculator result",
+    "keypadRangePattern": "Between {{min}} and {{max}}"
+  },
+  "ptolemaic": {
+    "preset": "Planet",
+    "custom": "Custom",
+    "epicycleSize": "Epicycle size",
+    "eccentricity": "Eccentricity",
+    "motionRate": "Motion rate (°/d)",
+    "apogeeAngle": "Apogee angle (°)",
+    "show": "Show",
+    "deferent": "Deferent",
+    "epicycle": "Epicycle",
+    "equant": "Equant",
+    "path": "Path",
+    "sunLine": "Earth–Sun line",
+    "planetLine": "Earth–planet line",
+    "planetLongitude": "Planet longitude",
+    "resetTime": "Reset Time"
+  },
+  "keyboardHelp": {
+    "planetsHeading": "Planets",
+    "rotatePlanet": "Move planet along its orbit",
+    "rotatePlanetFine": "Move planet in smaller steps"
   },
   "a11y": {
-    "screenSummary": {
-      "playArea": "The play area shows the main simulation content.",
-      "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-      "interactionHint": "Explore the simulation by interacting with its controls."
+    "orbits": {
+      "screenSummary": {
+        "playArea": "A top-down view of the solar system from above Earth's north pole. Mercury, Venus, Earth, Mars, Jupiter and Saturn move counter-clockwise on circular orbits around the Sun.",
+        "controlArea": "Choose to view the inner planets or all planets, show speed arrows and labels, read the orbital data table, and play, pause or change the speed of time.",
+        "interactionHint": "Press play and compare how fast the inner and outer planets move."
+      },
+      "currentDetailsPattern": "Elapsed time {{years}} years. Mercury moves at {{mercury}} km/s and Saturn at {{saturn}} km/s: planets farther from the Sun move more slowly.",
+      "controls": {
+        "viewRadioGroup": "Planets shown",
+        "speedArrows": "Show speed arrows",
+        "labels": "Show planet labels"
+      }
     },
-    "currentDetails": "The simulation is in its initial state.",
-    "controls": {
-      "exampleControl": "Example control"
+    "configurations": {
+      "screenSummary": {
+        "playArea": "A top-down view with the Sun at the center, Earth fixed below it, and one hypothetical planet on a circular orbit. Lines from Earth point to the Sun and to the planet; the angle between them is the elongation.",
+        "controlArea": "Choose a superior or inferior planet, set its orbit radius, and show sight lines, the elongation angle, the east and west sides of the sky, and where each named configuration lies.",
+        "interactionHint": "Move the planet around its orbit and watch the elongation and configuration name change."
+      },
+      "currentDetailsPattern": "The {{type}} planet is at {{elongation}}. Configuration: {{configuration}}. In Earth's sky it is {{sky}}.",
+      "planetPattern": "{{type}} planet, {{elongation}}, {{configuration}}",
+      "controls": {
+        "planet": "Planet on its orbit",
+        "planetHelp": "Use the arrow keys to move the planet along its orbit.",
+        "planetType": "Planet type",
+        "orbitRadius": "Orbit radius",
+        "eastWestSides": "Shade the east and west sides",
+        "configurationPositions": "Show configuration positions"
+      }
+    },
+    "synodic": {
+      "screenSummary": {
+        "playArea": "A top-down view of the observer's and target planet's orbits around the Sun. Below it, a strip of zodiac constellations shows where the Sun and target appear in the observer's sky, with a trail of the target's recent path.",
+        "controlArea": "Choose the observer's and target planets, read the counter, elongation, current and next configuration and direction of motion, jump between configurations, choose where to pause, and control time.",
+        "interactionHint": "Move a planet to a configuration, zero the counter, then play until the same configuration returns."
+      },
+      "currentDetailsPattern": "Observer {{observer}}, target {{target}}. Counter {{elapsed}}. Elongation {{elongation}}. Configuration: {{configuration}}. Motion is {{motion}}.",
+      "planetPattern": "{{planet}}, heliocentric longitude {{longitude}} degrees",
+      "eventReachedPattern": "{{event}} reached. Counter {{elapsed}}.",
+      "controls": {
+        "observer": "Observer's planet",
+        "target": "Target planet",
+        "planetHelp": "Use the arrow keys to move this planet along its orbit; time changes to match.",
+        "hypotheticalOrbit": "Hypothetical orbit radius",
+        "zeroCounter": "Zero the counter",
+        "previousEvent": "Jump to the previous configuration",
+        "nextEvent": "Jump to the next configuration",
+        "pauseAtConfigurations": "Pause at configurations",
+        "pauseAtStationary": "Pause at the start and end of retrograde motion"
+      }
+    },
+    "periods": {
+      "screenSummary": {
+        "playArea": "A graph of synodic period against distance from the Sun for planets seen from Earth. The synodic period grows without limit near Earth's orbit and approaches one year far from it.",
+        "controlArea": "A calculator converts between synodic and sidereal periods for inferior and superior planets. A hypothetical planet can be moved along the graph.",
+        "interactionHint": "Enter a synodic period you measured and read the sidereal period."
+      },
+      "currentDetailsPattern": "Calculator: {{input}} gives {{result}}. Hypothetical planet at {{a}} AU has sidereal period {{p}} years and synodic period {{s}} years.",
+      "markerValuePattern": "a {{a}} AU, synodic period {{s}} years",
+      "controls": {
+        "planetType": "Planet type",
+        "solveFor": "Quantity to compute",
+        "units": "Units",
+        "input": "Enter period",
+        "marker": "Hypothetical planet on the graph",
+        "markerHelp": "Use the arrow keys to move the planet closer to or farther from the Sun.",
+        "showSidereal": "Show the sidereal period curve"
+      }
+    },
+    "ptolemaic": {
+      "screenSummary": {
+        "playArea": "Ptolemy's Earth-centered model. The planet moves on a small circle, the epicycle, whose center moves on a larger circle, the deferent, around Earth. Below, a zodiac strip shows the planet's path against the stars.",
+        "controlArea": "Choose a planet preset, adjust the epicycle size, eccentricity, motion rate and apogee angle, choose what to show, and control time.",
+        "interactionHint": "Press play and watch the planet loop backward against the stars."
+      },
+      "currentDetailsPattern": "{{planet}} at ecliptic longitude {{longitude}} degrees, moving {{motion}}. Elapsed time {{days}} days.",
+      "controls": {
+        "preset": "Planet preset",
+        "epicycleSize": "Epicycle size",
+        "eccentricity": "Eccentricity",
+        "motionRate": "Motion rate",
+        "apogeeAngle": "Apogee angle",
+        "planetType": "Planet type",
+        "resetTime": "Reset time"
+      }
     }
   },
   "preferences": {
     "title": "Simulation",
-    "exampleToggle": "Example Toggle"
+    "showRealPeriods": "Show measured periods",
+    "showRealPeriodsHelp": "In the Orbits table, also list each planet's measured synodic period from Earth, to compare with the circular-orbit model."
   }
 }

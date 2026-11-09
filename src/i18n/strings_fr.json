@@ -1,21 +1,255 @@
 {
-  "title": "Modèle de Simulation",
+  "title": "Configurations planétaires",
   "screens": {
-    "sim": "Simulation"
+    "orbits": "Orbites",
+    "configurations": "Configurations",
+    "synodic": "Mouvement synodique",
+    "periods": "Périodes",
+    "ptolemaic": "Ptolémée"
+  },
+  "planets": {
+    "mercury": "Mercure",
+    "venus": "Vénus",
+    "earth": "Terre",
+    "mars": "Mars",
+    "jupiter": "Jupiter",
+    "saturn": "Saturne",
+    "hypothetical": "Hypothétique"
+  },
+  "events": {
+    "inferiorConjunction": "conjonction inférieure",
+    "greatestElongationWest": "plus grande élongation ouest",
+    "superiorConjunction": "conjonction supérieure",
+    "greatestElongationEast": "plus grande élongation est",
+    "opposition": "opposition",
+    "quadratureEast": "quadrature est",
+    "conjunction": "conjonction",
+    "quadratureWest": "quadrature ouest",
+    "retrogradeBegins": "début du mouvement rétrograde",
+    "retrogradeEnds": "fin du mouvement rétrograde"
+  },
+  "zodiac": {
+    "aries": "Bélier",
+    "taurus": "Taureau",
+    "gemini": "Gémeaux",
+    "cancer": "Cancer",
+    "leo": "Lion",
+    "virgo": "Vierge",
+    "libra": "Balance",
+    "scorpius": "Scorpion",
+    "sagittarius": "Sagittaire",
+    "capricornus": "Capricorne",
+    "aquarius": "Verseau",
+    "pisces": "Poissons"
+  },
+  "common": {
+    "sun": "Soleil",
+    "earth": "Terre",
+    "east": "Est",
+    "west": "Ouest",
+    "eastShort": "E",
+    "westShort": "O",
+    "none": "—",
+    "superior": "Supérieure",
+    "inferior": "Inférieure",
+    "planetType": "Type de planète",
+    "orbitRadius": "Rayon de l'orbite",
+    "labels": "Étiquettes",
+    "sightLines": "Lignes de visée",
+    "elongationAngle": "Angle d'élongation",
+    "snapToConfigurations": "Aimanter aux configurations",
+    "elongation": "Élongation",
+    "configuration": "Configuration",
+    "motion": "Mouvement",
+    "direct": "direct (vers l'est)",
+    "retrograde": "rétrograde (vers l'ouest)",
+    "zeroCounter": "Remise à zéro",
+    "time": "Temps",
+    "years": "années",
+    "days": "jours",
+    "yearsPattern": "{{value}} a",
+    "daysPattern": "{{value}} j",
+    "yearsAndDaysPattern": "{{years}} a  =  {{days}} j",
+    "auPattern": "{{value}} UA",
+    "degreesPattern": "{{value}}°",
+    "elongationPattern": "{{value}}° {{direction}}",
+    "viewFromPattern": "Ciel vu depuis la planète {{planet}}",
+    "pastPattern": "Trajet des {{years}} dernières années",
+    "sky": "Ciel",
+    "skyGlare": "noyée dans l'éclat du Soleil",
+    "skyEvening": "ciel du soir (se couche après le Soleil)",
+    "skyMorning": "ciel du matin (se lève avant le Soleil)",
+    "skyAllNight": "visible toute la nuit",
+    "now": "Maintenant"
+  },
+  "orbits": {
+    "view": "Vue",
+    "innerPlanets": "Planètes intérieures",
+    "allPlanets": "Toutes les planètes",
+    "speedArrows": "Flèches de vitesse",
+    "planet": "Planète",
+    "distance": "a (UA)",
+    "period": "P (a)",
+    "speed": "v (km/s)",
+    "orbitalData": "Données orbitales",
+    "measuredSynodic": "S mesurée (j)",
+    "elapsed": "Temps depuis J2000"
+  },
+  "configurations": {
+    "planet": "Planète",
+    "eastWestSides": "Côtés est et ouest",
+    "configurationPositions": "Positions des configurations",
+    "readouts": "Vue depuis la Terre"
+  },
+  "synodic": {
+    "setup": "Réglages",
+    "observer": "Planète de l'observateur",
+    "target": "Planète cible",
+    "hypotheticalOrbit": "Orbite hypothétique",
+    "counter": "Compteur",
+    "next": "Prochaine",
+    "previousEvent": "Précédente",
+    "nextEvent": "Suivante",
+    "pauseAt": "Pause aux",
+    "pauseAtConfigurations": "Configurations",
+    "pauseAtStationary": "Début et fin de la rétrogradation"
+  },
+  "periods": {
+    "calculator": "Calculateur de période synodique",
+    "solveFor": "Calculer",
+    "siderealFromSynodic": "La sidérale à partir de la synodique",
+    "synodicFromSidereal": "La synodique à partir de la sidérale",
+    "units": "Unités",
+    "synodicInput": "Période synodique S",
+    "siderealInput": "Période sidérale P",
+    "siderealResult": "Période sidérale P",
+    "synodicResult": "Période synodique S",
+    "earthPeriodNote": "E = 1 a (période sidérale de la Terre)",
+    "noSolution": "Aucune solution : une planète supérieure exige S > 1 a et une planète inférieure P < 1 a",
+    "chartTitle": "Périodes vues depuis la Terre",
+    "xAxis": "Distance au Soleil, a (UA)",
+    "yAxis": "Période (a)",
+    "synodicCurve": "Période synodique S",
+    "siderealCurve": "Période sidérale P",
+    "showSidereal": "Afficher la période sidérale",
+    "marker": "Planète hypothétique",
+    "markerPattern": "a = {{a}} UA    P = {{p}} a    S = {{s}} a",
+    "calculatorPoint": "Résultat du calculateur",
+    "keypadRangePattern": "Entre {{min}} et {{max}}"
+  },
+  "ptolemaic": {
+    "preset": "Planète",
+    "custom": "Personnalisé",
+    "epicycleSize": "Taille de l'épicycle",
+    "eccentricity": "Excentricité",
+    "motionRate": "Vitesse (°/j)",
+    "apogeeAngle": "Angle de l'apogée (°)",
+    "show": "Afficher",
+    "deferent": "Déférent",
+    "epicycle": "Épicycle",
+    "equant": "Équant",
+    "path": "Trajectoire",
+    "sunLine": "Ligne Terre–Soleil",
+    "planetLine": "Ligne Terre–planète",
+    "planetLongitude": "Longitude de la planète",
+    "resetTime": "Remettre le temps à zéro"
+  },
+  "keyboardHelp": {
+    "planetsHeading": "Planètes",
+    "rotatePlanet": "Déplacer la planète sur son orbite",
+    "rotatePlanetFine": "Déplacer la planète par petits pas"
   },
   "a11y": {
-    "screenSummary": {
-      "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
-      "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-      "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
+    "orbits": {
+      "screenSummary": {
+        "playArea": "Une vue du système solaire depuis le dessus du pôle nord terrestre. Mercure, Vénus, la Terre, Mars, Jupiter et Saturne tournent dans le sens antihoraire sur des orbites circulaires autour du Soleil.",
+        "controlArea": "Choisissez d'afficher les planètes intérieures ou toutes les planètes, affichez les flèches de vitesse et les étiquettes, lisez le tableau des données orbitales, et lancez, arrêtez ou changez la vitesse du temps.",
+        "interactionHint": "Lancez l'animation et comparez la vitesse des planètes intérieures et extérieures."
+      },
+      "currentDetailsPattern": "Temps écoulé {{years}} années. Mercure se déplace à {{mercury}} km/s et Saturne à {{saturn}} km/s : plus une planète est loin du Soleil, plus elle est lente.",
+      "controls": {
+        "viewRadioGroup": "Planètes affichées",
+        "speedArrows": "Afficher les flèches de vitesse",
+        "labels": "Afficher les noms des planètes"
+      }
     },
-    "currentDetails": "La simulation est dans son état initial.",
-    "controls": {
-      "exampleControl": "Contrôle d'exemple"
+    "configurations": {
+      "screenSummary": {
+        "playArea": "Une vue de dessus avec le Soleil au centre, la Terre fixe sous lui et une planète hypothétique sur une orbite circulaire. Des lignes partent de la Terre vers le Soleil et vers la planète; l'angle entre elles est l'élongation.",
+        "controlArea": "Choisissez une planète supérieure ou inférieure, réglez le rayon de son orbite, et affichez les lignes de visée, l'angle d'élongation, les côtés est et ouest du ciel et l'emplacement de chaque configuration.",
+        "interactionHint": "Déplacez la planète sur son orbite et observez l'élongation et le nom de la configuration changer."
+      },
+      "currentDetailsPattern": "La planète {{type}} est à {{elongation}}. Configuration : {{configuration}}. Dans le ciel terrestre, elle est {{sky}}.",
+      "planetPattern": "Planète {{type}}, {{elongation}}, {{configuration}}",
+      "controls": {
+        "planet": "Planète sur son orbite",
+        "planetHelp": "Utilisez les touches fléchées pour déplacer la planète sur son orbite.",
+        "planetType": "Type de planète",
+        "orbitRadius": "Rayon de l'orbite",
+        "eastWestSides": "Colorer les côtés est et ouest",
+        "configurationPositions": "Afficher les positions des configurations"
+      }
+    },
+    "synodic": {
+      "screenSummary": {
+        "playArea": "Une vue de dessus des orbites de la planète de l'observateur et de la planète cible autour du Soleil. En dessous, une bande des constellations du zodiaque montre où le Soleil et la cible apparaissent dans le ciel de l'observateur, avec la trace du trajet récent de la cible.",
+        "controlArea": "Choisissez les planètes de l'observateur et cible, lisez le compteur, l'élongation, la configuration actuelle et la suivante et le sens du mouvement, passez d'une configuration à l'autre, choisissez où faire une pause et contrôlez le temps.",
+        "interactionHint": "Placez une planète à une configuration, remettez le compteur à zéro, puis lancez le temps jusqu'au retour de la même configuration."
+      },
+      "currentDetailsPattern": "Observateur {{observer}}, cible {{target}}. Compteur {{elapsed}}. Élongation {{elongation}}. Configuration : {{configuration}}. Le mouvement est {{motion}}.",
+      "planetPattern": "{{planet}}, longitude héliocentrique {{longitude}} degrés",
+      "eventReachedPattern": "{{event}} atteinte. Compteur {{elapsed}}.",
+      "controls": {
+        "observer": "Planète de l'observateur",
+        "target": "Planète cible",
+        "planetHelp": "Utilisez les touches fléchées pour déplacer cette planète sur son orbite; le temps change en conséquence.",
+        "hypotheticalOrbit": "Rayon de l'orbite hypothétique",
+        "zeroCounter": "Remettre le compteur à zéro",
+        "previousEvent": "Aller à la configuration précédente",
+        "nextEvent": "Aller à la configuration suivante",
+        "pauseAtConfigurations": "Pause aux configurations",
+        "pauseAtStationary": "Pause au début et à la fin du mouvement rétrograde"
+      }
+    },
+    "periods": {
+      "screenSummary": {
+        "playArea": "Un graphique de la période synodique en fonction de la distance au Soleil pour des planètes vues depuis la Terre. La période synodique croît sans limite près de l'orbite terrestre et tend vers un an loin de celle-ci.",
+        "controlArea": "Un calculateur convertit entre périodes synodique et sidérale pour des planètes inférieures et supérieures. Une planète hypothétique peut être déplacée le long du graphique.",
+        "interactionHint": "Entrez une période synodique mesurée et lisez la période sidérale."
+      },
+      "currentDetailsPattern": "Calculateur : {{input}} donne {{result}}. La planète hypothétique à {{a}} UA a une période sidérale de {{p}} années et une période synodique de {{s}} années.",
+      "markerValuePattern": "a {{a}} UA, période synodique {{s}} années",
+      "controls": {
+        "planetType": "Type de planète",
+        "solveFor": "Grandeur à calculer",
+        "units": "Unités",
+        "input": "Entrer la période",
+        "marker": "Planète hypothétique sur le graphique",
+        "markerHelp": "Utilisez les touches fléchées pour rapprocher ou éloigner la planète du Soleil.",
+        "showSidereal": "Afficher la courbe de la période sidérale"
+      }
+    },
+    "ptolemaic": {
+      "screenSummary": {
+        "playArea": "Le modèle géocentrique de Ptolémée. La planète se déplace sur un petit cercle, l'épicycle, dont le centre parcourt un plus grand cercle, le déférent, autour de la Terre. En dessous, une bande du zodiaque montre le trajet de la planète parmi les étoiles.",
+        "controlArea": "Choisissez une planète prédéfinie, réglez la taille de l'épicycle, l'excentricité, la vitesse et l'angle de l'apogée, choisissez quoi afficher et contrôlez le temps.",
+        "interactionHint": "Lancez l'animation et observez la planète faire une boucle vers l'arrière parmi les étoiles."
+      },
+      "currentDetailsPattern": "{{planet}} à la longitude écliptique {{longitude}} degrés, mouvement {{motion}}. Temps écoulé {{days}} jours.",
+      "controls": {
+        "preset": "Planète prédéfinie",
+        "epicycleSize": "Taille de l'épicycle",
+        "eccentricity": "Excentricité",
+        "motionRate": "Vitesse",
+        "apogeeAngle": "Angle de l'apogée",
+        "planetType": "Type de planète",
+        "resetTime": "Remettre le temps à zéro"
+      }
     }
   },
   "preferences": {
     "title": "Simulation",
-    "exampleToggle": "Exemple de bascule"
+    "showRealPeriods": "Afficher les périodes mesurées",
+    "showRealPeriodsHelp": "Dans le tableau de l'écran Orbites, afficher aussi la période synodique mesurée de chaque planète vue depuis la Terre, pour la comparer au modèle à orbites circulaires."
   }
 }
