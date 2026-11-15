@@ -119,7 +119,10 @@ export function synodicFromSidereal(sidereal: number, isInferior: boolean, earth
   return inverse > 0 ? 1 / inverse : null;
 }
 
-/** Greatest elongation (rad) of an inferior planet: asin(a_inner / a_outer). */
+/**
+ * Greatest elongation (rad) of an inferior planet: asin(a_inner / a_outer).
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export function greatestElongation(aInner: number, aOuter: number): number {
   return Math.asin(Math.min(1, aInner / aOuter));
 }
@@ -156,7 +159,10 @@ export function stationaryPhase(aObserver: number, aTarget: number): number {
   return Math.acos(Math.min(1, cosine));
 }
 
-/** Length (yr) of one retrograde loop: the fraction 2φ_s / 2π of a synodic period. */
+/**
+ * Length (yr) of one retrograde loop: the fraction 2φ_s / 2π of a synodic period.
+ * @internal Exported for unit tests; not part of the application API.
+ */
 export function retrogradeDuration(aObserver: number, aTarget: number): number {
   const synodic = synodicPeriod(siderealPeriod(aObserver), siderealPeriod(aTarget));
   return (synodic * stationaryPhase(aObserver, aTarget)) / Math.PI;
