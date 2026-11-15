@@ -44,7 +44,7 @@ export const ALL_EVENTS: EventFilter = { configurations: true, stationaryPoints:
 /** Phases this close (rad) count as the same phase. */
 const PHASE_EPSILON = 1e-9;
 
-export function isInferior(aObserver: number, aTarget: number): boolean {
+function isInferior(aObserver: number, aTarget: number): boolean {
   return aTarget < aObserver;
 }
 
@@ -89,7 +89,7 @@ export function heliocentricPhase(pair: PlanetPair, t: number): number {
 }
 
 /** Monotonic phase u ∈ [0, 2π) at time t (yr). It grows by 2π every synodic period. */
-export function monotonicPhase(pair: PlanetPair, t: number): number {
+function monotonicPhase(pair: PlanetPair, t: number): number {
   return monotonicPhaseFromHeliocentric(pair.aObserver, pair.aTarget, heliocentricPhase(pair, t));
 }
 

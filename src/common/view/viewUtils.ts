@@ -10,14 +10,13 @@ import {
   DerivedProperty,
   DynamicProperty,
   type EnumerationProperty,
-  PatternStringProperty,
   type Property,
   type TReadOnlyProperty,
 } from "scenerystack/axon";
 import type { Range } from "scenerystack/dot";
 import { toFixed } from "scenerystack/dot";
 import { combineOptions } from "scenerystack/phet-core";
-import { RichText, Text, type TPaint } from "scenerystack/scenery";
+import { Text, type TPaint } from "scenerystack/scenery";
 import {
   NumberControl,
   type NumberControlOptions,
@@ -44,7 +43,7 @@ import {
 
 export const LABEL_FONT = new PhetFont(FONT_SIZE.label);
 export const SMALL_FONT = new PhetFont(FONT_SIZE.small);
-export const TITLE_FONT = new PhetFont({ size: FONT_SIZE.title, weight: "bold" });
+const TITLE_FONT = new PhetFont({ size: FONT_SIZE.title, weight: "bold" });
 export const READOUT_FONT = new PhetFont(FONT_SIZE.readout);
 export const BIG_READOUT_FONT = new PhetFont({ size: FONT_SIZE.bigReadout, weight: "bold" });
 
@@ -62,15 +61,6 @@ export function label(stringProperty: TReadOnlyProperty<string> | string, option
 /** A bold panel heading. */
 export function heading(stringProperty: TReadOnlyProperty<string>, maxWidth = 220): Text {
   return label(stringProperty, { font: TITLE_FONT, maxWidth });
-}
-
-/** A RichText readout (supports <sub>, <sup>, <b>). */
-export function richLabel(stringProperty: TReadOnlyProperty<string>, options: LabelOptions = {}): RichText {
-  return new RichText(stringProperty, {
-    font: options.font ?? READOUT_FONT,
-    fill: options.fill ?? PlanetaryConfigurationsColors.textColorProperty,
-    maxWidth: options.maxWidth ?? 240,
-  });
 }
 
 /** A themed checkbox with a text label and an accessible name. */
@@ -106,26 +96,6 @@ export function textButton(
 /** Formats a number with a fixed number of decimals (dot's toFixed, never Number#toFixed). */
 export function fixed(value: number, decimals: number): string {
   return Number.isFinite(value) ? toFixed(value, decimals) : "∞";
-}
-
-/** "{{value}} yr" for a time in years. */
-export function yearsString(
-  valueProperty: TReadOnlyProperty<number>,
-  decimals = 3,
-): PatternStringProperty<{ value: TReadOnlyProperty<number> }> {
-  return new PatternStringProperty(
-    StringManager.getInstance().getCommonStrings().yearsPatternStringProperty,
-    { value: valueProperty },
-    { decimalPlaces: decimals },
-  );
-}
-
-/** Mapping from TimeSpeed to animation rate (days of model time per second). */
-export function daysPerSecondFor(timeSpeed: TimeSpeed, rates: { slow: number; normal: number; fast: number }): number {
-  if (timeSpeed === TimeSpeed.SLOW) {
-    return rates.slow;
-  }
-  return timeSpeed === TimeSpeed.FAST ? rates.fast : rates.normal;
 }
 
 /** Play/pause, step back/forward and slow/normal/fast speed, with the fleet's flat styling. */

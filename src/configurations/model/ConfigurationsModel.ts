@@ -25,7 +25,7 @@ import { eventNearPhase, eventPhases, monotonicPhaseFromHeliocentric } from "../
 import PlanetaryConfigurationsNamespace from "../../PlanetaryConfigurationsNamespace.js";
 
 /** Earth's fixed heliocentric longitude: directly below the Sun on screen. */
-export const EARTH_LONGITUDE = -Math.PI / 2;
+const EARTH_LONGITUDE = -Math.PI / 2;
 
 /** Orbit-radius ranges (AU) and defaults for each kind of hypothetical planet. */
 export const SUPERIOR_A_RANGE = new Range(1.2, 4);

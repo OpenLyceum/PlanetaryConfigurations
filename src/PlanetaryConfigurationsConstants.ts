@@ -107,9 +107,6 @@ export const KEYBOARD_FINE_ROTATION_DEGREES = 1;
 /** Number of samples used to draw the motion-history trail. */
 export const TRAIL_SAMPLES = 360;
 
-/** Default length (yr) of the motion-history trail. */
-export const TRAIL_DURATION_YEARS = 1.5;
-
 // ── Ptolemaic model (dimensionless deferent units, angles in degrees) ──────────
 
 /** Deferent radius in model units (the epicycle size is a fraction of it). */
