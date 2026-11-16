@@ -83,10 +83,7 @@ export class EpicycleViewNode extends Node {
     const sunCircle = new Circle(PTOLEMAIC_SUN_ORBIT_RADIUS * scale, {
       center,
       stroke: PlanetaryConfigurationsColors.faintOrbitColorProperty,
-      lineDash: [
-        EPICYCLE_VIEW_NODE_SETTINGS.SUN_CIRCLE_LINE_DASH_DASH,
-        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_SUN_CIRCLE_LINE_DASH_DASH,
-      ],
+      lineDash: [EPICYCLE_VIEW_NODE_SETTINGS.SUN_CIRCLE_LINE_DASH, EPICYCLE_VIEW_NODE_SETTINGS.SUN_CIRCLE_LINE_GAP],
     });
     const deferent = new Circle(scale, {
       stroke: PlanetaryConfigurationsColors.deferentColorProperty,
@@ -105,12 +102,9 @@ export class EpicycleViewNode extends Node {
     const equantMark = new Path(
       new Shape()
         .moveTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y)
-        .lineTo(
-          EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X_SEGMENT_2,
-          EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y_SEGMENT_2,
-        )
-        .moveTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X_MOVE_TO_Y)
-        .lineTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X_SEGMENT_2, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y),
+        .lineTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_END_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_END_Y)
+        .moveTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_ALT_START_Y)
+        .lineTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_END_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y),
       {
         stroke: PlanetaryConfigurationsColors.equantColorProperty,
         lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_LINE_WIDTH,
@@ -132,10 +126,7 @@ export class EpicycleViewNode extends Node {
     });
     const sunLine = new Path(null, {
       stroke: PlanetaryConfigurationsColors.sunLineColorProperty,
-      lineDash: [
-        EPICYCLE_VIEW_NODE_SETTINGS.SUN_LINE_LINE_DASH_DASH,
-        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_SUN_LINE_LINE_DASH_DASH,
-      ],
+      lineDash: [EPICYCLE_VIEW_NODE_SETTINGS.SUN_LINE_DASH, EPICYCLE_VIEW_NODE_SETTINGS.SUN_LINE_GAP],
       lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.SUN_LINE_LINE_WIDTH,
     });
     const planetLine = new Path(null, {
@@ -173,7 +164,7 @@ export class EpicycleViewNode extends Node {
       deferent.center = toView(g.deferentCenter);
       deferentCenter.center = toView(g.deferentCenter);
       equant.translation = toView(g.equant);
-      epicycle.radius = Math.max(EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_RADIUS, epicycleSize * scale);
+      epicycle.radius = Math.max(EPICYCLE_VIEW_NODE_SETTINGS.MIN_EPICYCLE_RADIUS, epicycleSize * scale);
       epicycle.center = toView(g.epicycleCenter);
       epicycleCenter.center = toView(g.epicycleCenter);
       const s = toView(g.sun);

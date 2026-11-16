@@ -538,15 +538,23 @@ export const PTOLEMAIC_MODEL_SETTINGS = {
 
 /** Settings for ptolemaic/view/EpicycleViewNode.ts. Layout lengths are in px; counts and ratios are dimensionless. */
 export const EPICYCLE_VIEW_NODE_SETTINGS = {
-  EQUANT_MARK_X_SEGMENT_2: 5, // px
-  EQUANT_MARK_Y_SEGMENT_2: 5, // px
-  EQUANT_MARK_X_MOVE_TO_Y: 5, // px
+  /** Positive end of the equant × mark (x), px. */
+  EQUANT_MARK_END_X: 5, // px
+  /** Positive end of the equant × mark (y), px. */
+  EQUANT_MARK_END_Y: 5, // px
+  /** Second diagonal start y of the equant × mark, px. */
+  EQUANT_MARK_ALT_START_Y: 5, // px
 
-  SUN_CIRCLE_LINE_DASH_DASH: 4, // px
-  CONSTRUCTOR_SUN_CIRCLE_LINE_DASH_DASH: 5, // px
-  SUN_LINE_LINE_DASH_DASH: 6, // px
-  CONSTRUCTOR_SUN_LINE_LINE_DASH_DASH: 4, // px
-  CONSTRUCTOR_RADIUS: 0.01, // px
+  /** Sun-orbit circle dash length, px. */
+  SUN_CIRCLE_LINE_DASH: 4, // px
+  /** Sun-orbit circle gap length, px. */
+  SUN_CIRCLE_LINE_GAP: 5, // px
+  /** Earth–Sun line dash length, px. */
+  SUN_LINE_DASH: 6, // px
+  /** Earth–Sun line gap length, px. */
+  SUN_LINE_GAP: 4, // px
+  /** Floor for drawn epicycle radius so the circle never collapses, view units. */
+  MIN_EPICYCLE_RADIUS: 0.01,
 
   /** Fraction of the half-size used by the Sun's circle. */
   FILL_FRACTION: 0.86,
