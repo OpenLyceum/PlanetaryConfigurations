@@ -1,3 +1,4 @@
+import { ORBITAL_VISIBILITY } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * orbitalMath.ts
  *
@@ -172,10 +173,10 @@ export function retrogradeDuration(aObserver: number, aTarget: number): number {
 export type SkyVisibility = "glare" | "evening" | "morning" | "allNight";
 
 /** Elongation (rad) below which a planet is lost in the Sun's glare. */
-const GLARE_ELONGATION = toRadians(15);
+const GLARE_ELONGATION = toRadians(ORBITAL_VISIBILITY.GLARE_ELONGATION_DEGREES);
 
 /** Elongation (rad) beyond which a planet is up essentially all night. */
-const ALL_NIGHT_ELONGATION = toRadians(150);
+const ALL_NIGHT_ELONGATION = toRadians(ORBITAL_VISIBILITY.ALL_NIGHT_ELONGATION_DEGREES);
 
 /**
  * Classifies a signed elongation: near the Sun the planet is lost in its glare; east of the

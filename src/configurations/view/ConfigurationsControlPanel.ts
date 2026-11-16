@@ -1,3 +1,4 @@
+import { CONFIGURATIONS_CONTROL_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ConfigurationsControlPanel.ts
  *
@@ -35,8 +36,8 @@ export class ConfigurationsControlPanel extends PlanetaryConfigurationsPanel {
     );
 
     const radiusSpec = {
-      decimalPlaces: 2,
-      delta: 0.01,
+      decimalPlaces: CONFIGURATIONS_CONTROL_PANEL_SETTINGS.RADIUS_SPEC_DECIMAL_PLACES,
+      delta: CONFIGURATIONS_CONTROL_PANEL_SETTINGS.RADIUS_SPEC_DELTA,
       valuePattern: common.auPatternStringProperty,
       accessibleName: a11y.orbitRadiusStringProperty,
       titleMaxWidth: innerWidth - 110,
@@ -97,7 +98,11 @@ export class ConfigurationsControlPanel extends PlanetaryConfigurationsPanel {
           typeRadio,
           superiorControl,
           inferiorControl,
-          new VBox({ align: "left", spacing: 6, children: boxes }),
+          new VBox({
+            align: "left",
+            spacing: CONFIGURATIONS_CONTROL_PANEL_SETTINGS.CONSTRUCTOR_SPACING,
+            children: boxes,
+          }),
         ],
       }),
       { minWidth: width, maxWidth: width, align: "left" },

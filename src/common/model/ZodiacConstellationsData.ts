@@ -1,3 +1,4 @@
+import { ZODIAC_CONSTELLATIONS_DATA_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 import PlanetaryConfigurationsNamespace from "../../PlanetaryConfigurationsNamespace.js";
 
 type StarPos = { x: number; y: number };
@@ -352,9 +353,9 @@ const RAW_DATA: ConstellationData[] = [
 ];
 
 // Obliquity of the ecliptic (ε ≈ 23.44°)
-const OBLIQUITY = 0.40913426548833737;
+const OBLIQUITY: number = ZODIAC_CONSTELLATIONS_DATA_SETTINGS.OBLIQUITY;
 
-const SCALE = 350; // pixel to rad conversion factor from AS
+const SCALE: number = ZODIAC_CONSTELLATIONS_DATA_SETTINGS.SCALE; // pixel to rad conversion factor from AS
 
 function rawToEquatorial(star: StarPos): { ra: number; dec: number } {
   const ra = (-star.x * Math.PI) / SCALE;

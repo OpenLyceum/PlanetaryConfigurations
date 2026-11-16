@@ -1,3 +1,4 @@
+import { CONFIGURATIONS_VIEW_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ConfigurationsViewNode.ts
  *
@@ -24,8 +25,8 @@ import type { ConfigurationsModel } from "../model/ConfigurationsModel.js";
 import { ConfigurationMarkerNode } from "./ConfigurationMarkerNode.js";
 
 /** Fraction of the half-size used by the largest orbit. */
-const FILL_FRACTION = 0.78;
-const SIDE_LABEL_FONT = new PhetFont({ size: 16, weight: "bold" });
+const FILL_FRACTION: number = CONFIGURATIONS_VIEW_NODE_SETTINGS.FILL_FRACTION;
+const SIDE_LABEL_FONT = new PhetFont({ size: CONFIGURATIONS_VIEW_NODE_SETTINGS.SIDE_LABEL_FONT_SIZE, weight: "bold" });
 
 export class ConfigurationsViewNode extends Node {
   public readonly planetNode: BodyNode;
@@ -39,12 +40,29 @@ export class ConfigurationsViewNode extends Node {
     const center = new Vector2(size / 2, size / 2);
 
     this.addChild(
-      new Rectangle(0, 0, size, size, 8, 8, {
-        fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
-        stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
-      }),
+      new Rectangle(
+        0,
+        0,
+        size,
+        size,
+        CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
+        CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
+        {
+          fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
+          stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
+        },
+      ),
     );
-    const content = new Node({ clipArea: Shape.roundRect(0, 0, size, size, 8, 8) });
+    const content = new Node({
+      clipArea: Shape.roundRect(
+        0,
+        0,
+        size,
+        size,
+        CONFIGURATIONS_VIEW_NODE_SETTINGS.CONTENT_CORNER_X,
+        CONFIGURATIONS_VIEW_NODE_SETTINGS.CONTENT_CORNER_Y,
+      ),
+    });
     this.addChild(content);
 
     // ── East / west halves of Earth's sky (split by the Earth–Sun line) ──────────
@@ -58,15 +76,21 @@ export class ConfigurationsViewNode extends Node {
     const eastLabel = new Text(common.eastStringProperty, {
       font: SIDE_LABEL_FONT,
       fill: PlanetaryConfigurationsColors.eastLabelColorProperty,
-      maxWidth: size / 3,
+      maxWidth: size / CONFIGURATIONS_VIEW_NODE_SETTINGS.EAST_LABEL_MAX_WIDTH_FACTOR,
     });
     const westLabel = new Text(common.westStringProperty, {
       font: SIDE_LABEL_FONT,
       fill: PlanetaryConfigurationsColors.westLabelColorProperty,
-      maxWidth: size / 3,
+      maxWidth: size / CONFIGURATIONS_VIEW_NODE_SETTINGS.WEST_LABEL_MAX_WIDTH_FACTOR,
     });
-    eastLabel.boundsProperty.link(() => eastLabel.setLeftTop(new Vector2(12, 10)));
-    westLabel.boundsProperty.link(() => westLabel.setRightTop(new Vector2(size - 12, 10)));
+    eastLabel.boundsProperty.link(() =>
+      eastLabel.setLeftTop(
+        new Vector2(CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_X, CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_Y),
+      ),
+    );
+    westLabel.boundsProperty.link(() =>
+      westLabel.setRightTop(new Vector2(size - 12, CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_Y)),
+    );
     sides.addChild(eastLabel);
     sides.addChild(westLabel);
     model.showSidesProperty.linkAttribute(sides, "visible");
@@ -75,8 +99,14 @@ export class ConfigurationsViewNode extends Node {
     const scaleProperty = new DerivedProperty([model.aProperty], (a) => (FILL_FRACTION * size) / 2 / Math.max(1, a));
     const toView = (p: Vector2, scale: number): Vector2 => new Vector2(center.x + p.x * scale, center.y - p.y * scale);
 
-    const earthOrbit = new Circle(1, { stroke: PlanetaryConfigurationsColors.faintOrbitColorProperty, lineWidth: 1.5 });
-    const planetOrbit = new Circle(1, { stroke: PlanetaryConfigurationsColors.orbitColorProperty, lineWidth: 1.5 });
+    const earthOrbit = new Circle(1, {
+      stroke: PlanetaryConfigurationsColors.faintOrbitColorProperty,
+      lineWidth: CONFIGURATIONS_VIEW_NODE_SETTINGS.EARTH_ORBIT_LINE_WIDTH,
+    });
+    const planetOrbit = new Circle(1, {
+      stroke: PlanetaryConfigurationsColors.orbitColorProperty,
+      lineWidth: CONFIGURATIONS_VIEW_NODE_SETTINGS.PLANET_ORBIT_LINE_WIDTH,
+    });
     earthOrbit.center = center;
     planetOrbit.center = center;
     const sun = new BodyNode(SUN_RADIUS, PlanetaryConfigurationsColors.sunColorProperty, { glow: true });

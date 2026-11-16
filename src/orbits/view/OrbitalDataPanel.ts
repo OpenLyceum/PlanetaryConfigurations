@@ -1,3 +1,4 @@
+import { ORBITAL_DATA_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * OrbitalDataPanel.ts
  *
@@ -33,9 +34,16 @@ export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
     const innerWidth = width - 24;
 
     const cell = (text: string | typeof common.noneStringProperty): Text =>
-      new Text(text, { font: READOUT_FONT, fill: PlanetaryConfigurationsColors.textColorProperty, maxWidth: 70 });
+      new Text(text, {
+        font: READOUT_FONT,
+        fill: PlanetaryConfigurationsColors.textColorProperty,
+        maxWidth: ORBITAL_DATA_PANEL_SETTINGS.CELL_MAX_WIDTH,
+      });
     const header = (stringProperty: Parameters<typeof label>[0]): Text =>
-      label(stringProperty, { maxWidth: 76, fill: PlanetaryConfigurationsColors.secondaryTextColorProperty });
+      label(stringProperty, {
+        maxWidth: ORBITAL_DATA_PANEL_SETTINGS.HEADER_MAX_WIDTH,
+        fill: PlanetaryConfigurationsColors.secondaryTextColorProperty,
+      });
 
     const measuredHeader = header(s.measuredSynodicStringProperty);
     const measuredCells: Node[] = [];
@@ -55,14 +63,14 @@ export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
       measuredCells.push(measuredCell);
       rows.push([
         new HBox({
-          spacing: 6,
+          spacing: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_SPACING,
           children: [
-            new Circle(5, { fill: PLANET_COLORS[planet.key] }),
-            label(strings.getPlanetName(planet.key), { maxWidth: 70 }),
+            new Circle(ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_RADIUS, { fill: PLANET_COLORS[planet.key] }),
+            label(strings.getPlanetName(planet.key), { maxWidth: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_MAX_WIDTH }),
           ],
         }),
-        cell(fixed(a, 3)),
-        cell(fixed(siderealPeriod(a), 2)),
+        cell(fixed(a, ORBITAL_DATA_PANEL_SETTINGS.FIXED_DECIMALS)),
+        cell(fixed(siderealPeriod(a), ORBITAL_DATA_PANEL_SETTINGS.FIXED_DECIMALS_SEGMENT_2)),
         cell(fixed(orbitalSpeed(a), 1)),
         measuredCell,
       ]);
@@ -77,10 +85,16 @@ export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
     super(
       new VBox({
         align: "left",
-        spacing: 8,
+        spacing: ORBITAL_DATA_PANEL_SETTINGS.SPACING,
         children: [
           heading(s.orbitalDataStringProperty, innerWidth),
-          new GridBox({ xSpacing: 14, ySpacing: 5, xAlign: "right", rows, maxWidth: innerWidth }),
+          new GridBox({
+            xSpacing: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_X_SPACING,
+            ySpacing: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_Y_SPACING,
+            xAlign: "right",
+            rows,
+            maxWidth: innerWidth,
+          }),
         ],
       }),
       { minWidth: width, maxWidth: width, align: "left" },

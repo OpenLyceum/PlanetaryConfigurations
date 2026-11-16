@@ -1,3 +1,4 @@
+import { BODY_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * BodyNode.ts
  *
@@ -28,7 +29,7 @@ export type BodyNodeOptions = {
   readonly glow?: boolean;
 };
 
-const LABEL_GAP = 9;
+const LABEL_GAP: number = BODY_NODE_SETTINGS.LABEL_GAP;
 
 export class BodyNode extends Node {
   private readonly disc: Circle;
@@ -44,7 +45,7 @@ export class BodyNode extends Node {
     this.disc = new Circle(radius, {
       fill,
       stroke: options.ring === true ? PlanetaryConfigurationsColors.observerRingColorProperty : null,
-      lineWidth: 2,
+      lineWidth: BODY_NODE_SETTINGS.DISC_LINE_WIDTH,
     });
     this.addChild(this.disc);
     this.labelText =
@@ -53,7 +54,7 @@ export class BodyNode extends Node {
         : new Text(options.labelStringProperty, {
             font: SMALL_FONT,
             fill: PlanetaryConfigurationsColors.textColorProperty,
-            maxWidth: 90,
+            maxWidth: BODY_NODE_SETTINGS.LABEL_TEXT_MAX_WIDTH,
             pickable: false,
           });
     if (this.labelText !== null) {

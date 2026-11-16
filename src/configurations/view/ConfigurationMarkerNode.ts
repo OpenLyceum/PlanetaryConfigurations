@@ -1,3 +1,4 @@
+import { CONFIGURATION_MARKER_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ConfigurationMarkerNode.ts
  *
@@ -13,8 +14,8 @@ import { SMALL_FONT } from "../../common/view/viewUtils.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import PlanetaryConfigurationsColors from "../../PlanetaryConfigurationsColors.js";
 
-const MARKER_RADIUS = 5;
-const LABEL_GAP = 14;
+const MARKER_RADIUS: number = CONFIGURATION_MARKER_NODE_SETTINGS.MARKER_RADIUS;
+const LABEL_GAP: number = CONFIGURATION_MARKER_NODE_SETTINGS.LABEL_GAP;
 
 export class ConfigurationMarkerNode extends Node {
   /**
@@ -26,7 +27,7 @@ export class ConfigurationMarkerNode extends Node {
     const name = new Text(StringManager.getInstance().getEventName(event.key), {
       font: SMALL_FONT,
       fill: PlanetaryConfigurationsColors.configurationMarkerColorProperty,
-      maxWidth: 120,
+      maxWidth: CONFIGURATION_MARKER_NODE_SETTINGS.NAME_MAX_WIDTH,
     });
     const outward = position.minus(center).normalized();
     const place = (): void => {
@@ -39,7 +40,7 @@ export class ConfigurationMarkerNode extends Node {
         new Circle(MARKER_RADIUS, {
           center: position,
           stroke: PlanetaryConfigurationsColors.configurationMarkerColorProperty,
-          lineWidth: 1.5,
+          lineWidth: CONFIGURATION_MARKER_NODE_SETTINGS.CONSTRUCTOR_LINE_WIDTH,
         }),
         name,
       ],

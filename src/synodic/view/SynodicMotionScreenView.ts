@@ -1,3 +1,4 @@
+import { SYNODIC_MOTION_SCREEN_VIEW_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SynodicMotionScreenView.ts
  *
@@ -54,7 +55,9 @@ export class SynodicMotionScreenView extends ScreenView {
         planet: planetNameProperty(model.observerChoiceProperty),
       }),
       captionStringProperty: new PatternStringProperty(common.pastPatternStringProperty, {
-        years: new DerivedProperty([model.trailDurationProperty], (d) => fixed(d, 2)),
+        years: new DerivedProperty([model.trailDurationProperty], (d) =>
+          fixed(d, SYNODIC_MOTION_SCREEN_VIEW_SETTINGS.ZODIAC_STRIP_DECIMALS),
+        ),
       }),
       sunLongitudeProperty: model.sunApparentLongitudeProperty,
       targetLongitudeProperty: model.targetApparentLongitudeProperty,
@@ -84,7 +87,11 @@ export class SynodicMotionScreenView extends ScreenView {
     this.addChild(placeInRegion(zodiacStrip, layout.strip, { xAlign: "left", yAlign: "bottom" }));
     this.addChild(
       placeInRegion(
-        new VBox({ spacing: 14, align: "right", children: [timeControlNode, resetAllButton] }),
+        new VBox({
+          spacing: SYNODIC_MOTION_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_SPACING,
+          align: "right",
+          children: [timeControlNode, resetAllButton],
+        }),
         layout.time,
         { xAlign: "right", yAlign: "bottom" },
       ),

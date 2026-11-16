@@ -1,3 +1,4 @@
+import { SYNODIC_SETUP_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SynodicSetupPanel.ts
  *
@@ -33,8 +34,8 @@ export class SynodicSetupPanel extends PlanetaryConfigurationsPanel {
       model.hypotheticalAProperty,
       HYPOTHETICAL_A_RANGE,
       {
-        decimalPlaces: 2,
-        delta: 0.01,
+        decimalPlaces: SYNODIC_SETUP_PANEL_SETTINGS.ORBIT_CONTROL_DECIMAL_PLACES,
+        delta: SYNODIC_SETUP_PANEL_SETTINGS.ORBIT_CONTROL_DELTA,
         valuePattern: common.auPatternStringProperty,
         accessibleName: a11y.hypotheticalOrbitStringProperty,
         enabledProperty: model.hasHypotheticalProperty,
@@ -74,7 +75,7 @@ export class SynodicSetupPanel extends PlanetaryConfigurationsPanel {
         label(s.targetStringProperty, { maxWidth: innerWidth }),
         targetComboBox,
         orbitControl,
-        new VBox({ align: "left", spacing: 5, children: boxes }),
+        new VBox({ align: "left", spacing: SYNODIC_SETUP_PANEL_SETTINGS.CONTENT_SPACING, children: boxes }),
       ],
     });
 

@@ -1,3 +1,4 @@
+import { PERIODS_SCREEN_VIEW_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PeriodsScreenView.ts
  *
@@ -48,22 +49,43 @@ export class PeriodsScreenView extends ScreenView {
     // ── Marker readout and legend ────────────────────────────────────────────
     const markerReadout = new Text(
       new PatternStringProperty(p.markerPatternStringProperty, {
-        a: new DerivedProperty([model.markerAProperty], (a) => fixed(a, 2)),
-        p: new DerivedProperty([model.markerSiderealProperty], (v) => fixed(v, 2)),
-        s: new DerivedProperty([model.markerSynodicProperty], (v) => fixed(v, 3)),
+        a: new DerivedProperty([model.markerAProperty], (a) =>
+          fixed(a, PERIODS_SCREEN_VIEW_SETTINGS.MARKER_READOUT_DECIMALS),
+        ),
+        p: new DerivedProperty([model.markerSiderealProperty], (v) =>
+          fixed(v, PERIODS_SCREEN_VIEW_SETTINGS.MARKER_READOUT_DECIMALS),
+        ),
+        s: new DerivedProperty([model.markerSynodicProperty], (v) =>
+          fixed(v, PERIODS_SCREEN_VIEW_SETTINGS.MARKER_READOUT_DECIMALS_SEGMENT_2),
+        ),
       }),
       {
         font: READOUT_FONT,
         fill: PlanetaryConfigurationsColors.textColorProperty,
-        maxWidth: layout.marker.width - 140,
+        maxWidth: layout.marker.width - PERIODS_SCREEN_VIEW_SETTINGS.MARKER_READOUT_MAX_WIDTH_OFFSET,
       },
     );
     const legendItem = (icon: Node, stringProperty: typeof p.synodicCurveStringProperty): HBox =>
-      new HBox({ spacing: 6, children: [icon, label(stringProperty, { font: SMALL_FONT, maxWidth: 150 })] });
+      new HBox({
+        spacing: PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_ITEM_SPACING,
+        children: [
+          icon,
+          label(stringProperty, { font: SMALL_FONT, maxWidth: PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_ITEM_MAX_WIDTH }),
+        ],
+      });
     const lineIcon = (stroke: typeof PlanetaryConfigurationsColors.synodicCurveColorProperty, dashed: boolean): Line =>
-      new Line(0, 0, 26, 0, { stroke, lineWidth: 2.5, lineDash: dashed ? [6, 4] : [] });
+      new Line(0, 0, PERIODS_SCREEN_VIEW_SETTINGS.LINE_ICON_END_X, 0, {
+        stroke,
+        lineWidth: PERIODS_SCREEN_VIEW_SETTINGS.LINE_ICON_LINE_WIDTH,
+        lineDash: dashed
+          ? [
+              PERIODS_SCREEN_VIEW_SETTINGS.LINE_ICON_LINE_DASH_DASH,
+              PERIODS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_LINE_ICON_LINE_DASH_DASH,
+            ]
+          : [],
+      });
     const legend = new HBox({
-      spacing: 18,
+      spacing: PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_SPACING,
       children: [
         legendItem(
           lineIcon(PlanetaryConfigurationsColors.synodicCurveColorProperty, false),
@@ -74,9 +96,17 @@ export class PeriodsScreenView extends ScreenView {
           p.siderealCurveStringProperty,
         ),
         legendItem(
-          new Path(new Shape().moveTo(0, -6).lineTo(6, 0).lineTo(0, 6).lineTo(-6, 0).close(), {
-            fill: PlanetaryConfigurationsColors.calculatorPointColorProperty,
-          }),
+          new Path(
+            new Shape()
+              .moveTo(0, PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_Y)
+              .lineTo(PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_X, 0)
+              .lineTo(0, PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_Y_SEGMENT_2)
+              .lineTo(PERIODS_SCREEN_VIEW_SETTINGS.LEGEND_X_SEGMENT_2, 0)
+              .close(),
+            {
+              fill: PlanetaryConfigurationsColors.calculatorPointColorProperty,
+            },
+          ),
           p.calculatorPointStringProperty,
         ),
       ],
@@ -89,14 +119,20 @@ export class PeriodsScreenView extends ScreenView {
     const markerPanel = new PlanetaryConfigurationsPanel(
       new VBox({
         align: "left",
-        spacing: 8,
+        spacing: PERIODS_SCREEN_VIEW_SETTINGS.MARKER_PANEL_SPACING,
         children: [
-          new HBox({ spacing: 10, children: [label(p.markerStringProperty, { maxWidth: 150 }), markerReadout] }),
+          new HBox({
+            spacing: PERIODS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_MARKER_PANEL_SPACING,
+            children: [
+              label(p.markerStringProperty, { maxWidth: PERIODS_SCREEN_VIEW_SETTINGS.MARKER_PANEL_MAX_WIDTH }),
+              markerReadout,
+            ],
+          }),
           legend,
           showSidereal,
         ],
       }),
-      { align: "left", maxWidth: layout.marker.width - 70 },
+      { align: "left", maxWidth: layout.marker.width - PERIODS_SCREEN_VIEW_SETTINGS.MARKER_PANEL_MAX_WIDTH_OFFSET },
     );
 
     const resetAllButton = new ResetAllButton({
@@ -111,7 +147,7 @@ export class PeriodsScreenView extends ScreenView {
     this.addChild(placeInRegion(chart, layout.chart, { xAlign: "left", yAlign: "top" }));
     // The marker panel is capped 70 px narrower than its band, leaving the right end for Reset All.
     this.addChild(placeInRegion(markerPanel, layout.marker, { xAlign: "left", yAlign: "bottom" }));
-    markerPanel.maxWidth = layout.marker.width - 70;
+    markerPanel.maxWidth = layout.marker.width - PERIODS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_MAX_WIDTH_OFFSET;
     this.addChild(placeInRegion(resetAllButton, layout.marker, { xAlign: "right", yAlign: "bottom" }));
 
     this.addChild(

@@ -1,3 +1,4 @@
+import { SIGHT_GEOMETRY_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SightGeometryNode.ts
  *
@@ -12,10 +13,10 @@ import PlanetaryConfigurationsColors from "../../PlanetaryConfigurationsColors.j
 import { wrapPi } from "../model/orbitalMath.js";
 
 /** How far (px) the observer → target line continues past the target. */
-const TARGET_LINE_OVERSHOOT = 40;
+const TARGET_LINE_OVERSHOOT: number = SIGHT_GEOMETRY_NODE_SETTINGS.TARGET_LINE_OVERSHOOT;
 
 /** Radius (px) of the elongation arc. */
-const ARC_RADIUS = 34;
+const ARC_RADIUS: number = SIGHT_GEOMETRY_NODE_SETTINGS.ARC_RADIUS;
 
 export class SightGeometryNode extends Node {
   private readonly sunLine: Path;
@@ -26,11 +27,17 @@ export class SightGeometryNode extends Node {
     super({ pickable: false });
     this.sunLine = new Path(null, {
       stroke: PlanetaryConfigurationsColors.sunLineColorProperty,
-      lineWidth: 1.5,
-      lineDash: [6, 4],
+      lineWidth: SIGHT_GEOMETRY_NODE_SETTINGS.SUN_LINE_LINE_WIDTH,
+      lineDash: [SIGHT_GEOMETRY_NODE_SETTINGS.CONSTRUCTOR_LINE_DASH_DASH, 4],
     });
-    this.targetLine = new Path(null, { stroke: PlanetaryConfigurationsColors.targetLineColorProperty, lineWidth: 1.5 });
-    this.arc = new Path(null, { stroke: PlanetaryConfigurationsColors.elongationArcColorProperty, lineWidth: 2 });
+    this.targetLine = new Path(null, {
+      stroke: PlanetaryConfigurationsColors.targetLineColorProperty,
+      lineWidth: SIGHT_GEOMETRY_NODE_SETTINGS.TARGET_LINE_LINE_WIDTH,
+    });
+    this.arc = new Path(null, {
+      stroke: PlanetaryConfigurationsColors.elongationArcColorProperty,
+      lineWidth: SIGHT_GEOMETRY_NODE_SETTINGS.ARC_LINE_WIDTH,
+    });
     this.children = [this.sunLine, this.targetLine, this.arc];
   }
 

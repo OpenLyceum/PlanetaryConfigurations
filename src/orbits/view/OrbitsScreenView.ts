@@ -1,3 +1,4 @@
+import { ORBITS_SCREEN_VIEW_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * OrbitsScreenView.ts
  *
@@ -33,7 +34,7 @@ import { OrbitsViewNode } from "./OrbitsViewNode.js";
 export type OrbitsScreenViewOptions = ScreenViewOptions;
 
 /** Days stepped by one press of the step buttons. */
-const STEP_DAYS = 5;
+const STEP_DAYS: number = ORBITS_SCREEN_VIEW_SETTINGS.STEP_DAYS;
 
 export class OrbitsScreenView extends ScreenView {
   public constructor(model: OrbitsModel, providedOptions?: OrbitsScreenViewOptions) {
@@ -47,7 +48,10 @@ export class OrbitsScreenView extends ScreenView {
     const s = strings.getOrbitsStrings();
     const common = strings.getCommonStrings();
     const a11y = strings.getOrbitsA11yStrings().controls;
-    const layout = viewAndPanelsLayout(this.layoutBounds, 74);
+    const layout = viewAndPanelsLayout(
+      this.layoutBounds,
+      ORBITS_SCREEN_VIEW_SETTINGS.LAYOUT_BOUNDS_VIEW_AND_PANELS_LAYOUT_FOOTER_HEIGHT,
+    );
     const panelWidth = layout.panels.width;
     const innerWidth = panelWidth - 24;
 
@@ -80,12 +84,17 @@ export class OrbitsScreenView extends ScreenView {
     // ── Elapsed time ─────────────────────────────────────────────────────────
     const timeText = new Text(
       new PatternStringProperty(common.yearsPatternStringProperty, {
-        value: new DerivedProperty([model.timeProperty], (t) => fixed(t, 2)),
+        value: new DerivedProperty([model.timeProperty], (t) =>
+          fixed(t, ORBITS_SCREEN_VIEW_SETTINGS.TIME_TEXT_DECIMALS),
+        ),
       }),
       { font: BIG_READOUT_FONT, fill: PlanetaryConfigurationsColors.textColorProperty, maxWidth: innerWidth / 2 },
     );
     const timePanel = new PlanetaryConfigurationsPanel(
-      new HBox({ spacing: 12, children: [label(s.elapsedStringProperty, { maxWidth: innerWidth / 2 }), timeText] }),
+      new HBox({
+        spacing: ORBITS_SCREEN_VIEW_SETTINGS.TIME_PANEL_SPACING,
+        children: [label(s.elapsedStringProperty, { maxWidth: innerWidth / 2 }), timeText],
+      }),
       { minWidth: panelWidth, maxWidth: panelWidth, align: "left" },
     );
 
@@ -115,7 +124,11 @@ export class OrbitsScreenView extends ScreenView {
     );
     this.addChild(
       placeInRegion(
-        new HBox({ spacing: 24, align: "bottom", children: [timeControlNode, resetAllButton] }),
+        new HBox({
+          spacing: ORBITS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_SPACING,
+          align: "bottom",
+          children: [timeControlNode, resetAllButton],
+        }),
         layout.footer,
         { xAlign: "right", yAlign: "bottom" },
       ),

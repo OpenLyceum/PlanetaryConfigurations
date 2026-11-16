@@ -1,3 +1,4 @@
+import { CONFIGURATION_READOUT_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ConfigurationReadoutPanel.ts
  *
@@ -23,19 +24,19 @@ export class ConfigurationReadoutPanel extends PlanetaryConfigurationsPanel {
 
     const name = (stringProperty: TReadOnlyProperty<string>): Text =>
       label(stringProperty, {
-        maxWidth: innerWidth * 0.34,
+        maxWidth: innerWidth * CONFIGURATION_READOUT_PANEL_SETTINGS.NAME_MAX_WIDTH_FACTOR,
         fill: PlanetaryConfigurationsColors.secondaryTextColorProperty,
       });
     const value = (stringProperty: TReadOnlyProperty<string>, big = false): Text =>
       new Text(stringProperty, {
         font: big ? BIG_READOUT_FONT : READOUT_FONT,
         fill: PlanetaryConfigurationsColors.textColorProperty,
-        maxWidth: innerWidth * 0.64,
+        maxWidth: innerWidth * CONFIGURATION_READOUT_PANEL_SETTINGS.VALUE_MAX_WIDTH_FACTOR,
       });
 
     const grid = new GridBox({
-      xSpacing: 10,
-      ySpacing: 8,
+      xSpacing: CONFIGURATION_READOUT_PANEL_SETTINGS.GRID_X_SPACING,
+      ySpacing: CONFIGURATION_READOUT_PANEL_SETTINGS.GRID_Y_SPACING,
       xAlign: "left",
       rows: [
         [name(common.elongationStringProperty), value(elongationStringProperty(model.elongationProperty), true)],
@@ -47,7 +48,7 @@ export class ConfigurationReadoutPanel extends PlanetaryConfigurationsPanel {
     super(
       new VBox({
         align: "left",
-        spacing: 10,
+        spacing: CONFIGURATION_READOUT_PANEL_SETTINGS.CONSTRUCTOR_SPACING,
         children: [heading(strings.getConfigurationsStrings().readoutsStringProperty, innerWidth), grid],
       }),
       { minWidth: width, maxWidth: width, align: "left" },

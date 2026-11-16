@@ -1,3 +1,4 @@
+import { VIEW_UTILS_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * viewUtils.ts
  *
@@ -54,12 +55,15 @@ export function label(stringProperty: TReadOnlyProperty<string> | string, option
   return new Text(stringProperty, {
     font: options.font ?? LABEL_FONT,
     fill: options.fill ?? PlanetaryConfigurationsColors.textColorProperty,
-    maxWidth: options.maxWidth ?? 220,
+    maxWidth: options.maxWidth ?? VIEW_UTILS_SETTINGS.LABEL_MAX_WIDTH,
   });
 }
 
 /** A bold panel heading. */
-export function heading(stringProperty: TReadOnlyProperty<string>, maxWidth = 220): Text {
+export function heading(
+  stringProperty: TReadOnlyProperty<string>,
+  maxWidth: number = VIEW_UTILS_SETTINGS.DEFAULT_MAX_WIDTH,
+): Text {
   return label(stringProperty, { font: TITLE_FONT, maxWidth });
 }
 
@@ -88,8 +92,8 @@ export function textButton(
     content: new Text(stringProperty, { font: LABEL_FONT, fill: LIGHT_SURFACE_TEXT_FILL, maxWidth }),
     listener,
     accessibleName,
-    xMargin: 8,
-    yMargin: 4,
+    xMargin: VIEW_UTILS_SETTINGS.TEXT_BUTTON_X_MARGIN,
+    yMargin: VIEW_UTILS_SETTINGS.TEXT_BUTTON_Y_MARGIN,
   });
 }
 
@@ -198,7 +202,7 @@ export function numberControl(
         ...(spec.valuePattern ? { valuePattern: spec.valuePattern } : {}),
         textOptions: { font: LABEL_FONT, fill: PlanetaryConfigurationsColors.controlSurfaceTextColorProperty },
         backgroundFill: PlanetaryConfigurationsColors.controlSurfaceColorProperty,
-        maxWidth: 90,
+        maxWidth: VIEW_UTILS_SETTINGS.NUMBER_CONTROL_MAX_WIDTH,
       },
       sliderOptions: { keyboardStep: spec.delta * 5, shiftKeyboardStep: spec.delta },
     }),
@@ -213,7 +217,7 @@ export function radioGroup<T>(
   items: readonly RadioItem<T>[],
   accessibleName: TReadOnlyProperty<string>,
   orientation: "horizontal" | "vertical" = "horizontal",
-  maxLabelWidth = 110,
+  maxLabelWidth: number = VIEW_UTILS_SETTINGS.DEFAULT_MAX_LABEL_WIDTH,
 ): AquaRadioButtonGroup<T> {
   const groupItems: AquaRadioButtonGroupItem<T>[] = items.map((item) => ({
     value: item.value,
@@ -222,9 +226,9 @@ export function radioGroup<T>(
   }));
   return new AquaRadioButtonGroup(property, groupItems, {
     orientation,
-    spacing: orientation === "horizontal" ? 14 : 6,
+    spacing: orientation === "horizontal" ? VIEW_UTILS_SETTINGS.RADIO_GROUP_SPACING : 6,
     radioButtonOptions: {
-      radius: 7,
+      radius: VIEW_UTILS_SETTINGS.RADIO_GROUP_RADIUS,
       selectedColor: PlanetaryConfigurationsColors.accentColorProperty,
       deselectedColor: PlanetaryConfigurationsColors.controlSurfaceColorProperty,
     },

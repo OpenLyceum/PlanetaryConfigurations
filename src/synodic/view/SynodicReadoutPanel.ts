@@ -1,3 +1,4 @@
+import { SYNODIC_READOUT_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SynodicReadoutPanel.ts
  *
@@ -45,7 +46,9 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
 
     // ── Counter ──────────────────────────────────────────────────────────────
     const elapsedString = new PatternStringProperty(common.yearsAndDaysPatternStringProperty, {
-      years: new DerivedProperty([model.elapsedProperty], (t) => fixed(t, 3)),
+      years: new DerivedProperty([model.elapsedProperty], (t) =>
+        fixed(t, SYNODIC_READOUT_PANEL_SETTINGS.ELAPSED_STRING_DECIMALS),
+      ),
       days: new DerivedProperty([model.elapsedProperty], (t) => fixed(yearsToDays(t), 1)),
     });
     const counter = new Text(elapsedString, {
@@ -64,7 +67,10 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
       [model.isRetrogradeProperty, common.directStringProperty, common.retrogradeStringProperty],
       (retro, direct, retrograde) => (retro ? retrograde : direct),
     );
-    const motionText = new Text(motionString, { font: READOUT_FONT, maxWidth: innerWidth * 0.62 });
+    const motionText = new Text(motionString, {
+      font: READOUT_FONT,
+      maxWidth: innerWidth * SYNODIC_READOUT_PANEL_SETTINGS.MOTION_TEXT_MAX_WIDTH_FACTOR,
+    });
     model.isRetrogradeProperty.link((retro) => {
       motionText.fill = retro
         ? PlanetaryConfigurationsColors.retrogradeColorProperty
@@ -77,11 +83,11 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
       new Text(stringProperty, {
         font: READOUT_FONT,
         fill: PlanetaryConfigurationsColors.textColorProperty,
-        maxWidth: innerWidth * 0.62,
+        maxWidth: innerWidth * SYNODIC_READOUT_PANEL_SETTINGS.VALUE_MAX_WIDTH_FACTOR,
       });
     const name = (stringProperty: TReadOnlyProperty<string>): Text =>
       label(stringProperty, {
-        maxWidth: innerWidth * 0.36,
+        maxWidth: innerWidth * SYNODIC_READOUT_PANEL_SETTINGS.NAME_MAX_WIDTH_FACTOR,
         fill: PlanetaryConfigurationsColors.secondaryTextColorProperty,
       });
     const rows: [Node, Node][] = [
@@ -92,8 +98,8 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
       [name(common.skyStringProperty), value(skyStringProperty(model.elongationProperty))],
     ];
     const grid = new GridBox({
-      xSpacing: 8,
-      ySpacing: 5,
+      xSpacing: SYNODIC_READOUT_PANEL_SETTINGS.GRID_X_SPACING,
+      ySpacing: SYNODIC_READOUT_PANEL_SETTINGS.GRID_Y_SPACING,
       xAlign: "left",
       rows,
     });
@@ -106,24 +112,27 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
       accessibleName: TReadOnlyProperty<string>,
     ): RectangularPushButton => {
       const arrow = new ArrowNode(0, 0, direction === "left" ? -12 : 12, 0, {
-        headWidth: 9,
-        headHeight: 7,
-        tailWidth: 3,
+        headWidth: SYNODIC_READOUT_PANEL_SETTINGS.ARROW_HEAD_WIDTH,
+        headHeight: SYNODIC_READOUT_PANEL_SETTINGS.ARROW_HEAD_HEIGHT,
+        tailWidth: SYNODIC_READOUT_PANEL_SETTINGS.ARROW_TAIL_WIDTH,
         fill: LIGHT_SURFACE_TEXT_FILL,
         stroke: null,
       });
       const text = new Text(stringProperty, {
         font: LABEL_FONT,
         fill: LIGHT_SURFACE_TEXT_FILL,
-        maxWidth: innerWidth / 2 - 40,
+        maxWidth: innerWidth / 2 - SYNODIC_READOUT_PANEL_SETTINGS.TEXT_MAX_WIDTH_OFFSET,
       });
       return new RectangularPushButton({
         ...FLAT_PANEL_PUSH_BUTTON_OPTIONS,
-        content: new HBox({ spacing: 5, children: direction === "left" ? [arrow, text] : [text, arrow] }),
+        content: new HBox({
+          spacing: SYNODIC_READOUT_PANEL_SETTINGS.ARROW_BUTTON_SPACING,
+          children: direction === "left" ? [arrow, text] : [text, arrow],
+        }),
         listener,
         accessibleName,
-        xMargin: 7,
-        yMargin: 4,
+        xMargin: SYNODIC_READOUT_PANEL_SETTINGS.ARROW_BUTTON_X_MARGIN,
+        yMargin: SYNODIC_READOUT_PANEL_SETTINGS.ARROW_BUTTON_Y_MARGIN,
       });
     };
     const previousButton = arrowButton(
@@ -161,12 +170,16 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
         counter,
         zeroButton,
         grid,
-        new HBox({ spacing: 8, children: [previousButton, nextButton] }),
+        new HBox({ spacing: SYNODIC_READOUT_PANEL_SETTINGS.CONTENT_SPACING, children: [previousButton, nextButton] }),
         label(s.pauseAtStringProperty, {
           maxWidth: innerWidth,
           fill: PlanetaryConfigurationsColors.secondaryTextColorProperty,
         }),
-        new VBox({ align: "left", spacing: 5, children: [pauseConfigurations, pauseStationary] }),
+        new VBox({
+          align: "left",
+          spacing: SYNODIC_READOUT_PANEL_SETTINGS.CONSTRUCTOR_CONTENT_SPACING,
+          children: [pauseConfigurations, pauseStationary],
+        }),
       ],
     });
 

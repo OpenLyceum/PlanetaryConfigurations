@@ -1,3 +1,4 @@
+import { PERIODS_SCREEN_SUMMARY_CONTENT_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PeriodsScreenSummaryContent.ts
  *
@@ -18,7 +19,9 @@ export class PeriodsScreenSummaryContent extends ScreenSummaryContent {
     const common = strings.getCommonStrings();
 
     const years = (value: number | null): string =>
-      value === null ? common.noneStringProperty.value : fixed(value, 3);
+      value === null
+        ? common.noneStringProperty.value
+        : fixed(value, PERIODS_SCREEN_SUMMARY_CONTENT_SETTINGS.YEARS_DECIMALS);
     super({
       playAreaContent: a11y.screenSummary.playAreaStringProperty,
       controlAreaContent: a11y.screenSummary.controlAreaStringProperty,
@@ -29,9 +32,15 @@ export class PeriodsScreenSummaryContent extends ScreenSummaryContent {
         result: new PatternStringProperty(common.yearsPatternStringProperty, {
           value: new DerivedProperty([model.resultYearsProperty, common.noneStringProperty], (v) => years(v)),
         }),
-        a: new DerivedProperty([model.markerAProperty], (a) => fixed(a, 2)),
-        p: new DerivedProperty([model.markerSiderealProperty], (v) => fixed(v, 2)),
-        s: new DerivedProperty([model.markerSynodicProperty], (v) => fixed(v, 2)),
+        a: new DerivedProperty([model.markerAProperty], (a) =>
+          fixed(a, PERIODS_SCREEN_SUMMARY_CONTENT_SETTINGS.FIXED_DECIMALS),
+        ),
+        p: new DerivedProperty([model.markerSiderealProperty], (v) =>
+          fixed(v, PERIODS_SCREEN_SUMMARY_CONTENT_SETTINGS.FIXED_DECIMALS),
+        ),
+        s: new DerivedProperty([model.markerSynodicProperty], (v) =>
+          fixed(v, PERIODS_SCREEN_SUMMARY_CONTENT_SETTINGS.FIXED_DECIMALS),
+        ),
       }),
       interactionHintContent: a11y.screenSummary.interactionHintStringProperty,
     });

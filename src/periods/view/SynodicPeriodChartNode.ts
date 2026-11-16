@@ -1,3 +1,4 @@
+import { SYNODIC_PERIOD_CHART_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SynodicPeriodChartNode.ts
  *
@@ -23,11 +24,16 @@ import { StringManager } from "../../i18n/StringManager.js";
 import PlanetaryConfigurationsColors, { PLANET_COLORS } from "../../PlanetaryConfigurationsColors.js";
 import { MARKER_LOG_A_RANGE, type PeriodsModel } from "../model/PeriodsModel.js";
 
-const Y_RANGE = new Range(0, 5);
+const Y_RANGE = new Range(0, SYNODIC_PERIOD_CHART_NODE_SETTINGS.Y_RANGE_MAX);
 const X_TICKS = [0.2, 0.3, 0.5, 1, 2, 3, 5, 10, 20, 30];
-const MARGIN = { left: 50, right: 14, top: 28, bottom: 44 };
-const CURVE_SAMPLES = 400;
-const TICK_FONT = new PhetFont(11);
+const MARGIN = {
+  left: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARGIN_LEFT,
+  right: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARGIN_RIGHT,
+  top: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARGIN_TOP,
+  bottom: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARGIN_BOTTOM,
+};
+const CURVE_SAMPLES: number = SYNODIC_PERIOD_CHART_NODE_SETTINGS.CURVE_SAMPLES;
+const TICK_FONT = new PhetFont(SYNODIC_PERIOD_CHART_NODE_SETTINGS.TICK_FONT_SIZE);
 
 /** S(a) seen from Earth; infinite at a = 1 AU. */
 function synodicAt(a: number): number {
@@ -41,15 +47,15 @@ class ChartMarkerNode extends AccessibleSliderNode {
   public constructor(options: AccessibleSliderOptions & Pick<NodeOptions, "accessibleName" | "accessibleHelpText">) {
     super(options);
     this.addChild(
-      new Circle(8, {
+      new Circle(SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_RADIUS, {
         fill: PlanetaryConfigurationsColors.hypotheticalColorProperty,
         stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
-        lineWidth: 2,
+        lineWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_LINE_WIDTH,
       }),
     );
     this.cursor = "ew-resize";
-    this.mouseArea = this.localBounds.dilated(6);
-    this.touchArea = this.localBounds.dilated(12);
+    this.mouseArea = this.localBounds.dilated(SYNODIC_PERIOD_CHART_NODE_SETTINGS.DILATED_DILATION);
+    this.touchArea = this.localBounds.dilated(SYNODIC_PERIOD_CHART_NODE_SETTINGS.DILATED_DILATION_SEGMENT_2);
   }
 }
 
@@ -93,14 +99,14 @@ export class SynodicPeriodChartNode extends Node {
         fill: PlanetaryConfigurationsColors.chartAxisColorProperty,
       });
       tick.centerX = x;
-      tick.top = viewHeight + 4;
+      tick.top = viewHeight + SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_TOP_OFFSET;
       plot.addChild(tick);
     }
     for (let y = 0; y <= Y_RANGE.max; y++) {
       const vy = transform.modelToViewY(y);
       grid.moveTo(0, vy).lineTo(viewWidth, vy);
       const tick = new Text(`${y}`, { font: TICK_FONT, fill: PlanetaryConfigurationsColors.chartAxisColorProperty });
-      tick.right = -6;
+      tick.right = SYNODIC_PERIOD_CHART_NODE_SETTINGS.RIGHT_RIGHT;
       tick.centerY = vy;
       plot.addChild(tick);
     }
@@ -128,11 +134,11 @@ export class SynodicPeriodChartNode extends Node {
 
     const title = label(p.chartTitleStringProperty, {
       maxWidth: viewWidth,
-      font: new PhetFont({ size: 14, weight: "bold" }),
+      font: new PhetFont({ size: SYNODIC_PERIOD_CHART_NODE_SETTINGS.TITLE_FONT_SIZE, weight: "bold" }),
     });
     title.boundsProperty.link(() => {
       title.centerX = MARGIN.left + viewWidth / 2;
-      title.bottom = MARGIN.top - 6;
+      title.bottom = MARGIN.top - SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_BOTTOM_OFFSET;
     });
     this.addChild(title);
 
@@ -148,7 +154,7 @@ export class SynodicPeriodChartNode extends Node {
     curves.addChild(
       new Path(asymptotes, {
         stroke: PlanetaryConfigurationsColors.asymptoteColorProperty,
-        lineDash: [5, 4],
+        lineDash: [SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_LINE_DASH_DASH, 4],
         lineWidth: 1,
       }),
     );
@@ -178,13 +184,19 @@ export class SynodicPeriodChartNode extends Node {
     }
     const siderealPath = new Path(siderealShape, {
       stroke: PlanetaryConfigurationsColors.siderealCurveColorProperty,
-      lineWidth: 2,
-      lineDash: [7, 5],
+      lineWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.SIDEREAL_PATH_LINE_WIDTH,
+      lineDash: [
+        SYNODIC_PERIOD_CHART_NODE_SETTINGS.SIDEREAL_PATH_LINE_DASH_DASH,
+        SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_SIDEREAL_PATH_LINE_DASH_DASH,
+      ],
     });
     model.showSiderealProperty.linkAttribute(siderealPath, "visible");
     curves.addChild(siderealPath);
     curves.addChild(
-      new Path(synodicShape, { stroke: PlanetaryConfigurationsColors.synodicCurveColorProperty, lineWidth: 2.5 }),
+      new Path(synodicShape, {
+        stroke: PlanetaryConfigurationsColors.synodicCurveColorProperty,
+        lineWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.LINE_WIDTH,
+      }),
     );
 
     // ── Real planets on the S curve ────────────────────────────────────────────
@@ -193,18 +205,21 @@ export class SynodicPeriodChartNode extends Node {
       if (planet === PlanetChoice.EARTH) {
         const earthName = new Text(strings.getPlanetName("earth"), { font: SMALL_FONT, fill: PLANET_COLORS.earth });
         earthName.boundsProperty.link(() => {
-          earthName.left = transform.modelToViewX(0) + 4;
+          earthName.left = transform.modelToViewX(0) + SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_LEFT_OFFSET;
           earthName.bottom = viewHeight - 4;
         });
         curves.addChild(earthName);
         continue;
       }
       const point = toView(a, synodicAt(a));
-      const dot = new Circle(5, { fill: PLANET_COLORS[planet.key], center: point });
+      const dot = new Circle(SYNODIC_PERIOD_CHART_NODE_SETTINGS.DOT_RADIUS, {
+        fill: PLANET_COLORS[planet.key],
+        center: point,
+      });
       const name = new Text(strings.getPlanetName(planet.key), {
         font: SMALL_FONT,
         fill: PlanetaryConfigurationsColors.textColorProperty,
-        maxWidth: 70,
+        maxWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.NAME_MAX_WIDTH,
       });
       name.boundsProperty.link(() => {
         name.centerX = point.x;
@@ -215,11 +230,19 @@ export class SynodicPeriodChartNode extends Node {
     }
 
     // ── Calculator point ───────────────────────────────────────────────────────
-    const diamond = new Path(new Shape().moveTo(0, -8).lineTo(8, 0).lineTo(0, 8).lineTo(-8, 0).close(), {
-      fill: PlanetaryConfigurationsColors.calculatorPointColorProperty,
-      stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
-      lineWidth: 1,
-    });
+    const diamond = new Path(
+      new Shape()
+        .moveTo(0, SYNODIC_PERIOD_CHART_NODE_SETTINGS.DIAMOND_Y)
+        .lineTo(SYNODIC_PERIOD_CHART_NODE_SETTINGS.DIAMOND_X, 0)
+        .lineTo(0, SYNODIC_PERIOD_CHART_NODE_SETTINGS.DIAMOND_Y_SEGMENT_2)
+        .lineTo(SYNODIC_PERIOD_CHART_NODE_SETTINGS.DIAMOND_X_SEGMENT_2, 0)
+        .close(),
+      {
+        fill: PlanetaryConfigurationsColors.calculatorPointColorProperty,
+        stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
+        lineWidth: 1,
+      },
+    );
     curves.addChild(diamond);
     model.calculatorPointProperty.link((point) => {
       diamond.visible =
@@ -231,15 +254,19 @@ export class SynodicPeriodChartNode extends Node {
 
     // ── Draggable hypothetical planet ──────────────────────────────────────────
     const valueText = new PatternStringProperty(a11y.markerValuePatternStringProperty, {
-      a: new DerivedProperty([model.markerAProperty], (a) => fixed(a, 2)),
-      s: new DerivedProperty([model.markerSynodicProperty], (s) => fixed(s, 2)),
+      a: new DerivedProperty([model.markerAProperty], (a) =>
+        fixed(a, SYNODIC_PERIOD_CHART_NODE_SETTINGS.VALUE_TEXT_DECIMALS),
+      ),
+      s: new DerivedProperty([model.markerSynodicProperty], (s) =>
+        fixed(s, SYNODIC_PERIOD_CHART_NODE_SETTINGS.VALUE_TEXT_DECIMALS),
+      ),
     });
     const marker = new ChartMarkerNode({
       valueProperty: model.markerLogAProperty,
       enabledRangeProperty: new Property(MARKER_LOG_A_RANGE),
-      keyboardStep: 0.02,
-      shiftKeyboardStep: 0.005,
-      pageKeyboardStep: 0.1,
+      keyboardStep: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARKER_KEYBOARD_STEP,
+      shiftKeyboardStep: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARKER_SHIFT_KEYBOARD_STEP,
+      pageKeyboardStep: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARKER_PAGE_KEYBOARD_STEP,
       accessibleName: a11y.controls.markerStringProperty,
       accessibleHelpText: a11y.controls.markerHelpStringProperty,
       pdomCreateAriaValueText: () => valueText.value,
@@ -255,7 +282,7 @@ export class SynodicPeriodChartNode extends Node {
     );
     const guide = new Line(0, 0, 0, 0, {
       stroke: PlanetaryConfigurationsColors.hypotheticalColorProperty,
-      lineDash: [2, 3],
+      lineDash: [2, SYNODIC_PERIOD_CHART_NODE_SETTINGS.GUIDE_LINE_DASH_DASH],
     });
     plot.addChild(guide);
     plot.addChild(marker);

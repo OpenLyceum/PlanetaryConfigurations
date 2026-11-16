@@ -1,3 +1,4 @@
+import { SYNODIC_EVENTS_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * synodicEvents.ts
  *
@@ -42,7 +43,7 @@ export type EventFilter = { readonly configurations: boolean; readonly stationar
 export const ALL_EVENTS: EventFilter = { configurations: true, stationaryPoints: true };
 
 /** Phases this close (rad) count as the same phase. */
-const PHASE_EPSILON = 1e-9;
+const PHASE_EPSILON: number = SYNODIC_EVENTS_SETTINGS.PHASE_EPSILON;
 
 function isInferior(aObserver: number, aTarget: number): boolean {
   return aTarget < aObserver;

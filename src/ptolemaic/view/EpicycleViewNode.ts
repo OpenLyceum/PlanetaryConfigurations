@@ -1,3 +1,4 @@
+import { EPICYCLE_VIEW_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * EpicycleViewNode.ts
  *
@@ -23,7 +24,7 @@ import {
 import type { PtolemaicModel } from "../model/PtolemaicModel.js";
 
 /** Fraction of the half-size used by the Sun's circle. */
-const FILL_FRACTION = 0.86;
+const FILL_FRACTION: number = EPICYCLE_VIEW_NODE_SETTINGS.FILL_FRACTION;
 
 /** The planet's display name: the preset's planet, or a generic "Planet" for custom parameters. */
 export function ptolemaicPlanetNameProperty(model: PtolemaicModel): TReadOnlyProperty<string> {
@@ -54,46 +55,92 @@ export class EpicycleViewNode extends Node {
     const toView = (q: Vector2): Vector2 => new Vector2(center.x + q.x * scale, center.y - q.y * scale);
 
     this.addChild(
-      new Rectangle(0, 0, size, size, 8, 8, {
-        fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
-        stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
-      }),
+      new Rectangle(
+        0,
+        0,
+        size,
+        size,
+        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
+        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
+        {
+          fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
+          stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
+        },
+      ),
     );
-    const content = new Node({ clipArea: Shape.roundRect(0, 0, size, size, 8, 8) });
+    const content = new Node({
+      clipArea: Shape.roundRect(
+        0,
+        0,
+        size,
+        size,
+        EPICYCLE_VIEW_NODE_SETTINGS.CONTENT_CORNER_X,
+        EPICYCLE_VIEW_NODE_SETTINGS.CONTENT_CORNER_Y,
+      ),
+    });
     this.addChild(content);
 
     const sunCircle = new Circle(PTOLEMAIC_SUN_ORBIT_RADIUS * scale, {
       center,
       stroke: PlanetaryConfigurationsColors.faintOrbitColorProperty,
-      lineDash: [4, 5],
+      lineDash: [
+        EPICYCLE_VIEW_NODE_SETTINGS.SUN_CIRCLE_LINE_DASH_DASH,
+        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_SUN_CIRCLE_LINE_DASH_DASH,
+      ],
     });
-    const deferent = new Circle(scale, { stroke: PlanetaryConfigurationsColors.deferentColorProperty, lineWidth: 1.5 });
-    const deferentCenter = new Circle(3, { fill: PlanetaryConfigurationsColors.deferentColorProperty });
-    const epicycle = new Circle(1, { stroke: PlanetaryConfigurationsColors.epicycleColorProperty, lineWidth: 1.5 });
-    const epicycleCenter = new Circle(2.5, { fill: PlanetaryConfigurationsColors.epicycleColorProperty });
-    const equantMark = new Path(new Shape().moveTo(-5, -5).lineTo(5, 5).moveTo(-5, 5).lineTo(5, -5), {
-      stroke: PlanetaryConfigurationsColors.equantColorProperty,
-      lineWidth: 2,
+    const deferent = new Circle(scale, {
+      stroke: PlanetaryConfigurationsColors.deferentColorProperty,
+      lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.DEFERENT_LINE_WIDTH,
     });
+    const deferentCenter = new Circle(EPICYCLE_VIEW_NODE_SETTINGS.DEFERENT_CENTER_RADIUS, {
+      fill: PlanetaryConfigurationsColors.deferentColorProperty,
+    });
+    const epicycle = new Circle(1, {
+      stroke: PlanetaryConfigurationsColors.epicycleColorProperty,
+      lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.EPICYCLE_LINE_WIDTH,
+    });
+    const epicycleCenter = new Circle(EPICYCLE_VIEW_NODE_SETTINGS.EPICYCLE_CENTER_RADIUS, {
+      fill: PlanetaryConfigurationsColors.epicycleColorProperty,
+    });
+    const equantMark = new Path(
+      new Shape()
+        .moveTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y)
+        .lineTo(
+          EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X_SEGMENT_2,
+          EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y_SEGMENT_2,
+        )
+        .moveTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X_MOVE_TO_Y)
+        .lineTo(EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_X_SEGMENT_2, EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_Y),
+      {
+        stroke: PlanetaryConfigurationsColors.equantColorProperty,
+        lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_MARK_LINE_WIDTH,
+      },
+    );
     const equantLabel = new Text(p.equantStringProperty, {
       font: SMALL_FONT,
       fill: PlanetaryConfigurationsColors.equantColorProperty,
-      maxWidth: 80,
+      maxWidth: EPICYCLE_VIEW_NODE_SETTINGS.EQUANT_LABEL_MAX_WIDTH,
     });
     const equant = new Node({ children: [equantMark, equantLabel] });
     equantLabel.boundsProperty.link(() => {
-      equantLabel.left = 8;
-      equantLabel.centerY = -10;
+      equantLabel.left = EPICYCLE_VIEW_NODE_SETTINGS.LEFT_LEFT;
+      equantLabel.centerY = EPICYCLE_VIEW_NODE_SETTINGS.CENTER_Y_CENTER_Y;
     });
-    const path = new Path(null, { stroke: PlanetaryConfigurationsColors.pathColorProperty, lineWidth: 1.5 });
+    const path = new Path(null, {
+      stroke: PlanetaryConfigurationsColors.pathColorProperty,
+      lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.PATH_LINE_WIDTH,
+    });
     const sunLine = new Path(null, {
       stroke: PlanetaryConfigurationsColors.sunLineColorProperty,
-      lineDash: [6, 4],
-      lineWidth: 1.5,
+      lineDash: [
+        EPICYCLE_VIEW_NODE_SETTINGS.SUN_LINE_LINE_DASH_DASH,
+        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_SUN_LINE_LINE_DASH_DASH,
+      ],
+      lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.SUN_LINE_LINE_WIDTH,
     });
     const planetLine = new Path(null, {
       stroke: PlanetaryConfigurationsColors.targetLineColorProperty,
-      lineWidth: 1.5,
+      lineWidth: EPICYCLE_VIEW_NODE_SETTINGS.PLANET_LINE_LINE_WIDTH,
     });
     const sun = new BodyNode(SUN_RADIUS, PlanetaryConfigurationsColors.sunColorProperty, {
       glow: true,
@@ -126,7 +173,7 @@ export class EpicycleViewNode extends Node {
       deferent.center = toView(g.deferentCenter);
       deferentCenter.center = toView(g.deferentCenter);
       equant.translation = toView(g.equant);
-      epicycle.radius = Math.max(0.01, epicycleSize * scale);
+      epicycle.radius = Math.max(EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_RADIUS, epicycleSize * scale);
       epicycle.center = toView(g.epicycleCenter);
       epicycleCenter.center = toView(g.epicycleCenter);
       const s = toView(g.sun);

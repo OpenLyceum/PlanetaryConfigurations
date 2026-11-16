@@ -1,3 +1,4 @@
+import { ZODIAC_STRIP_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ZodiacStripNode.ts
  *
@@ -45,14 +46,14 @@ export type ZodiacStripNodeOptions = {
   readonly referenceTargetLongitudeProperty?: TReadOnlyProperty<number | null>;
 };
 
-const HEADER_HEIGHT = 17;
-const CAPTION_HEIGHT = 15;
-const SUN_MARKER_RADIUS = 7;
-const TARGET_MARKER_RADIUS = 5;
-const STAR_RADIUS = 1.2;
-const REFERENCE_TRIANGLE_SIZE = 6;
-const CONSTELLATION_LABEL_FONT = new PhetFont(9);
-const DIRECTION_FONT = new PhetFont({ size: 11, weight: "bold" });
+const HEADER_HEIGHT: number = ZODIAC_STRIP_NODE_SETTINGS.HEADER_HEIGHT;
+const CAPTION_HEIGHT: number = ZODIAC_STRIP_NODE_SETTINGS.CAPTION_HEIGHT;
+const SUN_MARKER_RADIUS: number = ZODIAC_STRIP_NODE_SETTINGS.SUN_MARKER_RADIUS;
+const TARGET_MARKER_RADIUS: number = ZODIAC_STRIP_NODE_SETTINGS.TARGET_MARKER_RADIUS;
+const STAR_RADIUS: number = ZODIAC_STRIP_NODE_SETTINGS.STAR_RADIUS;
+const REFERENCE_TRIANGLE_SIZE: number = ZODIAC_STRIP_NODE_SETTINGS.REFERENCE_TRIANGLE_SIZE;
+const CONSTELLATION_LABEL_FONT = new PhetFont(ZODIAC_STRIP_NODE_SETTINGS.CONSTELLATION_LABEL_FONT_SIZE);
+const DIRECTION_FONT = new PhetFont({ size: ZODIAC_STRIP_NODE_SETTINGS.DIRECTION_FONT_SIZE, weight: "bold" });
 
 export class ZodiacStripNode extends Node {
   public constructor(options: ZodiacStripNodeOptions) {
@@ -67,12 +68,12 @@ export class ZodiacStripNode extends Node {
     const eastText = new Text(`← ${common.eastStringProperty.value}`, {
       font: DIRECTION_FONT,
       fill: PlanetaryConfigurationsColors.eastLabelColorProperty,
-      maxWidth: width * 0.2,
+      maxWidth: width * ZODIAC_STRIP_NODE_SETTINGS.EAST_TEXT_MAX_WIDTH_FACTOR,
     });
     const westText = new Text(`${common.westStringProperty.value} →`, {
       font: DIRECTION_FONT,
       fill: PlanetaryConfigurationsColors.westLabelColorProperty,
-      maxWidth: width * 0.2,
+      maxWidth: width * ZODIAC_STRIP_NODE_SETTINGS.WEST_TEXT_MAX_WIDTH_FACTOR,
     });
     common.eastStringProperty.link((east) => {
       eastText.string = `← ${east}`;
@@ -82,9 +83,9 @@ export class ZodiacStripNode extends Node {
       westText.right = width;
     });
     const title = new Text(options.titleStringProperty, {
-      font: new PhetFont({ size: 12, weight: "bold" }),
+      font: new PhetFont({ size: ZODIAC_STRIP_NODE_SETTINGS.TITLE_FONT_SIZE, weight: "bold" }),
       fill: PlanetaryConfigurationsColors.textColorProperty,
-      maxWidth: width * 0.55,
+      maxWidth: width * ZODIAC_STRIP_NODE_SETTINGS.TITLE_MAX_WIDTH_FACTOR,
     });
     title.boundsProperty.link(() => {
       title.centerX = width / 2;
@@ -162,7 +163,7 @@ export class ZodiacStripNode extends Node {
           const name = new Text(nameProperty, {
             font: CONSTELLATION_LABEL_FONT,
             fill: PlanetaryConfigurationsColors.zodiacLabelColorProperty,
-            maxWidth: width / 13,
+            maxWidth: width / ZODIAC_STRIP_NODE_SETTINGS.NAME_MAX_WIDTH_FACTOR,
           });
           name.boundsProperty.link(() => {
             name.centerX = meanX + dx;
@@ -181,13 +182,18 @@ export class ZodiacStripNode extends Node {
           .lineTo(REFERENCE_TRIANGLE_SIZE, 0)
           .lineTo(0, REFERENCE_TRIANGLE_SIZE * 1.4)
           .close(),
-        { fill, stroke: PlanetaryConfigurationsColors.referenceTickColorProperty, lineWidth: 0.75, y: bandTop },
+        {
+          fill,
+          stroke: PlanetaryConfigurationsColors.referenceTickColorProperty,
+          lineWidth: ZODIAC_STRIP_NODE_SETTINGS.TRIANGLE_LINE_WIDTH,
+          y: bandTop,
+        },
       );
       const line = new Line(0, bandTop, 0, bandTop + ZODIAC_BAND_HEIGHT, {
         stroke: PlanetaryConfigurationsColors.referenceTickColorProperty,
-        lineDash: [3, 3],
+        lineDash: [ZODIAC_STRIP_NODE_SETTINGS.LINE_LINE_DASH_DASH, ZODIAC_STRIP_NODE_SETTINGS.LINE_LINE_DASH_DASH],
         lineWidth: 1,
-        opacity: 0.6,
+        opacity: ZODIAC_STRIP_NODE_SETTINGS.LINE_OPACITY,
       });
       return { node: new Node({ children: [line, triangle], visible: false, pickable: false }), triangle };
     };
@@ -246,12 +252,12 @@ export class ZodiacStripNode extends Node {
     );
     const directPath = new Path(null, {
       stroke: PlanetaryConfigurationsColors.trailColorProperty,
-      lineWidth: 1.5,
+      lineWidth: ZODIAC_STRIP_NODE_SETTINGS.DIRECT_PATH_LINE_WIDTH,
       pickable: false,
     });
     const retrogradePath = new Path(null, {
       stroke: PlanetaryConfigurationsColors.retrogradeColorProperty,
-      lineWidth: 2.5,
+      lineWidth: ZODIAC_STRIP_NODE_SETTINGS.RETROGRADE_PATH_LINE_WIDTH,
       pickable: false,
     });
     const lane = new Node({
@@ -259,7 +265,7 @@ export class ZodiacStripNode extends Node {
       clipArea: Shape.rectangle(0, laneTop, width, HISTORY_LANE_HEIGHT),
     });
     this.addChild(lane);
-    const laneInset = 3;
+    const laneInset: number = ZODIAC_STRIP_NODE_SETTINGS.LANE_INSET;
     options.trailProperty.link((samples) => {
       const direct = new Shape();
       const retrograde = new Shape();
@@ -297,7 +303,7 @@ export class ZodiacStripNode extends Node {
     const retrogradeKey = new Text(common.retrogradeStringProperty, {
       font: SMALL_FONT,
       fill: PlanetaryConfigurationsColors.retrogradeColorProperty,
-      maxWidth: width * 0.4,
+      maxWidth: width * ZODIAC_STRIP_NODE_SETTINGS.RETROGRADE_KEY_MAX_WIDTH_FACTOR,
     });
     retrogradeKey.boundsProperty.link(() => {
       retrogradeKey.right = width;

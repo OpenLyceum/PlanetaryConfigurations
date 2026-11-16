@@ -1,3 +1,4 @@
+import { CONFIGURATIONS_MODEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ConfigurationsModel.ts
  *
@@ -28,19 +29,25 @@ import PlanetaryConfigurationsNamespace from "../../PlanetaryConfigurationsNames
 const EARTH_LONGITUDE = -Math.PI / 2;
 
 /** Orbit-radius ranges (AU) and defaults for each kind of hypothetical planet. */
-export const SUPERIOR_A_RANGE = new Range(1.2, 4);
-export const INFERIOR_A_RANGE = new Range(0.2, 0.9);
-const SUPERIOR_A_DEFAULT = 2;
-const INFERIOR_A_DEFAULT = 0.6;
+export const SUPERIOR_A_RANGE = new Range(
+  CONFIGURATIONS_MODEL_SETTINGS.SUPERIOR_A_RANGE_MIN,
+  CONFIGURATIONS_MODEL_SETTINGS.SUPERIOR_A_RANGE_MAX,
+);
+export const INFERIOR_A_RANGE = new Range(
+  CONFIGURATIONS_MODEL_SETTINGS.INFERIOR_A_RANGE_MIN,
+  CONFIGURATIONS_MODEL_SETTINGS.INFERIOR_A_RANGE_MAX,
+);
+const SUPERIOR_A_DEFAULT: number = CONFIGURATIONS_MODEL_SETTINGS.SUPERIOR_A_DEFAULT;
+const INFERIOR_A_DEFAULT: number = CONFIGURATIONS_MODEL_SETTINGS.INFERIOR_A_DEFAULT;
 
 /** The planet starts here (heliocentric longitude, rad): no named configuration. */
-const INITIAL_LONGITUDE = toRadians(20);
+const INITIAL_LONGITUDE = toRadians(CONFIGURATIONS_MODEL_SETTINGS.INITIAL_LONGITUDE_DEGREES);
 
 /** A drag ends on a configuration within this angle (rad, in heliocentric phase). */
-const SNAP_ANGLE = toRadians(4);
+const SNAP_ANGLE = toRadians(CONFIGURATIONS_MODEL_SETTINGS.SNAP_ANGLE_DEGREES);
 
 /** The planet "is at" a configuration within this angle (rad, in heliocentric phase). */
-const AT_EVENT_ANGLE = toRadians(0.6);
+const AT_EVENT_ANGLE = toRadians(CONFIGURATIONS_MODEL_SETTINGS.AT_EVENT_ANGLE_DEGREES);
 
 /** Where a named configuration lies on the current planet's orbit. */
 export type ConfigurationPosition = { readonly event: ConfigurationEvent; readonly position: Vector2 };

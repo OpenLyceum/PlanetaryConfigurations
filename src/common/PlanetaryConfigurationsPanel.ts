@@ -1,3 +1,4 @@
+import { PLANETARY_CONFIGURATIONS_PANEL_SETTINGS } from "../PlanetaryConfigurationsConstants.js";
 /**
  * PlanetaryConfigurationsPanel.ts
  *
@@ -40,8 +41,8 @@ export class PlanetaryConfigurationsPanel extends Panel {
         fill: PlanetaryConfigurationsColors.panelBackgroundColorProperty,
         stroke: PlanetaryConfigurationsColors.panelBorderColorProperty,
         cornerRadius: PANEL_CORNER_RADIUS,
-        xMargin: 12,
-        yMargin: 10,
+        xMargin: PLANETARY_CONFIGURATIONS_PANEL_SETTINGS.OPTIONS_X_MARGIN,
+        yMargin: PLANETARY_CONFIGURATIONS_PANEL_SETTINGS.OPTIONS_Y_MARGIN,
       },
       providedOptions,
     );

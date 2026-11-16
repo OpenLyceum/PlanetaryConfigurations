@@ -1,3 +1,4 @@
+import { PTOLEMAIC_SCREEN_VIEW_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PtolemaicScreenView.ts
  *
@@ -69,11 +70,11 @@ export class PtolemaicScreenView extends ScreenView {
       new Text(stringProperty, {
         font: READOUT_FONT,
         fill: PlanetaryConfigurationsColors.textColorProperty,
-        maxWidth: innerWidth * 0.55,
+        maxWidth: innerWidth * PTOLEMAIC_SCREEN_VIEW_SETTINGS.VALUE_MAX_WIDTH_FACTOR,
       });
     const name = (stringProperty: TReadOnlyProperty<string>): Text =>
       label(stringProperty, {
-        maxWidth: innerWidth * 0.43,
+        maxWidth: innerWidth * PTOLEMAIC_SCREEN_VIEW_SETTINGS.NAME_MAX_WIDTH_FACTOR,
         fill: PlanetaryConfigurationsColors.secondaryTextColorProperty,
       });
     const motionText = value(
@@ -88,8 +89,8 @@ export class PtolemaicScreenView extends ScreenView {
         : PlanetaryConfigurationsColors.textColorProperty;
     });
     const grid = new GridBox({
-      xSpacing: 8,
-      ySpacing: 5,
+      xSpacing: PTOLEMAIC_SCREEN_VIEW_SETTINGS.GRID_X_SPACING,
+      ySpacing: PTOLEMAIC_SCREEN_VIEW_SETTINGS.GRID_Y_SPACING,
       xAlign: "left",
       rows: [
         [
@@ -122,7 +123,7 @@ export class PtolemaicScreenView extends ScreenView {
         spacing: PANEL_ROW_SPACING,
         children: [
           heading(p.showStringProperty, innerWidth),
-          new VBox({ align: "left", spacing: 5, children: boxes }),
+          new VBox({ align: "left", spacing: PTOLEMAIC_SCREEN_VIEW_SETTINGS.READOUT_PANEL_SPACING, children: boxes }),
           grid,
           resetTimeButton,
         ],
@@ -137,7 +138,7 @@ export class PtolemaicScreenView extends ScreenView {
         planet: common.earthStringProperty,
       }),
       captionStringProperty: new PatternStringProperty(common.pastPatternStringProperty, {
-        years: fixed(model.pathYears, 2),
+        years: fixed(model.pathYears, PTOLEMAIC_SCREEN_VIEW_SETTINGS.ZODIAC_STRIP_DECIMALS),
       }),
       sunLongitudeProperty: model.sunLongitudeProperty,
       targetLongitudeProperty: model.planetLongitudeProperty,
@@ -165,7 +166,11 @@ export class PtolemaicScreenView extends ScreenView {
     this.addChild(placeInRegion(zodiacStrip, layout.strip, { xAlign: "left", yAlign: "bottom" }));
     this.addChild(
       placeInRegion(
-        new VBox({ spacing: 14, align: "right", children: [timeControlNode, resetAllButton] }),
+        new VBox({
+          spacing: PTOLEMAIC_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_SPACING,
+          align: "right",
+          children: [timeControlNode, resetAllButton],
+        }),
         layout.time,
         { xAlign: "right", yAlign: "bottom" },
       ),

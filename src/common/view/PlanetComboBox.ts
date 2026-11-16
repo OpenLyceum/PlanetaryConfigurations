@@ -1,3 +1,4 @@
+import { PLANET_COMBO_BOX_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PlanetComboBox.ts
  *
@@ -25,16 +26,16 @@ export class PlanetComboBox extends ComboBox<PlanetChoice> {
     property: Property<PlanetChoice>,
     listParent: Node,
     accessibleName: TReadOnlyProperty<string>,
-    maxTextWidth = 110,
+    maxTextWidth: number = PLANET_COMBO_BOX_SETTINGS.DEFAULT_MAX_TEXT_WIDTH,
   ) {
     const strings = StringManager.getInstance();
     const items: ComboBoxItem<PlanetChoice>[] = CHOICES.map((choice) => ({
       value: choice,
       createNode: () =>
         new HBox({
-          spacing: 6,
+          spacing: PLANET_COMBO_BOX_SETTINGS.ITEMS_SPACING,
           children: [
-            new Circle(6, { fill: PLANET_COLORS[choice.key] }),
+            new Circle(PLANET_COMBO_BOX_SETTINGS.ITEMS_RADIUS, { fill: PLANET_COLORS[choice.key] }),
             new Text(strings.getPlanetName(choice.key), {
               font: LABEL_FONT,
               fill: LIGHT_SURFACE_TEXT_FILL,
@@ -46,8 +47,8 @@ export class PlanetComboBox extends ComboBox<PlanetChoice> {
     }));
     super(property, items, listParent, {
       ...PLANETARY_CONFIGURATIONS_COMBO_BOX_OPTIONS,
-      xMargin: 8,
-      yMargin: 4,
+      xMargin: PLANET_COMBO_BOX_SETTINGS.CONSTRUCTOR_X_MARGIN,
+      yMargin: PLANET_COMBO_BOX_SETTINGS.CONSTRUCTOR_Y_MARGIN,
       accessibleName,
     });
   }

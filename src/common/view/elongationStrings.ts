@@ -1,3 +1,4 @@
+import { ELONGATION_STRINGS_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * elongationStrings.ts
  *
@@ -11,7 +12,7 @@ import { skyVisibility, toDegrees } from "../model/orbitalMath.js";
 import { fixed } from "./viewUtils.js";
 
 /** Elongations within this many degrees of 0° or 180° show no east/west direction. */
-const NO_DIRECTION_DEGREES = 0.05;
+const NO_DIRECTION_DEGREES: number = ELONGATION_STRINGS_SETTINGS.NO_DIRECTION_DEGREES;
 
 /** A localized "{{value}}° {{direction}}" readout of a signed elongation (rad). */
 export function elongationStringProperty(elongationProperty: TReadOnlyProperty<number>): TReadOnlyProperty<string> {

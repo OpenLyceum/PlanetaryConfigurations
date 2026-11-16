@@ -9,6 +9,7 @@ import { Circle, Line, Node, Path, Rectangle } from "scenerystack/scenery";
 import { ArrowNode } from "scenerystack/scenery-phet";
 import { ScreenIcon } from "scenerystack/sim";
 import PlanetaryConfigurationsColors, { PLANET_COLORS } from "../PlanetaryConfigurationsColors.js";
+import { PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS } from "../PlanetaryConfigurationsConstants.js";
 
 const W = 548;
 const H = 373;
@@ -37,7 +38,12 @@ function sun(x: number, y: number, r = 22): Node {
 }
 
 function orbit(x: number, y: number, r: number): Circle {
-  return new Circle(r, { x, y, stroke: PlanetaryConfigurationsColors.orbitColorProperty, lineWidth: 4 });
+  return new Circle(r, {
+    x,
+    y,
+    stroke: PlanetaryConfigurationsColors.orbitColorProperty,
+    lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.ORBIT_LINE_WIDTH,
+  });
 }
 
 /** Orbits: four planets with speed arrows shrinking outward. */
@@ -59,12 +65,18 @@ export function createOrbitsIcon(): ScreenIcon {
       new ArrowNode(x, y, x - p.v * Math.sin(p.angle), y - p.v * Math.cos(p.angle), {
         fill: PlanetaryConfigurationsColors.speedArrowColorProperty,
         stroke: null,
-        headWidth: 22,
-        headHeight: 18,
-        tailWidth: 7,
+        headWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_ORBITS_ICON_HEAD_WIDTH,
+        headHeight: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_ORBITS_ICON_HEAD_HEIGHT,
+        tailWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_ORBITS_ICON_TAIL_WIDTH,
       }),
     );
-    children.push(new Circle(13, { x, y, fill: PLANET_COLORS[p.key] }));
+    children.push(
+      new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_ORBITS_ICON_RADIUS, {
+        x,
+        y,
+        fill: PLANET_COLORS[p.key],
+      }),
+    );
   }
   return iconFrom(...children);
 }
@@ -85,23 +97,40 @@ export function createConfigurationsIcon(): ScreenIcon {
     orbit(sx, sy, 150),
     new Line(ex, ey, sx, sy, {
       stroke: PlanetaryConfigurationsColors.sunLineColorProperty,
-      lineWidth: 6,
-      lineDash: [14, 10],
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_LINE_WIDTH,
+      lineDash: [PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_LINE_DASH_DASH, 10],
     }),
-    new Line(ex, ey, px, py, { stroke: PlanetaryConfigurationsColors.targetLineColorProperty, lineWidth: 6 }),
-    new Path(new Shape().arc(ex, ey, 70, angleSun, anglePlanet, false), {
-      stroke: PlanetaryConfigurationsColors.elongationArcColorProperty,
-      lineWidth: 7,
+    new Line(ex, ey, px, py, {
+      stroke: PlanetaryConfigurationsColors.targetLineColorProperty,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_LINE_WIDTH,
     }),
+    new Path(
+      new Shape().arc(
+        ex,
+        ey,
+        PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_RADIUS,
+        angleSun,
+        anglePlanet,
+        false,
+      ),
+      {
+        stroke: PlanetaryConfigurationsColors.elongationArcColorProperty,
+        lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_LINE_WIDTH_VARIANT_2,
+      },
+    ),
     sun(sx, sy),
-    new Circle(17, {
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_RADIUS_SEGMENT_2, {
       x: ex,
       y: ey,
       fill: PLANET_COLORS.earth,
       stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
-      lineWidth: 4,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_LINE_WIDTH_VARIANT_3,
     }),
-    new Circle(15, { x: px, y: py, fill: PLANET_COLORS.hypothetical }),
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_CONFIGURATIONS_ICON_RADIUS_SEGMENT_3, {
+      x: px,
+      y: py,
+      fill: PLANET_COLORS.hypothetical,
+    }),
   );
 }
 
@@ -109,7 +138,10 @@ export function createConfigurationsIcon(): ScreenIcon {
 export function createSynodicMotionIcon(): ScreenIcon {
   const cx = W / 2;
   const cy = 130;
-  const zigzag = new Shape().moveTo(40, 345);
+  const zigzag = new Shape().moveTo(
+    PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.ZIGZAG_X,
+    PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.ZIGZAG_Y,
+  );
   const points = [
     [140, 330],
     [250, 300],
@@ -129,37 +161,67 @@ export function createSynodicMotionIcon(): ScreenIcon {
     sun(cx, cy, 18),
     new Line(cx + 60, cy, cx + 105 * Math.cos(0.5), cy - 105 * Math.sin(0.5), {
       stroke: PlanetaryConfigurationsColors.targetLineColorProperty,
-      lineWidth: 5,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_LINE_WIDTH,
     }),
-    new Circle(14, {
-      x: cx + 60,
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_RADIUS, {
+      x: cx + PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_X_OFFSET,
       y: cy,
       fill: PLANET_COLORS.earth,
       stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
-      lineWidth: 4,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_LINE_WIDTH_VARIANT_2,
     }),
-    new Circle(13, { x: cx + 105 * Math.cos(0.5), y: cy - 105 * Math.sin(0.5), fill: PLANET_COLORS.mars }),
-    new Rectangle(20, 200, W - 40, 160, 10, 10, {
-      fill: PlanetaryConfigurationsColors.zodiacBandColorProperty,
-      stroke: PlanetaryConfigurationsColors.zodiacBorderColorProperty,
-      lineWidth: 3,
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_RADIUS_SEGMENT_2, {
+      x: cx + PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_X_FACTOR * Math.cos(0.5),
+      y: cy - PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_Y_FACTOR * Math.sin(0.5),
+      fill: PLANET_COLORS.mars,
     }),
-    new Path(zigzag, { stroke: PlanetaryConfigurationsColors.trailColorProperty, lineWidth: 8 }),
-    new Path(new Shape().moveTo(300, 285).lineTo(270, 270).lineTo(240, 258), {
-      stroke: PlanetaryConfigurationsColors.retrogradeColorProperty,
-      lineWidth: 10,
+    new Rectangle(
+      PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_X,
+      PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_Y,
+      W - 40,
+      PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_HEIGHT,
+      PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_CORNER_X,
+      PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_CORNER_Y,
+      {
+        fill: PlanetaryConfigurationsColors.zodiacBandColorProperty,
+        stroke: PlanetaryConfigurationsColors.zodiacBorderColorProperty,
+        lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_LINE_WIDTH_VARIANT_3,
+      },
+    ),
+    new Path(zigzag, {
+      stroke: PlanetaryConfigurationsColors.trailColorProperty,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_LINE_WIDTH_VARIANT_4,
     }),
+    new Path(
+      new Shape()
+        .moveTo(
+          PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_X_SEGMENT_2,
+          PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_Y_SEGMENT_2,
+        )
+        .lineTo(
+          PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_X_SEGMENT_3,
+          PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_Y_SEGMENT_3,
+        )
+        .lineTo(
+          PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_X_SEGMENT_4,
+          PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_Y_SEGMENT_4,
+        ),
+      {
+        stroke: PlanetaryConfigurationsColors.retrogradeColorProperty,
+        lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_SYNODIC_MOTION_ICON_LINE_WIDTH_VARIANT_5,
+      },
+    ),
   );
 }
 
 /** Periods: the synodic-period curve diverging at Earth's orbit and levelling off at one year. */
 export function createPeriodsIcon(): ScreenIcon {
-  const left = 60;
-  const bottom = 330;
+  const left: number = PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.LEFT;
+  const bottom: number = PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.BOTTOM;
   const oneYear = 230;
   const asymptoteX = 230;
   const branchA = new Shape().moveTo(left, bottom - 5);
-  const branchB = new Shape().moveTo(asymptoteX + 18, 30);
+  const branchB = new Shape().moveTo(asymptoteX + 18, PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.BRANCH_B_Y);
   for (let i = 1; i <= 40; i++) {
     const f = i / 40;
     branchA.lineTo(left + f * (asymptoteX - 12 - left), bottom - 5 - 300 * f ** 4);
@@ -168,28 +230,48 @@ export function createPeriodsIcon(): ScreenIcon {
   return iconFrom(
     new Path(
       new Shape()
-        .moveTo(left, 20)
+        .moveTo(left, PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_Y)
         .lineTo(left, bottom)
         .lineTo(W - 30, bottom),
       {
         stroke: PlanetaryConfigurationsColors.chartAxisColorProperty,
-        lineWidth: 5,
+        lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_WIDTH,
       },
     ),
-    new Line(asymptoteX, 20, asymptoteX, bottom, {
-      stroke: PlanetaryConfigurationsColors.asymptoteColorProperty,
-      lineWidth: 4,
-      lineDash: [12, 10],
-    }),
+    new Line(
+      asymptoteX,
+      PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_START_Y,
+      asymptoteX,
+      bottom,
+      {
+        stroke: PlanetaryConfigurationsColors.asymptoteColorProperty,
+        lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_WIDTH_VARIANT_2,
+        lineDash: [PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_DASH_DASH, 10],
+      },
+    ),
     new Line(left, oneYear, W - 30, oneYear, {
       stroke: PlanetaryConfigurationsColors.asymptoteColorProperty,
-      lineWidth: 4,
-      lineDash: [12, 10],
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_WIDTH_VARIANT_2,
+      lineDash: [PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_DASH_DASH, 10],
     }),
-    new Path(branchA, { stroke: PlanetaryConfigurationsColors.synodicCurveColorProperty, lineWidth: 9 }),
-    new Path(branchB, { stroke: PlanetaryConfigurationsColors.synodicCurveColorProperty, lineWidth: 9 }),
-    new Circle(16, { x: 380, y: oneYear - 8, fill: PLANET_COLORS.jupiter }),
-    new Circle(16, { x: 300, y: 150, fill: PLANET_COLORS.mars }),
+    new Path(branchA, {
+      stroke: PlanetaryConfigurationsColors.synodicCurveColorProperty,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_WIDTH_VARIANT_3,
+    }),
+    new Path(branchB, {
+      stroke: PlanetaryConfigurationsColors.synodicCurveColorProperty,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_LINE_WIDTH_VARIANT_3,
+    }),
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_RADIUS, {
+      x: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_X,
+      y: oneYear - PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_Y_OFFSET,
+      fill: PLANET_COLORS.jupiter,
+    }),
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_RADIUS, {
+      x: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_X_VARIANT_2,
+      y: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PERIODS_ICON_Y_VARIANT_2,
+      fill: PLANET_COLORS.mars,
+    }),
   );
 }
 
@@ -211,21 +293,39 @@ export function createPtolemaicIcon(): ScreenIcon {
   const epicycleX = cx + 120 * Math.cos(0.9);
   const epicycleY = cy - 120 * Math.sin(0.9);
   return iconFrom(
-    new Path(loop, { stroke: PlanetaryConfigurationsColors.pathColorProperty, lineWidth: 6 }),
-    new Circle(120, { x: cx, y: cy, stroke: PlanetaryConfigurationsColors.deferentColorProperty, lineWidth: 5 }),
-    new Circle(50, {
+    new Path(loop, {
+      stroke: PlanetaryConfigurationsColors.pathColorProperty,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_LINE_WIDTH,
+    }),
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_RADIUS, {
+      x: cx,
+      y: cy,
+      stroke: PlanetaryConfigurationsColors.deferentColorProperty,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_LINE_WIDTH_VARIANT_2,
+    }),
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_RADIUS_SEGMENT_2, {
       x: epicycleX,
       y: epicycleY,
       stroke: PlanetaryConfigurationsColors.epicycleColorProperty,
-      lineWidth: 5,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_LINE_WIDTH_VARIANT_2,
     }),
-    new Circle(16, {
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_RADIUS_SEGMENT_3, {
       x: cx,
       y: cy,
       fill: PLANET_COLORS.earth,
       stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
-      lineWidth: 4,
+      lineWidth: PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_LINE_WIDTH_VARIANT_3,
     }),
-    new Circle(13, { x: epicycleX + 50 * Math.cos(2.6), y: epicycleY - 50 * Math.sin(2.6), fill: PLANET_COLORS.mars }),
+    new Circle(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_RADIUS_SEGMENT_4, {
+      x:
+        epicycleX +
+        PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_X_FACTOR *
+          Math.cos(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_X),
+      y:
+        epicycleY -
+        PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_Y_FACTOR *
+          Math.sin(PLANETARY_CONFIGURATIONS_SCREEN_ICONS_SETTINGS.CREATE_PTOLEMAIC_ICON_Y),
+      fill: PLANET_COLORS.mars,
+    }),
   );
 }

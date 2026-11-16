@@ -1,3 +1,4 @@
+import { PERIOD_CALCULATOR_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PeriodCalculatorPanel.ts
  *
@@ -82,7 +83,11 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
     );
     const unitPattern = (unit: TimeUnit): TReadOnlyProperty<string> =>
       unit === TimeUnit.YEARS ? common.yearsPatternStringProperty : common.daysPatternStringProperty;
-    const inputText = new Text("", { font: READOUT_FONT, fill: LIGHT_SURFACE_TEXT_FILL, maxWidth: innerWidth - 40 });
+    const inputText = new Text("", {
+      font: READOUT_FONT,
+      fill: LIGHT_SURFACE_TEXT_FILL,
+      maxWidth: innerWidth - PERIOD_CALCULATOR_PANEL_SETTINGS.INPUT_TEXT_MAX_WIDTH_OFFSET,
+    });
     Multilink.multilink(
       [model.inputProperty, model.unitProperty, common.yearsPatternStringProperty, common.daysPatternStringProperty],
       (value, unit) => {
@@ -92,9 +97,9 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
     const inputButton = new RectangularPushButton({
       ...FLAT_PANEL_PUSH_BUTTON_OPTIONS,
       content: inputText,
-      minWidth: 140,
-      xMargin: 10,
-      yMargin: 5,
+      minWidth: PERIOD_CALCULATOR_PANEL_SETTINGS.INPUT_BUTTON_MIN_WIDTH,
+      xMargin: PERIOD_CALCULATOR_PANEL_SETTINGS.INPUT_BUTTON_X_MARGIN,
+      yMargin: PERIOD_CALCULATOR_PANEL_SETTINGS.INPUT_BUTTON_Y_MARGIN,
       accessibleName: a11y.inputStringProperty,
       listener: () => {
         keypadDialog.beginEdit(
@@ -115,8 +120,18 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
     const substituted = new DerivedProperty(
       [model.planetTypeProperty, model.solveForProperty, model.inputYearsProperty, model.resultYearsProperty],
       (type, solveFor, input, result) => {
-        const s = solveFor === SolveFor.SIDEREAL ? fixed(input, 3) : result === null ? "?" : fixed(result, 3);
-        const pValue = solveFor === SolveFor.SYNODIC ? fixed(input, 3) : result === null ? "?" : fixed(result, 3);
+        const s =
+          solveFor === SolveFor.SIDEREAL
+            ? fixed(input, PERIOD_CALCULATOR_PANEL_SETTINGS.S_DECIMALS)
+            : result === null
+              ? "?"
+              : fixed(result, PERIOD_CALCULATOR_PANEL_SETTINGS.S_DECIMALS);
+        const pValue =
+          solveFor === SolveFor.SYNODIC
+            ? fixed(input, PERIOD_CALCULATOR_PANEL_SETTINGS.P_VALUE_DECIMALS)
+            : result === null
+              ? "?"
+              : fixed(result, PERIOD_CALCULATOR_PANEL_SETTINGS.P_VALUE_DECIMALS);
         return type === PlanetType.INFERIOR ? `1/${s} = 1/${pValue} − 1/1` : `1/${s} = 1/1 − 1/${pValue}`;
       },
     );
@@ -131,7 +146,10 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
       (result, pattern) =>
         result === null
           ? ""
-          : StringUtils.fillIn(pattern, { years: fixed(result, 3), days: fixed(result * DAYS_PER_YEAR, 1) }),
+          : StringUtils.fillIn(pattern, {
+              years: fixed(result, PERIOD_CALCULATOR_PANEL_SETTINGS.RESULT_STRING_DECIMALS),
+              days: fixed(result * DAYS_PER_YEAR, 1),
+            }),
     );
     const resultText = new Text(resultString, {
       font: BIG_READOUT_FONT,

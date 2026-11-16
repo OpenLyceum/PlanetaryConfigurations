@@ -1,3 +1,4 @@
+import { PERIODS_MODEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PeriodsModel.ts
  *
@@ -59,7 +60,7 @@ export class TimeUnit extends EnumerationValue {
 }
 
 /** The calculator accepts periods up to this many years. */
-const MAX_PERIOD_YEARS = 200;
+const MAX_PERIOD_YEARS: number = PERIODS_MODEL_SETTINGS.MAX_PERIOD_YEARS;
 
 /** Chart range of the hypothetical planet's distance (AU), stored as log10. */
 export const MARKER_LOG_A_RANGE = new Range(Math.log10(0.2), Math.log10(30));
@@ -73,7 +74,7 @@ export class PeriodsModel implements TModel {
   public readonly unitProperty = new EnumerationProperty(TimeUnit.YEARS);
 
   /** The value typed into the calculator, in `unitProperty` units. Defaults to the handout's Jupiter example. */
-  public readonly inputProperty = new NumberProperty(1.09);
+  public readonly inputProperty = new NumberProperty(PERIODS_MODEL_SETTINGS.INPUT_DEFAULT);
 
   /** log10 of the hypothetical planet's distance (AU). */
   public readonly markerLogAProperty = new NumberProperty(Math.log10(2.5), { range: MARKER_LOG_A_RANGE });

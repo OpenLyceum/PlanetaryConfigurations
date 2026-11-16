@@ -1,3 +1,4 @@
+import { PTOLEMAIC_MODEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PtolemaicModel.ts
  *
@@ -49,13 +50,13 @@ import PlanetaryConfigurationsNamespace from "../../PlanetaryConfigurationsNames
 const PTOLEMAIC_DAYS_PER_SECOND = { slow: 20, normal: 60, fast: 180 } as const;
 
 /** The Sun's ecliptic longitude (degrees) at t = 0. */
-const SUN_EPOCH_DEGREES = 280;
+const SUN_EPOCH_DEGREES: number = PTOLEMAIC_MODEL_SETTINGS.SUN_EPOCH_DEGREES;
 
 /** Days stepped by one press of the step buttons. */
-const STEP_DAYS = 2;
+const STEP_DAYS: number = PTOLEMAIC_MODEL_SETTINGS.STEP_DAYS;
 
 /** Length (days) of the drawn path and motion-history trail. */
-const PATH_DAYS = 900;
+const PATH_DAYS: number = PTOLEMAIC_MODEL_SETTINGS.PATH_DAYS;
 
 /** Ptolemy's parameters for one planet (values from the NAAP simulator). */
 export class PtolemaicPreset extends EnumerationValue {
@@ -296,7 +297,7 @@ export class PtolemaicModel implements TModel {
 
   /** True when the planet's ecliptic longitude is decreasing at time t (days). */
   public static isRetrogradeAt(parameters: Parameters, t: number): boolean {
-    const h = 0.25;
+    const h: number = PTOLEMAIC_MODEL_SETTINGS.VELOCITY_DIFFERENCE_STEP;
     const before = PtolemaicModel.geometryAt(parameters, t - h).planet;
     const after = PtolemaicModel.geometryAt(parameters, t + h).planet;
     return wrapPi(Math.atan2(after.y, after.x) - Math.atan2(before.y, before.x)) < 0;

@@ -1,3 +1,4 @@
+import { SYNODIC_MOTION_MODEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SynodicMotionModel.ts
  *
@@ -70,9 +71,9 @@ import PlanetaryConfigurationsNamespace from "../../PlanetaryConfigurationsNames
 export type PlanetRole = "observer" | "target";
 
 /** Trail length bounds (yr): about one and a quarter synodic periods, clamped to these. */
-const TRAIL_MIN_YEARS = 0.4;
-const TRAIL_MAX_YEARS = 2.5;
-const TRAIL_SYNODIC_FRACTION = 1.25;
+const TRAIL_MIN_YEARS: number = SYNODIC_MOTION_MODEL_SETTINGS.TRAIL_MIN_YEARS;
+const TRAIL_MAX_YEARS: number = SYNODIC_MOTION_MODEL_SETTINGS.TRAIL_MAX_YEARS;
+const TRAIL_SYNODIC_FRACTION: number = SYNODIC_MOTION_MODEL_SETTINGS.TRAIL_SYNODIC_FRACTION;
 
 export class SynodicMotionModel implements TModel {
   public readonly observerChoiceProperty = new EnumerationProperty(PlanetChoice.EARTH);

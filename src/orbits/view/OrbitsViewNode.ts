@@ -1,3 +1,4 @@
+import { ORBITS_VIEW_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * OrbitsViewNode.ts
  *
@@ -20,7 +21,7 @@ import { PLANET_RADIUS, SUN_RADIUS } from "../../PlanetaryConfigurationsConstant
 import { OrbitScale, type OrbitsModel } from "../model/OrbitsModel.js";
 
 /** Speed-arrow length (px) per km/s. */
-const PIXELS_PER_KM_S = 1.5;
+const PIXELS_PER_KM_S: number = ORBITS_VIEW_NODE_SETTINGS.PIXELS_PER_KM_S;
 
 export class OrbitsViewNode extends Node {
   public constructor(model: OrbitsModel, region: Bounds2) {
@@ -30,12 +31,29 @@ export class OrbitsViewNode extends Node {
     const center = new Vector2(size / 2, size / 2);
 
     this.addChild(
-      new Rectangle(0, 0, size, size, 8, 8, {
-        fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
-        stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
-      }),
+      new Rectangle(
+        0,
+        0,
+        size,
+        size,
+        ORBITS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
+        ORBITS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
+        {
+          fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
+          stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
+        },
+      ),
     );
-    const content = new Node({ clipArea: Shape.roundRect(0, 0, size, size, 8, 8) });
+    const content = new Node({
+      clipArea: Shape.roundRect(
+        0,
+        0,
+        size,
+        size,
+        ORBITS_VIEW_NODE_SETTINGS.CONTENT_CORNER_X,
+        ORBITS_VIEW_NODE_SETTINGS.CONTENT_CORNER_Y,
+      ),
+    });
     this.addChild(content);
 
     const orbitLayer = new Node();
@@ -59,9 +77,9 @@ export class OrbitsViewNode extends Node {
       const arrow = new ArrowNode(0, 0, 1, 0, {
         fill: PlanetaryConfigurationsColors.speedArrowColorProperty,
         stroke: null,
-        headWidth: 8,
-        headHeight: 7,
-        tailWidth: 2.5,
+        headWidth: ORBITS_VIEW_NODE_SETTINGS.ARROW_HEAD_WIDTH,
+        headHeight: ORBITS_VIEW_NODE_SETTINGS.ARROW_HEAD_HEIGHT,
+        tailWidth: ORBITS_VIEW_NODE_SETTINGS.ARROW_TAIL_WIDTH,
       });
       arrowLayer.addChild(arrow);
       return { planet, orbit, body, arrow, speed: orbitalSpeed(planet.axis(1)) };

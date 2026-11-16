@@ -1,3 +1,4 @@
+import { PTOLEMAIC_CONTROL_PANEL_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * PtolemaicControlPanel.ts
  *
@@ -50,10 +51,14 @@ export class PtolemaicControlPanel extends PlanetaryConfigurationsPanel {
         value: preset,
         createNode: () =>
           new HBox({
-            spacing: 6,
+            spacing: PTOLEMAIC_CONTROL_PANEL_SETTINGS.PRESET_ITEMS_SPACING,
             children: [
-              new Circle(6, { fill }),
-              new Text(nameProperty, { font: LABEL_FONT, fill: LIGHT_SURFACE_TEXT_FILL, maxWidth: 110 }),
+              new Circle(PTOLEMAIC_CONTROL_PANEL_SETTINGS.PRESET_ITEMS_RADIUS, { fill }),
+              new Text(nameProperty, {
+                font: LABEL_FONT,
+                fill: LIGHT_SURFACE_TEXT_FILL,
+                maxWidth: PTOLEMAIC_CONTROL_PANEL_SETTINGS.PRESET_ITEMS_MAX_WIDTH,
+              }),
             ],
           }),
         accessibleName: nameProperty,
@@ -61,8 +66,8 @@ export class PtolemaicControlPanel extends PlanetaryConfigurationsPanel {
     });
     const presetComboBox = new ComboBox(model.presetProperty, presetItems, listParent, {
       ...PLANETARY_CONFIGURATIONS_COMBO_BOX_OPTIONS,
-      xMargin: 8,
-      yMargin: 4,
+      xMargin: PTOLEMAIC_CONTROL_PANEL_SETTINGS.PRESET_COMBO_BOX_X_MARGIN,
+      yMargin: PTOLEMAIC_CONTROL_PANEL_SETTINGS.PRESET_COMBO_BOX_Y_MARGIN,
       accessibleName: a11y.presetStringProperty,
     });
 
@@ -77,20 +82,20 @@ export class PtolemaicControlPanel extends PlanetaryConfigurationsPanel {
 
     const titleMaxWidth = innerWidth - 100;
     const epicycleSize = numberControl(p.epicycleSizeStringProperty, model.epicycleSizeProperty, EPICYCLE_SIZE_RANGE, {
-      decimalPlaces: 3,
-      delta: 0.005,
+      decimalPlaces: PTOLEMAIC_CONTROL_PANEL_SETTINGS.EPICYCLE_SIZE_DECIMAL_PLACES,
+      delta: PTOLEMAIC_CONTROL_PANEL_SETTINGS.EPICYCLE_SIZE_DELTA,
       accessibleName: a11y.epicycleSizeStringProperty,
       titleMaxWidth,
     });
     const eccentricity = numberControl(p.eccentricityStringProperty, model.eccentricityProperty, ECCENTRICITY_RANGE, {
-      decimalPlaces: 3,
-      delta: 0.005,
+      decimalPlaces: PTOLEMAIC_CONTROL_PANEL_SETTINGS.ECCENTRICITY_DECIMAL_PLACES,
+      delta: PTOLEMAIC_CONTROL_PANEL_SETTINGS.ECCENTRICITY_DELTA,
       accessibleName: a11y.eccentricityStringProperty,
       titleMaxWidth,
     });
     const motionRate = numberControl(p.motionRateStringProperty, model.motionRateProperty, MOTION_RATE_RANGE, {
-      decimalPlaces: 3,
-      delta: 0.01,
+      decimalPlaces: PTOLEMAIC_CONTROL_PANEL_SETTINGS.MOTION_RATE_DECIMAL_PLACES,
+      delta: PTOLEMAIC_CONTROL_PANEL_SETTINGS.MOTION_RATE_DELTA,
       accessibleName: a11y.motionRateStringProperty,
       titleMaxWidth,
     });

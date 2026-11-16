@@ -1,3 +1,4 @@
+import { PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS } from "../PlanetaryConfigurationsConstants.js";
 /**
  * PlanetaryConfigurationsPreferencesNode.ts
  *
@@ -23,34 +24,34 @@ export class PlanetaryConfigurationsPreferencesNode extends VBox {
     // colors (readable on white in both default and projector profiles), not textColorProperty
     // (which is near-white in default mode and would be invisible on the white dialog).
     const header = new Text(prefStrings.titleStringProperty, {
-      font: new PhetFont({ size: 18, weight: "bold" }),
+      font: new PhetFont({ size: PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.HEADER_FONT_SIZE, weight: "bold" }),
       fill: PlanetaryConfigurationsColors.controlSurfaceTextColorProperty,
     });
 
     const showRealPeriodsCheckbox = new Checkbox(
       preferencesModel.showRealPeriodsProperty,
       new Text(prefStrings.showRealPeriodsStringProperty, {
-        font: new PhetFont(14),
+        font: new PhetFont(PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.SHOW_REAL_PERIODS_CHECKBOX_FONT_SIZE),
         fill: PlanetaryConfigurationsColors.controlSurfaceTextColorProperty,
       }),
       {
         checkboxColor: PlanetaryConfigurationsColors.controlSurfaceTextColorProperty,
         checkboxColorBackground: PlanetaryConfigurationsColors.controlSurfaceColorProperty,
-        spacing: 8,
+        spacing: PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.SHOW_REAL_PERIODS_CHECKBOX_SPACING,
         accessibleHelpText: prefStrings.showRealPeriodsHelpStringProperty,
         ...(tandem && { tandem: tandem.createTandem("showRealPeriodsCheckbox") }),
       },
     );
 
     const description = new Text(prefStrings.showRealPeriodsHelpStringProperty, {
-      font: new PhetFont(12),
+      font: new PhetFont(PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.DESCRIPTION_FONT_SIZE),
       fill: PlanetaryConfigurationsColors.controlSurfaceTextColorProperty,
-      maxWidth: 420,
+      maxWidth: PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.DESCRIPTION_MAX_WIDTH,
     });
 
     super({
       align: "left",
-      spacing: 12,
+      spacing: PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.CONSTRUCTOR_SPACING,
       children: [header, showRealPeriodsCheckbox, description],
     });
   }

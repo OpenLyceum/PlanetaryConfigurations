@@ -1,3 +1,4 @@
+import { SYNODIC_ORBIT_VIEW_NODE_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * SynodicOrbitViewNode.ts
  *
@@ -20,7 +21,7 @@ import { OBSERVER_RADIUS, PLANET_RADIUS, SUN_RADIUS } from "../../PlanetaryConfi
 import type { PlanetRole, SynodicMotionModel } from "../model/SynodicMotionModel.js";
 
 /** Fraction of the region's half-width used by the outer orbit. */
-const FILL_FRACTION = 0.8;
+const FILL_FRACTION: number = SYNODIC_ORBIT_VIEW_NODE_SETTINGS.FILL_FRACTION;
 
 export class SynodicOrbitViewNode extends Node {
   /** The focusable planet nodes, in traversal order (observer first). */
@@ -34,12 +35,29 @@ export class SynodicOrbitViewNode extends Node {
     const center = new Vector2(size / 2, size / 2);
 
     this.addChild(
-      new Rectangle(0, 0, size, size, 8, 8, {
-        fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
-        stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
-      }),
+      new Rectangle(
+        0,
+        0,
+        size,
+        size,
+        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
+        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
+        {
+          fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
+          stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
+        },
+      ),
     );
-    const content = new Node({ clipArea: Shape.roundRect(0, 0, size, size, 8, 8) });
+    const content = new Node({
+      clipArea: Shape.roundRect(
+        0,
+        0,
+        size,
+        size,
+        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CONTENT_CORNER_X,
+        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CONTENT_CORNER_Y,
+      ),
+    });
     this.addChild(content);
 
     // Pixels per AU: the larger orbit fills FILL_FRACTION of the half-size.
@@ -49,8 +67,14 @@ export class SynodicOrbitViewNode extends Node {
     );
     const toView = (p: Vector2, scale: number): Vector2 => new Vector2(center.x + p.x * scale, center.y - p.y * scale);
 
-    const observerOrbit = new Circle(1, { stroke: PlanetaryConfigurationsColors.orbitColorProperty, lineWidth: 1.5 });
-    const targetOrbit = new Circle(1, { stroke: PlanetaryConfigurationsColors.orbitColorProperty, lineWidth: 1.5 });
+    const observerOrbit = new Circle(1, {
+      stroke: PlanetaryConfigurationsColors.orbitColorProperty,
+      lineWidth: SYNODIC_ORBIT_VIEW_NODE_SETTINGS.OBSERVER_ORBIT_LINE_WIDTH,
+    });
+    const targetOrbit = new Circle(1, {
+      stroke: PlanetaryConfigurationsColors.orbitColorProperty,
+      lineWidth: SYNODIC_ORBIT_VIEW_NODE_SETTINGS.TARGET_ORBIT_LINE_WIDTH,
+    });
     observerOrbit.center = center;
     targetOrbit.center = center;
     const sun = new BodyNode(SUN_RADIUS, PlanetaryConfigurationsColors.sunColorProperty, { glow: true });

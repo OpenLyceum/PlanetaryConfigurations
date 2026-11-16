@@ -1,3 +1,4 @@
+import { SCREEN_LAYOUT_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
 /**
  * ScreenLayout.ts
  *
@@ -22,16 +23,16 @@ import { AlignBox, type Node } from "scenerystack/scenery";
 import { REGION_GAP, SCREEN_VIEW_MARGIN } from "../../PlanetaryConfigurationsConstants.js";
 
 /** Height of the bottom band holding the zodiac strip (header + sky band + history lane + caption). */
-const STRIP_REGION_HEIGHT = 150;
+const STRIP_REGION_HEIGHT: number = SCREEN_LAYOUT_SETTINGS.STRIP_REGION_HEIGHT;
 
 /** Width of the bottom-right region holding the time controls and Reset All. */
-const TIME_REGION_WIDTH = 196;
+const TIME_REGION_WIDTH: number = SCREEN_LAYOUT_SETTINGS.TIME_REGION_WIDTH;
 
 /** Width of the Periods calculator column. */
-const CALCULATOR_REGION_WIDTH = 318;
+const CALCULATOR_REGION_WIDTH: number = SCREEN_LAYOUT_SETTINGS.CALCULATOR_REGION_WIDTH;
 
 /** Height of the Periods marker / legend band under the chart. */
-const MARKER_REGION_HEIGHT = 112;
+const MARKER_REGION_HEIGHT: number = SCREEN_LAYOUT_SETTINGS.MARKER_REGION_HEIGHT;
 
 export type ViewAndPanelsLayout = {
   readonly view: Bounds2;
@@ -59,7 +60,10 @@ function inner(layoutBounds: Bounds2): Bounds2 {
 }
 
 /** A square orbit view on the left; a panel column on the right with a footer below it. */
-export function viewAndPanelsLayout(layoutBounds: Bounds2, footerHeight = 56): ViewAndPanelsLayout {
+export function viewAndPanelsLayout(
+  layoutBounds: Bounds2,
+  footerHeight: number = SCREEN_LAYOUT_SETTINGS.DEFAULT_FOOTER_HEIGHT,
+): ViewAndPanelsLayout {
   const b = inner(layoutBounds);
   const size = b.height;
   const left = b.minX + size + REGION_GAP;
