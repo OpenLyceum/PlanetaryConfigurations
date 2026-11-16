@@ -48,7 +48,7 @@ export class ConfigurationReadoutPanel extends PlanetaryConfigurationsPanel {
     super(
       new VBox({
         align: "left",
-        spacing: CONFIGURATION_READOUT_PANEL_SETTINGS.CONSTRUCTOR_SPACING,
+        spacing: CONFIGURATION_READOUT_PANEL_SETTINGS.SPACING,
         children: [heading(strings.getConfigurationsStrings().readoutsStringProperty, innerWidth), grid],
       }),
       { minWidth: width, maxWidth: width, align: "left" },

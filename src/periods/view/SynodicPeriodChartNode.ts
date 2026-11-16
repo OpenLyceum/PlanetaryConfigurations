@@ -47,10 +47,10 @@ class ChartMarkerNode extends AccessibleSliderNode {
   public constructor(options: AccessibleSliderOptions & Pick<NodeOptions, "accessibleName" | "accessibleHelpText">) {
     super(options);
     this.addChild(
-      new Circle(SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_RADIUS, {
+      new Circle(SYNODIC_PERIOD_CHART_NODE_SETTINGS.RADIUS, {
         fill: PlanetaryConfigurationsColors.hypotheticalColorProperty,
         stroke: PlanetaryConfigurationsColors.observerRingColorProperty,
-        lineWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_LINE_WIDTH,
+        lineWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.MARKER_LINE_WIDTH,
       }),
     );
     this.cursor = "ew-resize";
@@ -99,7 +99,7 @@ export class SynodicPeriodChartNode extends Node {
         fill: PlanetaryConfigurationsColors.chartAxisColorProperty,
       });
       tick.centerX = x;
-      tick.top = viewHeight + SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_TOP_OFFSET;
+      tick.top = viewHeight + SYNODIC_PERIOD_CHART_NODE_SETTINGS.TOP_OFFSET;
       plot.addChild(tick);
     }
     for (let y = 0; y <= Y_RANGE.max; y++) {
@@ -138,7 +138,7 @@ export class SynodicPeriodChartNode extends Node {
     });
     title.boundsProperty.link(() => {
       title.centerX = MARGIN.left + viewWidth / 2;
-      title.bottom = MARGIN.top - SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_BOTTOM_OFFSET;
+      title.bottom = MARGIN.top - SYNODIC_PERIOD_CHART_NODE_SETTINGS.BOTTOM_OFFSET;
     });
     this.addChild(title);
 
@@ -154,7 +154,7 @@ export class SynodicPeriodChartNode extends Node {
     curves.addChild(
       new Path(asymptotes, {
         stroke: PlanetaryConfigurationsColors.asymptoteColorProperty,
-        lineDash: [SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_LINE_DASH_DASH, 4],
+        lineDash: [SYNODIC_PERIOD_CHART_NODE_SETTINGS.LINE_DASH_DASH, 4],
         lineWidth: 1,
       }),
     );
@@ -187,7 +187,7 @@ export class SynodicPeriodChartNode extends Node {
       lineWidth: SYNODIC_PERIOD_CHART_NODE_SETTINGS.SIDEREAL_PATH_LINE_WIDTH,
       lineDash: [
         SYNODIC_PERIOD_CHART_NODE_SETTINGS.SIDEREAL_PATH_LINE_DASH_DASH,
-        SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_SIDEREAL_PATH_LINE_DASH_DASH,
+        SYNODIC_PERIOD_CHART_NODE_SETTINGS.SIDEREAL_PATH_LINE_DASH_GAP,
       ],
     });
     model.showSiderealProperty.linkAttribute(siderealPath, "visible");
@@ -205,7 +205,7 @@ export class SynodicPeriodChartNode extends Node {
       if (planet === PlanetChoice.EARTH) {
         const earthName = new Text(strings.getPlanetName("earth"), { font: SMALL_FONT, fill: PLANET_COLORS.earth });
         earthName.boundsProperty.link(() => {
-          earthName.left = transform.modelToViewX(0) + SYNODIC_PERIOD_CHART_NODE_SETTINGS.CONSTRUCTOR_LEFT_OFFSET;
+          earthName.left = transform.modelToViewX(0) + SYNODIC_PERIOD_CHART_NODE_SETTINGS.LEFT_OFFSET;
           earthName.bottom = viewHeight - 4;
         });
         curves.addChild(earthName);

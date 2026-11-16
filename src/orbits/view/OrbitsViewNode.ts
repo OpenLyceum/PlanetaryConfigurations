@@ -31,18 +31,10 @@ export class OrbitsViewNode extends Node {
     const center = new Vector2(size / 2, size / 2);
 
     this.addChild(
-      new Rectangle(
-        0,
-        0,
-        size,
-        size,
-        ORBITS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
-        ORBITS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
-        {
-          fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
-          stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
-        },
-      ),
+      new Rectangle(0, 0, size, size, ORBITS_VIEW_NODE_SETTINGS.CORNER_X, ORBITS_VIEW_NODE_SETTINGS.CORNER_Y, {
+        fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
+        stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
+      }),
     );
     const content = new Node({
       clipArea: Shape.roundRect(

@@ -100,7 +100,7 @@ export class ConfigurationsControlPanel extends PlanetaryConfigurationsPanel {
           inferiorControl,
           new VBox({
             align: "left",
-            spacing: CONFIGURATIONS_CONTROL_PANEL_SETTINGS.CONSTRUCTOR_SPACING,
+            spacing: CONFIGURATIONS_CONTROL_PANEL_SETTINGS.SPACING,
             children: boxes,
           }),
         ],

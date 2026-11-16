@@ -40,7 +40,7 @@ export class ConfigurationMarkerNode extends Node {
         new Circle(MARKER_RADIUS, {
           center: position,
           stroke: PlanetaryConfigurationsColors.configurationMarkerColorProperty,
-          lineWidth: CONFIGURATION_MARKER_NODE_SETTINGS.CONSTRUCTOR_LINE_WIDTH,
+          lineWidth: CONFIGURATION_MARKER_NODE_SETTINGS.LINE_WIDTH,
         }),
         name,
       ],

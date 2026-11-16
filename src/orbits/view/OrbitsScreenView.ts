@@ -125,7 +125,7 @@ export class OrbitsScreenView extends ScreenView {
     this.addChild(
       placeInRegion(
         new HBox({
-          spacing: ORBITS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_SPACING,
+          spacing: ORBITS_SCREEN_VIEW_SETTINGS.SPACING,
           align: "bottom",
           children: [timeControlNode, resetAllButton],
         }),

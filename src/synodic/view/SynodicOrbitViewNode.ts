@@ -40,8 +40,8 @@ export class SynodicOrbitViewNode extends Node {
         0,
         size,
         size,
-        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
-        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
+        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CORNER_X,
+        SYNODIC_ORBIT_VIEW_NODE_SETTINGS.CORNER_Y,
         {
           fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
           stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,

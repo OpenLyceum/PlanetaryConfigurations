@@ -167,7 +167,7 @@ export class PtolemaicScreenView extends ScreenView {
     this.addChild(
       placeInRegion(
         new VBox({
-          spacing: PTOLEMAIC_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_SPACING,
+          spacing: PTOLEMAIC_SCREEN_VIEW_SETTINGS.SPACING,
           align: "right",
           children: [timeControlNode, resetAllButton],
         }),

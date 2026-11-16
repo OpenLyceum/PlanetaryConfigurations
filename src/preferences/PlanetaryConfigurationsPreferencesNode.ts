@@ -51,7 +51,7 @@ export class PlanetaryConfigurationsPreferencesNode extends VBox {
 
     super({
       align: "left",
-      spacing: PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.CONSTRUCTOR_SPACING,
+      spacing: PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS.SPACING,
       children: [header, showRealPeriodsCheckbox, description],
     });
   }

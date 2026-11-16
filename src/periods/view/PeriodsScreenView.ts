@@ -80,7 +80,7 @@ export class PeriodsScreenView extends ScreenView {
         lineDash: dashed
           ? [
               PERIODS_SCREEN_VIEW_SETTINGS.LINE_ICON_LINE_DASH_DASH,
-              PERIODS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_LINE_ICON_LINE_DASH_DASH,
+              PERIODS_SCREEN_VIEW_SETTINGS.LINE_ICON_LINE_DASH_GAP,
             ]
           : [],
       });
@@ -122,7 +122,7 @@ export class PeriodsScreenView extends ScreenView {
         spacing: PERIODS_SCREEN_VIEW_SETTINGS.MARKER_PANEL_SPACING,
         children: [
           new HBox({
-            spacing: PERIODS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_MARKER_PANEL_SPACING,
+            spacing: PERIODS_SCREEN_VIEW_SETTINGS.MARKER_SECTION_SPACING,
             children: [
               label(p.markerStringProperty, { maxWidth: PERIODS_SCREEN_VIEW_SETTINGS.MARKER_PANEL_MAX_WIDTH }),
               markerReadout,
@@ -147,7 +147,7 @@ export class PeriodsScreenView extends ScreenView {
     this.addChild(placeInRegion(chart, layout.chart, { xAlign: "left", yAlign: "top" }));
     // The marker panel is capped 70 px narrower than its band, leaving the right end for Reset All.
     this.addChild(placeInRegion(markerPanel, layout.marker, { xAlign: "left", yAlign: "bottom" }));
-    markerPanel.maxWidth = layout.marker.width - PERIODS_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_MAX_WIDTH_OFFSET;
+    markerPanel.maxWidth = layout.marker.width - PERIODS_SCREEN_VIEW_SETTINGS.MAX_WIDTH_OFFSET;
     this.addChild(placeInRegion(resetAllButton, layout.marker, { xAlign: "right", yAlign: "bottom" }));
 
     this.addChild(

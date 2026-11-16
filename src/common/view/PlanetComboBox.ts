@@ -47,8 +47,8 @@ export class PlanetComboBox extends ComboBox<PlanetChoice> {
     }));
     super(property, items, listParent, {
       ...PLANETARY_CONFIGURATIONS_COMBO_BOX_OPTIONS,
-      xMargin: PLANET_COMBO_BOX_SETTINGS.CONSTRUCTOR_X_MARGIN,
-      yMargin: PLANET_COMBO_BOX_SETTINGS.CONSTRUCTOR_Y_MARGIN,
+      xMargin: PLANET_COMBO_BOX_SETTINGS.X_MARGIN,
+      yMargin: PLANET_COMBO_BOX_SETTINGS.Y_MARGIN,
       accessibleName,
     });
   }

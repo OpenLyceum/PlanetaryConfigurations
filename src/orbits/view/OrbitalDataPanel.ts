@@ -63,10 +63,10 @@ export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
       measuredCells.push(measuredCell);
       rows.push([
         new HBox({
-          spacing: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_SPACING,
+          spacing: ORBITAL_DATA_PANEL_SETTINGS.ROW_SPACING,
           children: [
-            new Circle(ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_RADIUS, { fill: PLANET_COLORS[planet.key] }),
-            label(strings.getPlanetName(planet.key), { maxWidth: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_MAX_WIDTH }),
+            new Circle(ORBITAL_DATA_PANEL_SETTINGS.RADIUS, { fill: PLANET_COLORS[planet.key] }),
+            label(strings.getPlanetName(planet.key), { maxWidth: ORBITAL_DATA_PANEL_SETTINGS.MAX_WIDTH }),
           ],
         }),
         cell(fixed(a, ORBITAL_DATA_PANEL_SETTINGS.FIXED_DECIMALS)),
@@ -89,8 +89,8 @@ export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
         children: [
           heading(s.orbitalDataStringProperty, innerWidth),
           new GridBox({
-            xSpacing: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_X_SPACING,
-            ySpacing: ORBITAL_DATA_PANEL_SETTINGS.CONSTRUCTOR_Y_SPACING,
+            xSpacing: ORBITAL_DATA_PANEL_SETTINGS.X_SPACING,
+            ySpacing: ORBITAL_DATA_PANEL_SETTINGS.Y_SPACING,
             xAlign: "right",
             rows,
             maxWidth: innerWidth,

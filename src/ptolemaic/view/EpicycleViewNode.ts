@@ -55,18 +55,10 @@ export class EpicycleViewNode extends Node {
     const toView = (q: Vector2): Vector2 => new Vector2(center.x + q.x * scale, center.y - q.y * scale);
 
     this.addChild(
-      new Rectangle(
-        0,
-        0,
-        size,
-        size,
-        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
-        EPICYCLE_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
-        {
-          fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
-          stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
-        },
-      ),
+      new Rectangle(0, 0, size, size, EPICYCLE_VIEW_NODE_SETTINGS.CORNER_X, EPICYCLE_VIEW_NODE_SETTINGS.CORNER_Y, {
+        fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
+        stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
+      }),
     );
     const content = new Node({
       clipArea: Shape.roundRect(

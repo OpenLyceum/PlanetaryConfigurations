@@ -177,7 +177,7 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
         }),
         new VBox({
           align: "left",
-          spacing: SYNODIC_READOUT_PANEL_SETTINGS.CONSTRUCTOR_CONTENT_SPACING,
+          spacing: SYNODIC_READOUT_PANEL_SETTINGS.SECTION_CONTENT_SPACING,
           children: [pauseConfigurations, pauseStationary],
         }),
       ],

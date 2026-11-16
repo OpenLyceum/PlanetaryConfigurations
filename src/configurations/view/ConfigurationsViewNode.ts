@@ -45,8 +45,8 @@ export class ConfigurationsViewNode extends Node {
         0,
         size,
         size,
-        CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_X,
-        CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_CORNER_Y,
+        CONFIGURATIONS_VIEW_NODE_SETTINGS.CORNER_X,
+        CONFIGURATIONS_VIEW_NODE_SETTINGS.CORNER_Y,
         {
           fill: PlanetaryConfigurationsColors.viewBackgroundColorProperty,
           stroke: PlanetaryConfigurationsColors.viewBorderColorProperty,
@@ -84,12 +84,10 @@ export class ConfigurationsViewNode extends Node {
       maxWidth: size / CONFIGURATIONS_VIEW_NODE_SETTINGS.WEST_LABEL_MAX_WIDTH_FACTOR,
     });
     eastLabel.boundsProperty.link(() =>
-      eastLabel.setLeftTop(
-        new Vector2(CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_X, CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_Y),
-      ),
+      eastLabel.setLeftTop(new Vector2(CONFIGURATIONS_VIEW_NODE_SETTINGS.X, CONFIGURATIONS_VIEW_NODE_SETTINGS.Y)),
     );
     westLabel.boundsProperty.link(() =>
-      westLabel.setRightTop(new Vector2(size - 12, CONFIGURATIONS_VIEW_NODE_SETTINGS.CONSTRUCTOR_Y)),
+      westLabel.setRightTop(new Vector2(size - 12, CONFIGURATIONS_VIEW_NODE_SETTINGS.Y)),
     );
     sides.addChild(eastLabel);
     sides.addChild(westLabel);

@@ -88,7 +88,7 @@ export class SynodicMotionScreenView extends ScreenView {
     this.addChild(
       placeInRegion(
         new VBox({
-          spacing: SYNODIC_MOTION_SCREEN_VIEW_SETTINGS.CONSTRUCTOR_SPACING,
+          spacing: SYNODIC_MOTION_SCREEN_VIEW_SETTINGS.SPACING,
           align: "right",
           children: [timeControlNode, resetAllButton],
         }),

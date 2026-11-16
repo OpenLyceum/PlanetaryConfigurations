@@ -28,7 +28,7 @@ export class SightGeometryNode extends Node {
     this.sunLine = new Path(null, {
       stroke: PlanetaryConfigurationsColors.sunLineColorProperty,
       lineWidth: SIGHT_GEOMETRY_NODE_SETTINGS.SUN_LINE_LINE_WIDTH,
-      lineDash: [SIGHT_GEOMETRY_NODE_SETTINGS.CONSTRUCTOR_LINE_DASH_DASH, 4],
+      lineDash: [SIGHT_GEOMETRY_NODE_SETTINGS.LINE_DASH_DASH, 4],
     });
     this.targetLine = new Path(null, {
       stroke: PlanetaryConfigurationsColors.targetLineColorProperty,

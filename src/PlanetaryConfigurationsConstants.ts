@@ -239,8 +239,8 @@ export const PLANET_COMBO_BOX_SETTINGS = {
   DEFAULT_MAX_TEXT_WIDTH: 110,
   ITEMS_SPACING: 6,
   ITEMS_RADIUS: 6,
-  CONSTRUCTOR_X_MARGIN: 8,
-  CONSTRUCTOR_Y_MARGIN: 4,
+  X_MARGIN: 8,
+  Y_MARGIN: 4,
 } as const;
 
 /** Settings for common/view/ScreenLayout.ts. Layout lengths are in px; counts and ratios are dimensionless. */
@@ -258,7 +258,7 @@ export const SCREEN_LAYOUT_SETTINGS = {
 
 /** Settings for common/view/SightGeometryNode.ts. Layout lengths are in px; counts and ratios are dimensionless. */
 export const SIGHT_GEOMETRY_NODE_SETTINGS = {
-  CONSTRUCTOR_LINE_DASH_DASH: 6, // px
+  LINE_DASH_DASH: 6, // px
 
   /** How far (px) the observer → target line continues past the target. */
   TARGET_LINE_OVERSHOOT: 40,
@@ -347,7 +347,7 @@ export const CONFIGURATION_MARKER_NODE_SETTINGS = {
   MARKER_RADIUS: 5,
   LABEL_GAP: 14,
   NAME_MAX_WIDTH: 120,
-  CONSTRUCTOR_LINE_WIDTH: 1.5,
+  LINE_WIDTH: 1.5,
 } as const;
 
 /** Settings for configurations/view/ConfigurationReadoutPanel.ts. Layout lengths are in px; counts and ratios are dimensionless. */
@@ -357,7 +357,7 @@ export const CONFIGURATION_READOUT_PANEL_SETTINGS = {
 
   GRID_X_SPACING: 10,
   GRID_Y_SPACING: 8,
-  CONSTRUCTOR_SPACING: 10,
+  SPACING: 10,
 } as const;
 
 /** Settings for configurations/view/ConfigurationsControlPanel.ts. Layout lengths are in px; counts and ratios are dimensionless. */
@@ -366,7 +366,7 @@ export const CONFIGURATIONS_CONTROL_PANEL_SETTINGS = {
   RADIUS_SPEC_DECIMAL_PLACES: 2,
   /** Radius spec delta (dimensionless). */
   RADIUS_SPEC_DELTA: 0.01,
-  CONSTRUCTOR_SPACING: 6,
+  SPACING: 6,
 } as const;
 
 /** Settings for configurations/view/ConfigurationsViewNode.ts. Layout lengths are in px; counts and ratios are dimensionless. */
@@ -377,12 +377,12 @@ export const CONFIGURATIONS_VIEW_NODE_SETTINGS = {
   /** Fraction of the half-size used by the largest orbit. */
   FILL_FRACTION: 0.78,
   SIDE_LABEL_FONT_SIZE: 16,
-  CONSTRUCTOR_CORNER_X: 8,
-  CONSTRUCTOR_CORNER_Y: 8,
+  CORNER_X: 8,
+  CORNER_Y: 8,
   CONTENT_CORNER_X: 8,
   CONTENT_CORNER_Y: 8,
-  CONSTRUCTOR_X: 12,
-  CONSTRUCTOR_Y: 10,
+  X: 12,
+  Y: 10,
   EARTH_ORBIT_LINE_WIDTH: 1.5,
   PLANET_ORBIT_LINE_WIDTH: 1.5,
 } as const;
@@ -395,11 +395,11 @@ export const ORBITAL_DATA_PANEL_SETTINGS = {
 
   CELL_MAX_WIDTH: 70,
   HEADER_MAX_WIDTH: 76,
-  CONSTRUCTOR_SPACING: 6,
-  CONSTRUCTOR_RADIUS: 5,
-  CONSTRUCTOR_MAX_WIDTH: 70,
-  CONSTRUCTOR_X_SPACING: 14,
-  CONSTRUCTOR_Y_SPACING: 5,
+  ROW_SPACING: 6,
+  RADIUS: 5,
+  MAX_WIDTH: 70,
+  X_SPACING: 14,
+  Y_SPACING: 5,
 } as const;
 
 /** Settings for orbits/view/OrbitsScreenView.ts. Layout lengths are in px; counts and ratios are dimensionless. */
@@ -410,15 +410,15 @@ export const ORBITS_SCREEN_VIEW_SETTINGS = {
   /** Days stepped by one press of the step buttons. */
   STEP_DAYS: 5,
   TIME_PANEL_SPACING: 12,
-  CONSTRUCTOR_SPACING: 24,
+  SPACING: 24,
 } as const;
 
 /** Settings for orbits/view/OrbitsViewNode.ts. Layout lengths are in px; counts and ratios are dimensionless. */
 export const ORBITS_VIEW_NODE_SETTINGS = {
   /** Speed-arrow length (px) per km/s. */
   PIXELS_PER_KM_S: 1.5,
-  CONSTRUCTOR_CORNER_X: 8,
-  CONSTRUCTOR_CORNER_Y: 8,
+  CORNER_X: 8,
+  CORNER_Y: 8,
   CONTENT_CORNER_X: 8,
   CONTENT_CORNER_Y: 8,
   ARROW_HEAD_WIDTH: 8,
@@ -456,10 +456,10 @@ export const PERIODS_SCREEN_VIEW_SETTINGS = {
 
   MARKER_READOUT_MAX_WIDTH_OFFSET: 140, // px
   LINE_ICON_LINE_DASH_DASH: 6, // px
-  CONSTRUCTOR_LINE_ICON_LINE_DASH_DASH: 4, // px
-  CONSTRUCTOR_MARKER_PANEL_SPACING: 10, // px
+  LINE_ICON_LINE_DASH_GAP: 4, // px
+  MARKER_SECTION_SPACING: 10, // px
   MARKER_PANEL_MAX_WIDTH_OFFSET: 70, // px
-  CONSTRUCTOR_MAX_WIDTH_OFFSET: 70, // px
+  MAX_WIDTH_OFFSET: 70, // px
 
   LEGEND_ITEM_SPACING: 6,
   LEGEND_ITEM_MAX_WIDTH: 150,
@@ -481,12 +481,12 @@ export const SYNODIC_PERIOD_CHART_NODE_SETTINGS = {
   DIAMOND_X_SEGMENT_2: -8, // px
   VALUE_TEXT_DECIMALS: 2, // digits
 
-  CONSTRUCTOR_TOP_OFFSET: 4, // px
-  CONSTRUCTOR_BOTTOM_OFFSET: 6, // px
-  CONSTRUCTOR_LINE_DASH_DASH: 5, // px
+  TOP_OFFSET: 4, // px
+  BOTTOM_OFFSET: 6, // px
+  LINE_DASH_DASH: 5, // px
   SIDEREAL_PATH_LINE_DASH_DASH: 7, // px
-  CONSTRUCTOR_SIDEREAL_PATH_LINE_DASH_DASH: 5, // px
-  CONSTRUCTOR_LEFT_OFFSET: 4, // px
+  SIDEREAL_PATH_LINE_DASH_GAP: 5, // px
+  LEFT_OFFSET: 4, // px
   GUIDE_LINE_DASH_DASH: 3, // px
 
   /** Y range max (in the source module’s documented units). */
@@ -497,8 +497,8 @@ export const SYNODIC_PERIOD_CHART_NODE_SETTINGS = {
   MARGIN_BOTTOM: 44,
   CURVE_SAMPLES: 400,
   TICK_FONT_SIZE: 11,
-  CONSTRUCTOR_RADIUS: 8,
-  CONSTRUCTOR_LINE_WIDTH: 2,
+  RADIUS: 8,
+  MARKER_LINE_WIDTH: 2,
   RIGHT_RIGHT: -6,
   TITLE_FONT_SIZE: 14,
   SIDEREAL_PATH_LINE_WIDTH: 2,
@@ -521,7 +521,7 @@ export const PLANETARY_CONFIGURATIONS_PREFERENCES_NODE_SETTINGS = {
   SHOW_REAL_PERIODS_CHECKBOX_SPACING: 8,
   DESCRIPTION_FONT_SIZE: 12,
   DESCRIPTION_MAX_WIDTH: 420,
-  CONSTRUCTOR_SPACING: 12,
+  SPACING: 12,
 } as const;
 
 /** Settings for ptolemaic/model/PtolemaicModel.ts. */
@@ -558,8 +558,8 @@ export const EPICYCLE_VIEW_NODE_SETTINGS = {
 
   /** Fraction of the half-size used by the Sun's circle. */
   FILL_FRACTION: 0.86,
-  CONSTRUCTOR_CORNER_X: 8,
-  CONSTRUCTOR_CORNER_Y: 8,
+  CORNER_X: 8,
+  CORNER_Y: 8,
   CONTENT_CORNER_X: 8,
   CONTENT_CORNER_Y: 8,
   DEFERENT_LINE_WIDTH: 1.5,
@@ -608,7 +608,7 @@ export const PTOLEMAIC_SCREEN_VIEW_SETTINGS = {
   GRID_X_SPACING: 8,
   GRID_Y_SPACING: 5,
   READOUT_PANEL_SPACING: 5,
-  CONSTRUCTOR_SPACING: 14,
+  SPACING: 14,
 } as const;
 
 /** Settings for synodic/model/SynodicMotionModel.ts. */
@@ -625,15 +625,15 @@ export const SYNODIC_MOTION_MODEL_SETTINGS = {
 export const SYNODIC_MOTION_SCREEN_VIEW_SETTINGS = {
   ZODIAC_STRIP_DECIMALS: 2, // digits
 
-  CONSTRUCTOR_SPACING: 14,
+  SPACING: 14,
 } as const;
 
 /** Settings for synodic/view/SynodicOrbitViewNode.ts. Layout lengths are in px; counts and ratios are dimensionless. */
 export const SYNODIC_ORBIT_VIEW_NODE_SETTINGS = {
   /** Fraction of the region's half-width used by the outer orbit. */
   FILL_FRACTION: 0.8,
-  CONSTRUCTOR_CORNER_X: 8,
-  CONSTRUCTOR_CORNER_Y: 8,
+  CORNER_X: 8,
+  CORNER_Y: 8,
   CONTENT_CORNER_X: 8,
   CONTENT_CORNER_Y: 8,
   OBSERVER_ORBIT_LINE_WIDTH: 1.5,
@@ -648,7 +648,7 @@ export const SYNODIC_READOUT_PANEL_SETTINGS = {
   VALUE_MAX_WIDTH_FACTOR: 0.62, // dimensionless
   NAME_MAX_WIDTH_FACTOR: 0.36, // dimensionless
   TEXT_MAX_WIDTH_OFFSET: 40, // px
-  CONSTRUCTOR_CONTENT_SPACING: 5, // px
+  SECTION_CONTENT_SPACING: 5, // px
 
   GRID_X_SPACING: 8,
   GRID_Y_SPACING: 5,
