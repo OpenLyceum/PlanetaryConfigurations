@@ -71,7 +71,7 @@ Follows the shared [OpenLyceum accessibility convention](https://github.com/Open
 
 ## Compliance carve-outs
 
-None.
+- `.github/workflows/ci.yml`: `unused-mode: advisory` until both Knip default and production baselines are reviewed and cleared ([Baton/doc/knip.md](https://github.com/OpenLyceum/Baton/blob/main/doc/knip.md)).
 
 ## Commands
 
