@@ -40,8 +40,17 @@ describeDisposalLeaks([
     name: "BodyNode with label",
     create: () => new BodyNode(6, "red", { labelStringProperty: strings.getPlanetName("mars") }),
   },
-  { name: "planetNameProperty", create: () => planetNameProperty(choiceProperty) as unknown as { dispose(): void } },
-  { name: "eventNameProperty", create: () => eventNameProperty(eventProperty) as unknown as { dispose(): void } },
+  // planetNameProperty / eventNameProperty construct FollowingStringProperty (file-private).
+  {
+    name: "FollowingStringProperty (planetNameProperty)",
+    create: () => planetNameProperty(choiceProperty) as unknown as { dispose(): void },
+    keepAlive: () => [choiceProperty],
+  },
+  {
+    name: "FollowingStringProperty (eventNameProperty)",
+    create: () => eventNameProperty(eventProperty) as unknown as { dispose(): void },
+    keepAlive: () => [eventProperty],
+  },
   {
     name: "planet-type radio group",
     create: () =>
