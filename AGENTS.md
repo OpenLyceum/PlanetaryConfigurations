@@ -69,10 +69,6 @@ Follows the shared [OpenLyceum accessibility convention](https://github.com/Open
 | `tests/memory-leak.test.ts` | Configuration markers, labelled bodies, name properties (no listener left), controls |
 | `tests/browser/layout.spec.ts` | Playwright: no region overlap, every screen × en/fr/es; `SCREENSHOT_DIR` saves PNGs |
 
-## Compliance carve-outs
-
-- `.github/workflows/ci.yml`: `unused-mode: advisory` until both Knip default and production baselines are reviewed and cleared ([Baton/doc/knip.md](https://github.com/OpenLyceum/Baton/blob/main/doc/knip.md)).
-
 ## Commands
 
 ```bash
