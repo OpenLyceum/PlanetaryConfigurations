@@ -4,7 +4,7 @@ import { PERIOD_CALCULATOR_PANEL_SETTINGS } from "../../PlanetaryConfigurationsC
  *
  * The "Synodic Period Calculator" of Q13. The student picks an inferior or superior
  * planet and which period to compute, types the other one in years or days, and sees
- * the formula, the numbers substituted into it, and the result.
+ * the formulaProperty, the numbers substitutedProperty into it, and the result.
  */
 
 import { DerivedProperty, Multilink, type TReadOnlyProperty } from "scenerystack/axon";
@@ -77,7 +77,7 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
     );
 
     // ── Input ────────────────────────────────────────────────────────────────
-    const inputName = new DerivedProperty(
+    const inputNameProperty = new DerivedProperty(
       [model.solveForProperty, p.synodicInputStringProperty, p.siderealInputStringProperty],
       (solveFor, synodic, sidereal) => (solveFor === SolveFor.SIDEREAL ? synodic : sidereal),
     );
@@ -114,10 +114,10 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
     });
 
     // ── Formula ──────────────────────────────────────────────────────────────
-    const formula = new DerivedProperty([model.planetTypeProperty], (type) =>
+    const formulaProperty = new DerivedProperty([model.planetTypeProperty], (type) =>
       type === PlanetType.INFERIOR ? "1/<i>S</i> = 1/<i>P</i> − 1/<i>E</i>" : "1/<i>S</i> = 1/<i>E</i> − 1/<i>P</i>",
     );
-    const substituted = new DerivedProperty(
+    const substitutedProperty = new DerivedProperty(
       [model.planetTypeProperty, model.solveForProperty, model.inputYearsProperty, model.resultYearsProperty],
       (type, solveFor, input, result) => {
         const s =
@@ -137,11 +137,11 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
     );
 
     // ── Result ───────────────────────────────────────────────────────────────
-    const resultName = new DerivedProperty(
+    const resultNameProperty = new DerivedProperty(
       [model.solveForProperty, p.siderealResultStringProperty, p.synodicResultStringProperty],
       (solveFor, sidereal, synodic) => (solveFor === SolveFor.SIDEREAL ? sidereal : synodic),
     );
-    const resultString = new DerivedProperty(
+    const resultStringProperty = new DerivedProperty(
       [model.resultYearsProperty, common.yearsAndDaysPatternStringProperty],
       (result, pattern) =>
         result === null
@@ -151,7 +151,7 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
               days: fixed(result * DAYS_PER_YEAR, 1),
             }),
     );
-    const resultText = new Text(resultString, {
+    const resultText = new Text(resultStringProperty, {
       font: BIG_READOUT_FONT,
       fill: PlanetaryConfigurationsColors.textColorProperty,
       maxWidth: innerWidth,
@@ -181,12 +181,12 @@ export class PeriodCalculatorPanel extends PlanetaryConfigurationsPanel {
           solveRadio,
           sectionLabel(p.unitsStringProperty),
           unitRadio,
-          sectionLabel(inputName),
+          sectionLabel(inputNameProperty),
           inputButton,
-          new RichText(formula, { font: READOUT_FONT, fill: PlanetaryConfigurationsColors.textColorProperty }),
-          new Text(substituted, { font: SMALL_FONT, fill: secondary, maxWidth: innerWidth }),
+          new RichText(formulaProperty, { font: READOUT_FONT, fill: PlanetaryConfigurationsColors.textColorProperty }),
+          new Text(substitutedProperty, { font: SMALL_FONT, fill: secondary, maxWidth: innerWidth }),
           label(p.earthPeriodNoteStringProperty, { font: SMALL_FONT, fill: secondary, maxWidth: innerWidth }),
-          sectionLabel(resultName),
+          sectionLabel(resultNameProperty),
           resultText,
           noSolution,
         ],
