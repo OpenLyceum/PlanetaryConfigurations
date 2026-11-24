@@ -63,11 +63,11 @@ export class SynodicReadoutPanel extends PlanetaryConfigurationsPanel {
     );
 
     // ── Readout rows ─────────────────────────────────────────────────────────
-    const motionString = new DerivedProperty(
+    const motionReadoutProperty = new DerivedProperty(
       [model.isRetrogradeProperty, common.directStringProperty, common.retrogradeStringProperty],
       (retro, direct, retrograde) => (retro ? retrograde : direct),
     );
-    const motionText = new Text(motionString, {
+    const motionText = new Text(motionReadoutProperty, {
       font: READOUT_FONT,
       maxWidth: innerWidth * SYNODIC_READOUT_PANEL_SETTINGS.MOTION_TEXT_MAX_WIDTH_FACTOR,
     });
