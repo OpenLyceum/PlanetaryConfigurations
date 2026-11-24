@@ -152,12 +152,12 @@ export class ConfigurationsViewNode extends Node {
     });
 
     // ── Interaction ──────────────────────────────────────────────────────────────
-    const typeName = new DerivedProperty(
+    const typeNameProperty = new DerivedProperty(
       [model.planetTypeProperty, common.superiorStringProperty, common.inferiorStringProperty],
       (type, superior, inferior) => (type === PlanetType.SUPERIOR ? superior : inferior),
     );
     const valueText = new PatternStringProperty(a11y.planetPatternStringProperty, {
-      type: typeName,
+      type: typeNameProperty,
       elongation: elongationStringProperty(model.elongationProperty),
       configuration: eventNameProperty(model.configurationProperty),
     });

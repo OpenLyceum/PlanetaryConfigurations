@@ -18,7 +18,7 @@ import { SCREEN_LAYOUT_SETTINGS } from "../../PlanetaryConfigurationsConstants.j
  *                                └──────────────────┘ └────┘
  */
 
-import { Bounds2 } from "scenerystack/dot";
+import { Bounds2, roundSymmetric } from "scenerystack/dot";
 import { AlignBox, type Node } from "scenerystack/scenery";
 import { REGION_GAP, SCREEN_VIEW_MARGIN } from "../../PlanetaryConfigurationsConstants.js";
 
@@ -87,7 +87,7 @@ export function skyLayout(layoutBounds: Bounds2, setupFraction = 0.5): SkyLayout
   const size = topBottom - b.minY;
   const panelsLeft = b.minX + size + REGION_GAP;
   const panelsWidth = b.maxX - panelsLeft - REGION_GAP;
-  const setupRight = panelsLeft + Math.round(panelsWidth * setupFraction);
+  const setupRight = panelsLeft + roundSymmetric(panelsWidth * setupFraction);
   const timeLeft = b.maxX - TIME_REGION_WIDTH;
   return {
     view: new Bounds2(b.minX, b.minY, b.minX + size, topBottom),

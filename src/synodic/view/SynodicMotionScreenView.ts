@@ -99,9 +99,9 @@ export class SynodicMotionScreenView extends ScreenView {
     this.addChild(listParent);
 
     // Announce each configuration that playback pauses at.
-    const elapsedDays = new DerivedProperty([model.elapsedProperty], (t) => fixed(yearsToDays(t), 1));
+    const elapsedDaysProperty = new DerivedProperty([model.elapsedProperty], (t) => fixed(yearsToDays(t), 1));
     model.eventReachedEmitter.addListener((event) => {
-      const elapsed = StringUtils.fillIn(common.daysPatternStringProperty.value, { value: elapsedDays.value });
+      const elapsed = StringUtils.fillIn(common.daysPatternStringProperty.value, { value: elapsedDaysProperty.value });
       this.addAccessibleResponse(
         StringUtils.fillIn(a11y.eventReachedPatternStringProperty.value, {
           event: strings.getEventName(event.key).value,
