@@ -18,6 +18,7 @@ import { StringManager } from "../../src/i18n/StringManager.js";
 import { OrbitsScreen } from "../../src/orbits/OrbitsScreen.js";
 import PlanetaryConfigurationsColors from "../../src/PlanetaryConfigurationsColors.js";
 import { PeriodsScreen } from "../../src/periods/PeriodsScreen.js";
+import { PlanetaryConfigurationsPreferencesModel } from "../../src/preferences/PlanetaryConfigurationsPreferencesModel.js";
 import { PtolemaicScreen } from "../../src/ptolemaic/PtolemaicScreen.js";
 import { SynodicMotionScreen } from "../../src/synodic/SynodicMotionScreen.js";
 import { describeHeadlessSoak } from "../helpers/headlessSoak.js";
@@ -25,8 +26,10 @@ import { describeHeadlessSoak } from "../helpers/headlessSoak.js";
 function buildSim() {
   const stringManager = StringManager.getInstance();
 
+  const simPreferences = new PlanetaryConfigurationsPreferencesModel(Tandem.ROOT.createTandem("preferences"));
   const screens = [
     new OrbitsScreen({
+      preferences: simPreferences,
       name: stringManager.getScreenNames().orbitsStringProperty,
       tandem: Tandem.ROOT.createTandem("orbitsScreen"),
       backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,

@@ -9,18 +9,20 @@
  * icons come from createOrbitsIcon() in src/common/PlanetaryConfigurationsScreenIcons.ts
  * (each screen gets its own icon).
  */
+
 import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import type { ScreenOptions } from "scenerystack/sim";
 import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
 import { createOrbitsIcon } from "../common/PlanetaryConfigurationsScreenIcons.js";
 import PlanetaryConfigurationsColors from "../PlanetaryConfigurationsColors.js";
+import type { PlanetaryConfigurationsPreferencesModel } from "../preferences/PlanetaryConfigurationsPreferencesModel.js";
 import { OrbitsModel } from "./model/OrbitsModel.js";
 import { OrbitsKeyboardHelpContent } from "./view/OrbitsKeyboardHelpContent.js";
 import { OrbitsScreenView } from "./view/OrbitsScreenView.js";
 
 // Require tandem to be explicit — accidental omission would break PhET-iO.
-type OrbitsScreenOptions = ScreenOptions & { tandem: Tandem };
+type OrbitsScreenOptions = ScreenOptions & { tandem: Tandem; preferences: PlanetaryConfigurationsPreferencesModel };
 
 export class OrbitsScreen extends Screen<OrbitsModel, OrbitsScreenView> {
   public constructor(options: OrbitsScreenOptions) {
@@ -29,7 +31,7 @@ export class OrbitsScreen extends Screen<OrbitsModel, OrbitsScreenView> {
       () => new OrbitsModel(),
       // View factory — receives the model instance
       (model) =>
-        new OrbitsScreenView(model, {
+        new OrbitsScreenView(model, options.preferences, {
           tandem: options.tandem.createTandem("view"),
         }),
       optionize<OrbitsScreenOptions, EmptySelfOptions, ScreenOptions>()(

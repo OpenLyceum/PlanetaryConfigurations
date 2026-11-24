@@ -5,11 +5,11 @@
  * Simulation. Each preference Property takes its initial value from the
  * corresponding query parameter in planetaryConfigurationsQueryParameters.
  *
- * The single instance is exported as `planetaryConfigurationsPreferences`.
+ * main.ts shares one instance with the dialog and screens.
  */
 
 import { BooleanProperty } from "scenerystack/axon";
-import { Tandem } from "scenerystack/tandem";
+import type { Tandem } from "scenerystack/tandem";
 import PlanetaryConfigurationsNamespace from "../PlanetaryConfigurationsNamespace.js";
 import planetaryConfigurationsQueryParameters from "./planetaryConfigurationsQueryParameters.js";
 
@@ -31,11 +31,6 @@ export class PlanetaryConfigurationsPreferencesModel {
     this.showRealPeriodsProperty.reset();
   }
 }
-
-/** The sim-wide preferences, shared by main.ts (the Preferences dialog) and the screen views. */
-export const planetaryConfigurationsPreferences = new PlanetaryConfigurationsPreferencesModel(
-  Tandem.ROOT.createTandem("preferences"),
-);
 
 PlanetaryConfigurationsNamespace.register(
   "PlanetaryConfigurationsPreferencesModel",

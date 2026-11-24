@@ -15,7 +15,7 @@ import { PlanetaryConfigurationsPanel } from "../../common/PlanetaryConfiguratio
 import { fixed, heading, label, READOUT_FONT } from "../../common/view/viewUtils.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import PlanetaryConfigurationsColors, { PLANET_COLORS } from "../../PlanetaryConfigurationsColors.js";
-import { planetaryConfigurationsPreferences } from "../../preferences/PlanetaryConfigurationsPreferencesModel.js";
+import type { PlanetaryConfigurationsPreferencesModel } from "../../preferences/PlanetaryConfigurationsPreferencesModel.js";
 
 /** Measured mean synodic periods seen from Earth (days), for comparison with the model. */
 const MEASURED_SYNODIC_DAYS: Readonly<Partial<Record<PlanetKey, number>>> = {
@@ -27,7 +27,7 @@ const MEASURED_SYNODIC_DAYS: Readonly<Partial<Record<PlanetKey, number>>> = {
 };
 
 export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
-  public constructor(width: number) {
+  public constructor(width: number, preferences: PlanetaryConfigurationsPreferencesModel) {
     const strings = StringManager.getInstance();
     const s = strings.getOrbitsStrings();
     const common = strings.getCommonStrings();
@@ -75,7 +75,7 @@ export class OrbitalDataPanel extends PlanetaryConfigurationsPanel {
         measuredCell,
       ]);
     }
-    planetaryConfigurationsPreferences.showRealPeriodsProperty.link((show) => {
+    preferences.showRealPeriodsProperty.link((show) => {
       measuredHeader.visible = show;
       for (const measuredCell of measuredCells) {
         measuredCell.visible = show;

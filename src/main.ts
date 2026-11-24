@@ -26,7 +26,7 @@ import { StringManager } from "./i18n/StringManager.js";
 import { OrbitsScreen } from "./orbits/OrbitsScreen.js";
 import PlanetaryConfigurationsColors from "./PlanetaryConfigurationsColors.js";
 import { PeriodsScreen } from "./periods/PeriodsScreen.js";
-import { planetaryConfigurationsPreferences } from "./preferences/PlanetaryConfigurationsPreferencesModel.js";
+import { PlanetaryConfigurationsPreferencesModel } from "./preferences/PlanetaryConfigurationsPreferencesModel.js";
 import { PlanetaryConfigurationsPreferencesNode } from "./preferences/PlanetaryConfigurationsPreferencesNode.js";
 import { PtolemaicScreen } from "./ptolemaic/PtolemaicScreen.js";
 import { SynodicMotionScreen } from "./synodic/SynodicMotionScreen.js";
@@ -34,8 +34,10 @@ import { SynodicMotionScreen } from "./synodic/SynodicMotionScreen.js";
 onReadyToLaunch(() => {
   const stringManager = StringManager.getInstance();
 
+  const simPreferences = new PlanetaryConfigurationsPreferencesModel(Tandem.ROOT.createTandem("preferences"));
   const screens = [
     new OrbitsScreen({
+      preferences: simPreferences,
       name: stringManager.getScreenNames().orbitsStringProperty,
       tandem: Tandem.ROOT.createTandem("orbitsScreen"),
       backgroundColorProperty: PlanetaryConfigurationsColors.backgroundColorProperty,
@@ -73,8 +75,7 @@ onReadyToLaunch(() => {
       simulationOptions: {
         customPreferences: [
           {
-            createContent: (tandem: Tandem) =>
-              new PlanetaryConfigurationsPreferencesNode(planetaryConfigurationsPreferences, tandem),
+            createContent: (tandem: Tandem) => new PlanetaryConfigurationsPreferencesNode(simPreferences, tandem),
           },
         ],
       },

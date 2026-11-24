@@ -1,4 +1,5 @@
 import { ORBITS_SCREEN_VIEW_SETTINGS } from "../../PlanetaryConfigurationsConstants.js";
+import type { PlanetaryConfigurationsPreferencesModel } from "../../preferences/PlanetaryConfigurationsPreferencesModel.js";
 /**
  * OrbitsScreenView.ts
  *
@@ -37,7 +38,11 @@ export type OrbitsScreenViewOptions = ScreenViewOptions;
 const STEP_DAYS: number = ORBITS_SCREEN_VIEW_SETTINGS.STEP_DAYS;
 
 export class OrbitsScreenView extends ScreenView {
-  public constructor(model: OrbitsModel, providedOptions?: OrbitsScreenViewOptions) {
+  public constructor(
+    model: OrbitsModel,
+    preferences: PlanetaryConfigurationsPreferencesModel,
+    providedOptions?: OrbitsScreenViewOptions,
+  ) {
     const options = optionize<OrbitsScreenViewOptions, EmptySelfOptions, ScreenViewOptions>()(
       { screenSummaryContent: new OrbitsScreenSummaryContent(model) },
       providedOptions,
@@ -98,7 +103,7 @@ export class OrbitsScreenView extends ScreenView {
       { minWidth: panelWidth, maxWidth: panelWidth, align: "left" },
     );
 
-    const dataPanel = new OrbitalDataPanel(panelWidth);
+    const dataPanel = new OrbitalDataPanel(panelWidth, preferences);
 
     const timeControlNode = timeControls(
       model.isPlayingProperty,
