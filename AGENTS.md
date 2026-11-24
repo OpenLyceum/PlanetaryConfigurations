@@ -78,3 +78,7 @@ npx playwright test tests/browser     # layout regression (needs Playwright Chro
 
 Screen models are reachable from the console as `phet.joist.sim.screens[i].model`; load a single screen
 with `?screens=n&ea`.
+
+## Compliance carve-outs
+
+None.
